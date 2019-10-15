@@ -1,0 +1,7 @@
+# Folders
+.idea
+logs/*
+plugins/__pycache__
+
+
+# Files
