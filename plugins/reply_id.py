@@ -9,7 +9,7 @@ def send_id_cmd(message):
     user_name = message.from_user.username
     user_full_name = str(message.from_user.first_name) + " " + str(message.from_user.last_name)
 
-    bot.reply_to(message, text="*FullName: {}\nUserName: {}\nID: {}".format(user_full_name, user_name, user_id),
+    bot.reply_to(message, text="*FullName:* {}\n*UserName:* {}\n*ID:* `{}`".format(user_full_name, user_name, user_id),
                  parse_mode="markdown")
 
 
@@ -19,5 +19,5 @@ def send_id_str(message):
     user_name = message.from_user.username
     user_full_name = str(message.from_user.first_name) + " " + str(message.from_user.last_name)
 
-    bot.reply_to(message, text="*FullName: {}\nUserName: {}\nID: {}".format(user_full_name, user_name, user_id),
+    bot.reply_to(message, text="*FullName:* {}\n*UserName:* {}\n*ID:* `{}`".format(user_full_name, user_name, user_id),
                  parse_mode="markdown")
