@@ -34,3 +34,17 @@ format_handler = logging.FileHandler("logs/" +
 # set log_format and add handler.
 format_handler.setFormatter(log_format)
 logger.addHandler(format_handler)
+
+
+# start message.
+@bot.message_handler(commands=['start'])
+def replay_info_cmd(message):
+    dev_user_name = '@MA24th'
+    dev_channel_user_name = '@grid9x'
+    user_first_name = message.from_user.first_name
+    user_last_name = message.from_user.last_name
+
+    user_full_name = str(user_first_name) + " " + str(user_last_name)
+    msg_start= "*Welcome {}*\nI'm here to manage your\nchannels and chat groups\nthis bot made with `telebotapi`\ncheck it at PYPI\n[https://pypi.org/project/telebotapi/]\n\nFor activation contact\n {} - {} ".format(user_full_name, dev_user_name, dev_channel_user_name)
+    
+    bot.reply_to(message, text=msg_start, parse_mode='markdown')
