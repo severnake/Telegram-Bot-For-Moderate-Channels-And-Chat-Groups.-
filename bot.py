@@ -1,7 +1,9 @@
 import os
-from plugins.cfgbot import bot
+from plugins.botcfg import bot
 
 
-import plugins.reply_info
+import plugins.botfunc
+import plugins.groups
+import plugins.channels
 
 bot.polling(True)
