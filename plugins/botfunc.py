@@ -56,19 +56,14 @@ help_msg_member = "*Member*👨‍🦱👩‍🦰 *Help Menu* 📋\
                     \npin: replay to msg\
                     \nunpin: send `unpin`"
 
-help_msg_private = f"*Welcome {bot_start_cmd.user_full_name}*\
-                \nI'm here to manage your\
-                \nchannels and chat groups\
-                \nthis bot made with `telebotapi`\
-                \ncheck it at [PYPI](https://pypi.org/project/telebotapi)\
-                \n\nFor activation contact\n {sudo_username} - {channel_username}"
-
 # By send str 'help' or /help
 @bot.message_handler(commands=['help'])
 @bot.message_handler(func=lambda message: message.text == 'help')
 def reply_help(message):
-
     chat_type = message.chat.type
+    user_first_name = message.from_user.first_name
+    user_last_name = message.from_user.last_name
+    user_full_name = str(user_first_name) + " " + str(user_last_name)
 
     if chat_type == 'group' or chat_type == 'supergroup':
         chat_id = message.chat.id
@@ -97,6 +92,12 @@ def reply_help(message):
             msg_join = f'_Please_ \nJoin {channel_username} First'
             bot.reply_to(message, text=msg_join, parse_mode='markdown')
         else:
+            help_msg_private = f"*Welcome {user_full_name}*\
+                \nI'm here to manage your\
+                \nchannels and chat groups\
+                \nthis bot made with `telebotapi`\
+                \ncheck it at [PYPI](https://pypi.org/project/telebotapi)\
+                \n\nFor activation contact\n {sudo_username} - {channel_username}"
 
             bot.reply_to(message, text=help_msg_private, parse_mode='markdown')
 
