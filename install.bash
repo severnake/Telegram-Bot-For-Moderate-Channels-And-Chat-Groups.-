@@ -19,7 +19,7 @@ if [ "${PKG_OK}" != "installed" ]; then
 sudo apt install python3-minimal -y
 fi
 
-python3 -m pip install -r requir.txt --user
+python3 -m pip install -r requir.txt
 python3 setup.py
 
 echo -e '\u001b[32mRunning...\u001b[0m'

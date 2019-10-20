@@ -11,9 +11,9 @@ logo = '\n\u001b[32m┏━━━┓ @MA24th ┏┳━━┓╋╋╋┏┓\
 
 print(logo)
 
-token = input('Enter Bot Token> ')
-sudo_username = input('Enter Your username with @ > ')
-channel_username = input('Enter Your channel username > ')
+token = input('BOT_TOKEN: ')
+sudo_username = input('SUDO_USERNAME: ')
+channel_username = input('CHANNEL_USERNAME: ')
 
 
 config = ConfigParser()

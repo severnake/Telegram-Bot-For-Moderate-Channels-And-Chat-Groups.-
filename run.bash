@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+reset
 echo -e  '\u001b[32m┏━━━┓ @MA24th ┏┳━━┓╋╋╋┏┓'
 echo -e            '┃┏━┓┃ @grid9x ┃┃┏┓┃╋╋┏┛┗┓'
 echo -e            '┃┃╋┗╋┓┏┳━━┳━┳━┛┃┗┛┗┳━┻┓┏┛'
