@@ -2,7 +2,7 @@
 .idea
 .vscode
 logs/*
-plugins/__pycache__
+*__pycache__*
 
 
 # Files

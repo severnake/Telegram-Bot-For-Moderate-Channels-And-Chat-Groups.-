@@ -1,27 +1,45 @@
-from configparser import ConfigParser
+#!/usr/bin/env python3
+from setuptools import setup, find_packages
+from io import open
 
 
-logo = '\n\u001b[32m┏━━━┓ @MA24th ┏┳━━┓╋╋╋┏┓\
-                  \n┃┏━┓┃ @grid9x ┃┃┏┓┃╋╋┏┛┗┓\
-                  \n┃┃╋┗╋┓┏┳━━┳━┳━┛┃┗┛┗┳━┻┓┏┛\
-                  \n┃┃┏━┫┃┃┃┏┓┃┏┫┏┓┃┏━┓┃┏┓┃┃\
-                  \n┃┗┻━┃┗┛┃┏┓┃┃┃┗┛┃┗━┛┃┗┛┃┗┓\
-                  \n┗━━━┻━━┻┛┗┻┛┗━━┻━━━┻━━┻━┛\u001b[0m'
+def read(filename):
+    with open(filename, encoding='utf-8') as file:
+        return file.read()
 
 
-print(logo)
+setup(name='guardbot',
+      version='0.0.1',
+      description='Telegram Bot For Managing Chat Groups And Channels',
+      long_description=read('README.rst'),
+      long_description_content_type="text/x-rst",
+      author='Mustafa Asaad',
+      author_email='ma24th@yahoo.com',
+      url='https://github.com/MA24th/GuardBot',
 
-token = input('BOT_TOKEN: ')
-sudo_username = input('SUDO_USERNAME: ')
-channel_username = input('CHANNEL_USERNAME: ')
+      packages=find_packages(),
+    #   entry_points={
+    #       'console_scripts': [
+    #           'wifihunter = src.__main__:entry_point'
+    #       ]},
+    #   scripts=['bin/wifihunter.py'],
+    #   data_files=[
+    #       ('share/dict', ['wordlist-top4800-probable.txt'])
+    #   ],
+      include_package_data=True,
+      exclude_package_data={"": ["README.md"]},
 
+        install_requires=[
+            'pytest',
+        ],
+      test_suite='pytest',
+      tests_require=['pytest'],
 
-config = ConfigParser()
-config['creds'] = {
-    'token' : token,
-    'sudo_username': sudo_username,
-    'channel_username' : channel_username
-    }
-
-with open('config.ini', 'w') as f:
-    config.write(f)
+      license='GNU GPLv2',
+      keywords='bot, telegram_bot, telebot, telebotapi',
+      classifiers=[
+          'Programming Language :: Python :: 3',
+          'Environment :: Console',
+          'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+      ],
+      )

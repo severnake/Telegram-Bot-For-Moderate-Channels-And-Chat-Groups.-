@@ -1,9 +1,8 @@
 import os
-from plugins.botcfg import bot
+from src.config import bot
+from src import botfunc
 
-
-import plugins.botfunc
-import plugins.groups
-import plugins.channels
+from src.plugins import channels
+from src.plugins import groups
 
 bot.polling(True)
