@@ -1,1 +1,1 @@
-''' Channels Management Plugin '''
+""" Channels Management Handler """

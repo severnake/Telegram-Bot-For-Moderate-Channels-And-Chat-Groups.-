@@ -18,28 +18,27 @@ setup(name='guardbot',
       url='https://github.com/MA24th/GuardBot',
 
       packages=find_packages(),
-    #   entry_points={
-    #       'console_scripts': [
-    #           'wifihunter = src.__main__:entry_point'
-    #       ]},
-    #   scripts=['bin/wifihunter.py'],
-    #   data_files=[
-    #       ('share/dict', ['wordlist-top4800-probable.txt'])
-    #   ],
+      #   entry_points={
+      #       'console_scripts': [
+      #           'wifihunter = src.__main__:entry_point'
+      #       ]},
+      #   scripts=['bin/wifihunter.py'],
+      #   data_files=[
+      #       ('share/dict', ['wordlist-top4800-probable.txt'])
+      #   ],
       include_package_data=True,
       exclude_package_data={"": ["README.md"]},
 
-        install_requires=[
-            'pytest',
-        ],
+      install_requires=[
+          'pytest', 'telebotapi', 'redis'
+      ],
       test_suite='pytest',
       tests_require=['pytest'],
 
       license='GNU GPLv2',
       keywords='bot, telegram_bot, telebot, telebotapi',
-      classifiers=[
-          'Programming Language :: Python :: 3',
-          'Environment :: Console',
-          'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
-      ],
+      classifiers=['Development Status :: 5 - Production/Stable',
+                   'Programming Language :: Python :: 3.7',
+                   'Environment :: Console',
+                   'License :: OSI Approved :: GNU General Public License v2 (GPLv2)'],
       )
