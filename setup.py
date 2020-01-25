@@ -18,11 +18,10 @@ setup(name='guardbot',
       url='https://github.com/MA24th/GuardBot',
 
       packages=find_packages(),
-      #   entry_points={
-      #       'console_scripts': [
-      #           'wifihunter = src.__main__:entry_point'
-      #       ]},
-      #   scripts=['bin/wifihunter.py'],
+      entry_points={
+            'console_scripts': ['guardbot = guardbot.__main__:start']
+      },
+      scripts=['bin/guardbot'],
       #   data_files=[
       #       ('share/dict', ['wordlist-top4800-probable.txt'])
       #   ],
@@ -36,7 +35,7 @@ setup(name='guardbot',
       tests_require=['pytest'],
 
       license='GNU GPLv2',
-      keywords='bot, telegram_bot, telebot, telebotapi',
+      keywords='bot, telegram_bot, telebotapi, guardbot, GuardBot',
       classifiers=['Development Status :: 5 - Production/Stable',
                    'Programming Language :: Python :: 3.7',
                    'Environment :: Console',

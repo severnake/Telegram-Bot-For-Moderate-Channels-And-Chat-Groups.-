@@ -1,8 +1,12 @@
 # Folders
 .idea
 .vscode
+.cache
+build
+dist
 logs/*
 *__pycache__*
+guardbot.egg-info
 
 
 # Files

@@ -1,4 +1,4 @@
-<h1 align=center> GuardBot </h1>
+# GuardBot
 
 Telegram Bot For Managing Chat Groups And Channels Based On Python with [telebotapi](https://github.com/MA24th/telebotapi).
 
