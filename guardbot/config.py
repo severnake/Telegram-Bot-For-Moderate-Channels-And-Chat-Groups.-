@@ -3,15 +3,23 @@ import telebotapi
 import datetime
 import logging
 import os
+from .utils import color
 
 parsercfg = configparser.ConfigParser()
 version = "0.0.1"
-logo = '\n\u001b[32m┏━━━┓ @MA24th ┏┳━━┓╋╋╋┏┓\
-                  \n┃┏━┓┃ @grid9x ┃┃┏┓┃╋╋┏┛┗┓\
-                  \n┃┃╋┗╋┓┏┳━━┳━┳━┛┃┗┛┗┳━┻┓┏┛\
-                  \n┃┃┏━┫┃┃┃┏┓┃┏┫┏┓┃┏━┓┃┏┓┃┃\
-                  \n┃┗┻━┃┗┛┃┏┓┃┃┃┗┛┃┗━┛┃┗┛┃┗┓\
-                  \n┗━━━┻━━┻┛┗┻┛┗━━┻━━━┻━━┻━┛\u001b[0m'
+
+
+def print_banner():
+    """ Displays ASCII Art """
+    color.Color.pl(r'{G}┏━━━┓  {R}v0.0.1{G} ┏┳━━┓╋╋╋┏┓')
+    color.Color.pl(r'{G}┃┏━┓┃ {R}@grid9x{G} ┃┃┏┓┃╋╋┏┛┗┓')
+    color.Color.pl(r'{G}┃┃╋┗╋┓┏┳━━┳━┳━┛┃┗┛┗┳━┻┓┏┛')
+    color.Color.pl(r'{G}┃┃┏━┫┃┃┃┏┓┃┏┫┏┓┃┏━┓┃┏┓┃┃')
+    color.Color.pl(r'{G}┃┗┻━┃┗┛┃┏┓┃┃┃┗┛┃┗━┛┃┗┛┃┗┓')
+    color.Color.pl(r'{G}┗━━━┻━━┻┛┗┻┛┗━━┻━━━┻━━┻━┛')
+    color.Color.pl(r'{P}Author: Mustafa Asaad')
+    color.Color.pl(r'{P}Email: ma24th@yahoo.com')
+    color.Color.pl(r'{W}=========================')
 
 
 # Read config
@@ -41,10 +49,8 @@ def write_cfg(config):
 # Check for config data
 def check_cfg(config):
     if read_cfg(config)[2] != '@your_username':
-        print(logo)
         return read_cfg(config)
     else:
-        print(logo)
         write_cfg(config)
         return read_cfg(config)
 
