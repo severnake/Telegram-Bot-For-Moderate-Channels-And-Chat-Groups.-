@@ -1,3 +1,0 @@
-[console_scripts]
-guardbot = guardbot.__main__:start
-
