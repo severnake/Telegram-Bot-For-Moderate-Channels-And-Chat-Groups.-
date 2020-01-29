@@ -12,3 +12,4 @@ guardbot.egg-info
 # Files
 api-token.txt
 data.json
+data.py
