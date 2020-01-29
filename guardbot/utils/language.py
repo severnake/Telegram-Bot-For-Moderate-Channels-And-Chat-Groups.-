@@ -1,5 +1,3 @@
-from ..config import channel_username
-
 """USER LANGUAGE UTILITY"""
 ar_lang = {'start_msg': "*مرحبا!* 🎉\nانا اهنا اقوم بادارة\
                                 \nالقنوات والمجموعات المحادثة\
@@ -77,7 +75,7 @@ en_lang = {'start_msg': "*Welcome!* 🎉\nI'm here to manage your\
                                 \n`kickme`: send `kickme`\
                                 \n`pin`: replay to msg\
                                 \n`unpin`: send `unpin`",
-           'msg_join': f'_Please_ \nJoin {channel_username} First',
+           'msg_join': '_Please_ \nJoin {} First',
            'b_back': 'Back ↩️',
            'b_help': 'Help 📋',
            'b_support': 'Support ⚙️',
@@ -85,8 +83,40 @@ en_lang = {'start_msg': "*Welcome!* 🎉\nI'm here to manage your\
            'b_add_me': 'Add Me 👥',
            't_make': 'Make a Choose',
            't_dev': 'Under Development',
+           't_sup_cap1': 'Unsupported Feature!',
+           't_start': ['start'],
            't_help': ['help', 'Help'],
-           't_id': ['id', 'Id', 'iD', 'myinfo']}
+           't_id': ['id', 'Id', 'iD', 'myinfo'],
+           't_id_cap': "*Fullname:* {}\n*Username:* @{}\n*ID:* `{}`",
+           't_piv_admin': 'You aren\'t a Admin',
+           't_ban': ['ban', 'Ban'],
+           't_ban_cap1': 'Ban @{} Done!',
+           't_ban_cap2': 'I can\'t ban myself!!!',
+           't_ban_cap3': 'I can\'t ban you',
+           't_ban_cap4': 'Only the Creator @{} can ban me!',
+           't_ban_cap5': 'I can\'t ban the Creator @{}.',
+           't_ban_cap6': 'Only the Creator @{}\ncan ban the admin @{}',
+           't_unban': ['unban', 'unban'],
+           't_unban_cap1': 'Unban @{} Done!',
+           't_unban_cap2': 'I can\'t unban myself!!!',
+           't_unban_cap3': 'I can\'t unban you',
+           't_unban_cap4': 'Only the Creator @{} can unban me!',
+           't_unban_cap5': 'I can\'t unban the Creator @{}.',
+           't_unban_cap6': 'Only Creator @{}\nCan Unban The admin @{}',
+           't_kick': ['kick', 'Kick'],
+           't_kick_cap1': 'Kick @{} Done!',
+           't_kick_cap2': 'I can\'t kick myself!!!',
+           't_kick_cap3': 'I can\'t kick you',
+           't_kick_cap4': 'Only the Creator @{} can kick me!',
+           't_kick_cap5': 'I can\'t kick the Creator @{}.',
+           't_kick_cap6': 'Only the Creator @{}\ncan kick the admin @{}',
+           't_kickme': ['kickme', 'Kickme'],
+           't_kickme_cap1': 'Kick @{} Done!',
+           't_pin': ['pin', 'Pin'],
+           't_pin_cap1': 'You {} are not allowed to pin messages!!!',
+           't_unpin': ['unpin', 'Unpin'],
+           't_unpin_cap1': 'You {} are not allowed to unpin messages!!!',
+           }
 
 
 def ch_lang(user_lang):
@@ -96,6 +126,3 @@ def ch_lang(user_lang):
         return en_lang
     else:
         return None
-
-
-print(ch_lang(user_lang='en')['start_msg'])
