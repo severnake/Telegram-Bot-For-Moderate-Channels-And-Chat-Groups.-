@@ -63,7 +63,7 @@ def ban_user(message):
                     else:
                         bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap7'].format(target_user_username))
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap8'])
+                bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
         # elif message.entities:
         #     if message.entities[0].type == 'mention':
         #         if '@' in message.text:
@@ -110,7 +110,7 @@ def unban_user(message):
                 else:
                     pass
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_unban_cap8'])
+                bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
         else:
             pass
     else:
@@ -168,7 +168,7 @@ def kick_user(message):
                     bot.unban_chat_member(chat_id, target_user_id)
                     bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap1'].format(target_username))
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap8'])
+                bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
         else:
             pass
     else:
@@ -409,120 +409,136 @@ def demote_member_to_admin(message):
 
 
 # user can_send_messages by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_can_send_messages'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_can_send_messages'])
+# @bot.message_handler(commands=ch_lang(lang[-1])['t_user_can_send_messages'])
+@bot.message_handler(func=lambda message: ch_lang(lang[-1])['t_user_can_send_messages'] in message.text)
 def user_can_send_messages(message):
-    chat_type = message.chat.type
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
+    chat_type = message.chat.type
     user_id = message.from_user.id
-    can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
-    print(message.text)
-    if int in message.text:
-        vuntil_date = message.text[-2:]
-    else:
-        vuntil_date = 0
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
-    if chat_type == 'group' or chat_type == 'supergroup':
+    if chat_type in ['group', 'supergroup']:
+        chat_admins = bot.get_chat_administrators(chat_id)
+        for x in chat_admins:
+            if x.status == 'creator':
+                creators_ids.append(x.user.id)
+            elif x.status == 'administrator':
+                admins_ids.append(x.user.id)
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_user_username = message.reply_to_message.from_user.username
             en = ch_lang(lang[-1])['t_enable']
-            if en == message.text[-18]:
+            if en == message.text[18:24]:
+                until_date = message.text[26:]
+                if 's' in until_date:
+                    until_date = until_date[:-1]
+                elif 'm' in until_date:
+                    until_date = until_date[:-1]
+                    until_date = until_date * 60
+                elif 'h' in until_date:
+                    until_date = until_date[:-1]
+                    until_date = 60 * (until_date * 60)
+                else:
+                    until_date = int(until_date)
                 if user_id in creators_ids:
                     if target_user_id in creators_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap3'])
+                       pass
                     elif target_user_id in admins_ids:
                         if target_user_id in bots_ids:
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap2'])
+                            pass
                         else:
-                            bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=True)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                            bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
+                            admins_ids.pop(target_user_id)
+                            bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                 target_user_username))
                     elif target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap2'])
+                       pass
                     else:
-                        bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=True)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                        bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
+                        bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                             target_user_username))
                 elif user_id in admins_ids:
+                    can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
                     if target_user_id in creators_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap5'].format(sudo_username))
+                        pass
                     elif target_user_id in admins_ids:
                         if target_user_id in bots_ids:
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap4'].format(
-                                sudo_username))
+                            pass
                         else:
                             if can_restrict_members:
-                                bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=False)
-                                bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                                bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
+                                bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                     target_user_username))
                             else:
-                                bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap6'].format(
+                                bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
                                     sudo_username, target_user_username))
                     elif target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap4'].format(
-                            target_user_username))
+                        pass
                     else:
                         if can_restrict_members:
-                            bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=False)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                            bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
+                            bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                 target_user_username))
                         else:
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap7'].format(
+                            bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
                                 target_user_username))
                 else:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap8'])
+                    bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
             di = ch_lang(lang[-1])['t_disable']
-            if di in message.text[:-2]:
+            if di in message.text[18:25]:
+                until_date = message.text[26:]
+                if 's' in until_date:
+                    until_date = until_date[:-1]
+                elif 'm' in until_date:
+                    until_date = until_date[:-1]
+                    until_date = until_date * 60
+                elif 'h' in until_date:
+                    until_date = until_date[:-1]
+                    until_date = 60 * (until_date * 60)
+                else:
+                    until_date = int(until_date)
                 if user_id in creators_ids:
                     if target_user_id in creators_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap3'])
+                        pass
                     elif target_user_id in admins_ids:
                         if target_user_id in bots_ids:
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap2'])
+                            pass
                         else:
-                            bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=False)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                            bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
+                            admins_ids.pop(target_user_id)
+                            bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                 target_user_username))
                     elif target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap2'])
+                        pass
                     else:
-                        bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=False)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                        bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
+                        bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                             target_user_username))
                 elif user_id in admins_ids:
+                    can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
                     if target_user_id in creators_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap5'].format(sudo_username))
+                        pass
                     elif target_user_id in admins_ids:
                         if target_user_id in bots_ids:
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap4'].format(
-                                sudo_username))
+                            pass
                         else:
                             if can_restrict_members:
-                                bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=False)
-                                bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                                bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
+                                bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                     target_user_username))
                             else:
-                                bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap6'].format(
+                                bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
                                     sudo_username, target_user_username))
                     elif target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap4'].format(
-                            target_user_username))
+                        pass
                     else:
                         if can_restrict_members:
-                            bot.restrict_chat_member(chat_id, target_user_id, vuntil_date, can_send_messages=False)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap1'].format(
+                            bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
+                            bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                 target_user_username))
                         else:
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap7'].format(
+                            bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
                                 target_user_username))
                 else:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_can_send_messages_cap8'])
+                    bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
         else:
             pass
     else:
