@@ -1,6 +1,5 @@
 from guardbot.config import bot, print_banner
 from guardbot.utils import color
-import sys
 Color = color.Color
 
 

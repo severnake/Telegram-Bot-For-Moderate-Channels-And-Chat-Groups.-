@@ -6,4 +6,4 @@
 
 from guardbot import __main__
 
-__main__.guardbot()
+__main__.start()
