@@ -22,9 +22,6 @@ setup(name='guardbot',
             'console_scripts': ['guardbot = guardbot.__main__:start']
       },
       scripts=['bin/guardbot'],
-      #   data_files=[
-      #       ('share/dict', ['wordlist-top4800-probable.txt'])
-      #   ],
       include_package_data=True,
       exclude_package_data={"": ["README.md"]},
 
