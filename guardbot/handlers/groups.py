@@ -1,6 +1,7 @@
 from ..config import bot, sudo_username, lang
 from ..config import creators_ids, admins_ids, bots_ids
 from ..utils.language import ch_lang
+
 """" Groups Management Handler """
 
 
@@ -408,9 +409,10 @@ def demote_member_to_admin(message):
         pass
 
 
-# user can_send_messages by replay to user msg
+# user permissions
+# can_send_messages by replay to user msg
 # @bot.message_handler(commands=ch_lang(lang[-1])['t_user_can_send_messages'])
-@bot.message_handler(func=lambda message: ch_lang(lang[-1])['t_user_can_send_messages'] in message.text)
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_user_can_send_messages'])
 def user_can_send_messages(message):
     chat_id = message.chat.id
     chat_type = message.chat.type
@@ -440,7 +442,7 @@ def user_can_send_messages(message):
                     until_date = int(until_date)
                 if user_id in creators_ids:
                     if target_user_id in creators_ids:
-                       pass
+                        pass
                     elif target_user_id in admins_ids:
                         if target_user_id in bots_ids:
                             pass
@@ -450,7 +452,7 @@ def user_can_send_messages(message):
                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
                                 target_user_username))
                     elif target_user_id in bots_ids:
-                       pass
+                        pass
                     else:
                         bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
                         bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(

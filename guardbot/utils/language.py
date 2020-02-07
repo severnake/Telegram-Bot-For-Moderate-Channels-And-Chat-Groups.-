@@ -3,17 +3,12 @@ ar_lang = {}
 en_lang = {'start_msg': "*Welcome!* {} 🎉\
                         \nI'm here to manage your\
                         \nchannels and chat groups\
-                        \njust add me to it 👀 \
-                        \n\nthis bot made with `telebotapi`\
+                        \njust add me to it 👀 ,\
+                        \n\nI made with `telebotapi`\
                         \ncheck it at `PYPI` 🔰 \
                         \nhttps://pypi.org/project/telebotapi \
-                        \n\nFor activation contact ⤵️ \
+                        \n\nFor more information contact ⤵️ \
                         \n@MA24th 🛠 - @grid9x ⚙️ ",
-           'private_help': "*Help Menu* 📋\
-                                \n\=\=\=\=\=\=\=\=\=\=\=\=\
-                                \n\/start : start message\
-                                \n\/help : help menu\
-                                \n\/id : replay your info",
            'creator_help': "*HELP MENU* 📋\
                                 \n\=\=\=\=\=\=\=\=\=\=\=\=\
                                 \n__*User Actions*__ 🚻 \
@@ -25,7 +20,7 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
                                 \n🔘 `promote`: _Promote a Member_\
                                 \n🔘 `demote`: _Demote an Admin_\
                                 \n\n__*Group Permissions*__ 🔣 \
-                                \n Command Name\+ Enable or Disable\
+                                \n Command \+ Enable or Disable\
                                 \n🔘 `Send Message`: {gcsm}\
                                 \n🔘 `Send Media`: {gcsmm}\
                                 \n🔘 `Send Stickers & GIFs`: {gcsom}\
@@ -46,7 +41,7 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
                                 \n🔘 `promote`: Promote a Member\
                                 \n🔘 `demote`: Demote an Admin\
                                 \n\n__*Group Permissions*__ 🔣 \
-                                \n Command Name\+ Enable or Disable\
+                                \n Command \+ Enable or Disable\
                                 \n🔘 `Send Message`: {gcsm}\
                                 \n🔘 `Send Media`: {gcsmm}\
                                 \n🔘 `Send Stickers & GIFs`: {gcsom}\
@@ -63,28 +58,47 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
                                 \n🔘 `kickme`: Leave The Group\
                                 \n🔘 `pin`: Pin Message\
                                 \n🔘 `unpin`: Unpin Message",
-           'h_group': '*Group Commands* 📋 \
-                      \n================== \
-                      \n\nIn order to make bot works  \
-                      \nthe bot must be an admin \
-                      \nand should observe all permissions:\
-                      \n\n_Change Group Info\
-                      \nDelete Messages\
-                      \nBan Users\
-                      \nInvite Users via Link\
-                      \nPin Messages\
-                      \nAdd New Admins_',
-           'h_channel': '*Channel Commands* 📋',
+           'h_channel': '*Channel* 📰\
+                      \n========== \
+                      \nIn order to make me work\
+                      \nI\'m must be an admin \
+                      \nAnd should observe all permissions:\
+                      \n_Change chat info\
+                      \nPost messages\
+                      \nEdit messages of others\
+                      \nDelete messages of others\
+                      \nAdd members\
+                      \nAdd new admins_\
+                      \n',
+           'h_group': '*Group* 👥\
+                      \n========= \
+                      \nIn order to make me work\
+                      \nI\'m must be an admin \
+                      \nAnd should observe all permissions:\
+                      \n_Change chat info\
+                      \nDelete messages\
+                      \nBan users\
+                      \nInvite users via link\
+                      \nPin messages\
+                      \nAdd new admins_\
+                      \n',
+           'h_private': "*Private* 👤\
+                      \n\=\=\=\=\=\=\=\=\=\
+                      \n\/start : start message\
+                      \n\/id : show your info",
            'msg_join': '_Please_ \nJoin {} First',
            'b_main': 'Main Menu 📱',
            'b_back': 'Back ↩️',
            'b_help': 'Help 📋',
            'b_support': 'Support ⚙️',
            'b_ch_lang': 'Choose a language 🌍',
-           'b_add_me': 'Add Me 📲',
+           'b_add': 'Add Me 📲',
+           'b_id': 'ID 💳',
            't_make': 'Make a Choose',
-           'b_group': 'Group Commands 👥',
-           'b_channel': 'Channel Commands 📰',
+           'b_channel': 'Channel 📰',
+           'b_group': 'Group 👥',
+           'b_private': 'Private 👤',
+           't_choose': 'Make a Choose',
            't_dev': 'Under Development 📝',
            't_sup_cap1': 'Unsupported Feature!',
            't_start': ['start'],
@@ -103,8 +117,8 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
                      \n*Fullname:* {fn}\
                      \n*Username:* @{un}\
                      \n*ID:* `{id}`\
-                     \n\n__*Permissions*__\
                      \n*Status*: {us}\
+                     \n\n__*Permissions*__\
                      \n🔘 `Editable`: {cbe}\
                      \n🔘 `Add Users`: {uciu}\
                      \n🔘 `Restrict Users`: {ucru}\
@@ -117,9 +131,8 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
                      \n*Username:* @{un}\
                      \n*ID:* `{id}`\
                      \n*Status*: {us}\
+                     \n🔘*Until Date*: {ud}\
                      \n\n__*Permissions*__\
-                     \n🔘 `Until Date`: {ud}\
-                     \n🔘 `Editable`: {cbe}\
                      \n🔘 `Pin Messages`: {ucpm}\
                      \n🔘 `Send Message`: {ucsm}\
                      \n🔘 `Send Media`: {ucsmm}\
@@ -129,6 +142,7 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
                      \n🔘 `Add Users`: {uciu}\
                      \n🔘 `Change Chat Info`: {ucci}",
            't_piv_admin': 'You aren\'t a Admin',
+           't_user_until_date_cap1': 'Forever',
            't_ban': ['ban', 'Ban'],
            't_ban_cap1': 'Ban @{} Done!',
            't_ban_cap2': 'I can\'t ban myself!!!',

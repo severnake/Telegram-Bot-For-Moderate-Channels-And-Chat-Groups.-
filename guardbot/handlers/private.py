@@ -48,7 +48,7 @@ def get_user_permissions(chat_id, user_id):
     user_status = user_permissions.status
     user_custom_title = user_permissions.custom_title
     if user_permissions.until_date == 0:
-        user_until_date = 'For Ever'
+        user_until_date = ch_lang(lang[-1])['t_user_until_date_cap1']
     else:
         user_until_date = user_permissions.until_date
     user_is_member = user_permissions.is_member
@@ -114,57 +114,98 @@ def get_user_permissions(chat_id, user_id):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
+    message_id = call.message.message_id
+    chat_id = call.message.chat.id
+    user_id = call.from_user.id
+    user_username = call.from_user.username
     user_firstname = call.from_user.first_name
+    user_lastname = call.from_user.last_name
     if call.data == "s_help":
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['private_help'],
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'],
                          reply_markup=gen_help(), parse_mode='MarkdownV2',
                          disable_web_page_preview=True)
     elif call.data == 's_back':
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id,
-                         text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
                          reply_markup=gen_start(), parse_mode='Markdown',
-                         disable_web_page_preview=True)
+                         disable_web_page_preview=False)
     elif call.data == 's_lang':
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text='Make a Choose', reply_markup=gen_lang(),
-                         parse_mode='Markdown',
-                         disable_web_page_preview=True)
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_lang(), parse_mode='Markdown',
+                         disable_web_page_preview=False)
     elif call.data == 'h_group':
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['h_group'],
-                         reply_markup=gen_sub_help(), parse_mode='Markdown',
-                         disable_web_page_preview=False)
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['h_group'], reply_markup=gen_sub_help(),
+                         parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'h_channel':
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['h_channel'],
-                         reply_markup=gen_sub_help(), parse_mode='Markdown',
-                         disable_web_page_preview=False)
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['h_channel'], reply_markup=gen_sub_help(),
+                         parse_mode='Markdown', disable_web_page_preview=False)
+    elif call.data == 'h_private':
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['h_private'], reply_markup=gen_private(),
+                         parse_mode='MarkdownV2', disable_web_page_preview=False)
     elif call.data == 's_main':
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['start_msg'],
-                         reply_markup=gen_start(), parse_mode='Markdown',
-                         disable_web_page_preview=False)
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+                         reply_markup=gen_start(), parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'h_back':
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['private_help'],
-                         reply_markup=gen_help(), parse_mode='MarkdownV2',
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_help(), parse_mode='MarkdownV2',
                          disable_web_page_preview=False)
-    # elif call.data == 'h_add':
-    #     bot.answer_callback_query(call.id, text=ch_lang(user_lang=lang[-1])['t_dev'])
+    elif call.data == 'h_add':
+        bot.answer_callback_query(call.id, text=ch_lang(user_lang=lang[-1])['t_dev'])
     elif call.data == 'l_en':
         lang.append('en')
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
-                         reply_markup=gen_start(), parse_mode='Markdown',
-                         disable_web_page_preview=False)
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+                         reply_markup=gen_start(), parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'l_ar':
         lang.append('ar')
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        bot.send_message(chat_id=call.message.chat.id, text=ch_lang(user_lang=lang[-1])['start_msg'],
-                         reply_markup=gen_start(), parse_mode='Markdown',
-                         disable_web_page_preview=False)
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'], reply_markup=gen_start(),
+                         parse_mode='Markdown', disable_web_page_preview=False)
+    elif call.data == 'p_id':
+        if None != user_lastname:
+            user_fullname = str(user_firstname) + ' ' + str(user_lastname)
+        else:
+            user_fullname = str(user_firstname)
+        chat_member_info = bot.get_chat_member(channel_username, user_id)
+        user_status = chat_member_info.status
+        if user_status == 'left' and user_id not in vusers_ids:
+            vusers_info.append(chat_member_info.user)
+            vusers_ids.append(user_id)
+            user_photos_ids = bot.get_user_profile_photos(user_id)
+            if user_photos_ids.total_count == 0:
+                bot.delete_message(chat_id, message_id)
+                bot.send_message(chat_id, text=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname,
+                                                                                         un=user_username, id=user_id),
+                                 parse_mode='MarkdownV2', reply_markup=gen_private())
+            else:
+                user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+                bot.delete_message(chat_id, message_id)
+                bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
+                               caption=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
+                                                                                 id=user_id),
+                               reply_markup=gen_private(),
+                               parse_mode="MarkdownV2")
+        else:
+            user_photos_ids = bot.get_user_profile_photos(user_id)
+            if user_photos_ids.total_count == 0:
+                bot.delete_message(chat_id, message_id)
+                bot.send_message(chat_id, text=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname,
+                                                                                         un=user_username, id=user_id),
+                                 parse_mode='MarkdownV2', reply_markup=gen_private())
+            else:
+                user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+                bot.delete_message(chat_id, message_id)
+                bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
+                               caption=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
+                                                                                 id=user_id),
+                               reply_markup=gen_private(),
+                               parse_mode="MarkdownV2")
+
     else:
         return None
 
@@ -180,18 +221,18 @@ def gen_start():
 
 def gen_help():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_group']), callback_data='h_group'))
-    markup.add(InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_channel']), callback_data='h_channel'))
-    markup.add(InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_back']), callback_data='s_back'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_channel'], callback_data='h_channel'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_group'], callback_data='h_group'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_private'], callback_data='h_private'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='s_back'))
     return markup
 
 
 def gen_sub_help():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_add_me']), callback_data='h_add',
-                                    switch_inline_query='abc'))
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_main'], callback_data='s_main'))
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='h_back'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_add'], callback_data='h_add'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=ch_lang(lang[-1])['b_main'], callback_data='s_main'))
     return markup
 
 
@@ -200,6 +241,14 @@ def gen_lang():
     markup.add(InlineKeyboardButton(text='العربية 🇮🇶', callback_data='l_ar'))
     markup.add(InlineKeyboardButton(text='English 🌎', callback_data='l_en'))
     markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='s_back'))
+    return markup
+
+
+def gen_private():
+    markup = InlineKeyboardMarkup()
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_id'], callback_data='p_id'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=ch_lang(lang[-1])['b_main'], callback_data='s_main'))
     return markup
 
 
@@ -232,18 +281,25 @@ def replay_help(message):
             bot.reply_to(message, text=ch_lang(lang[-1])['msg_join'].format(channel_username), parse_mode='MarkdownV2')
         else:
             bot.reply_to(message, text=ch_lang(lang[-1])['private_help'], parse_mode='MarkdownV2')
-    elif chat_type == 'group' or chat_type == 'supergroup':
+    elif chat_type in ['group', 'supergroup']:
         chat_admins = bot.get_chat_administrators(chat_id)
         for x in chat_admins:
             if x.status == 'creator':
                 creators_ids.append(x.user.id)
             elif x.status == 'administrator':
                 admins_ids.append(x.user.id)
+        gcsm, gcsmm, gcsp, gcsom, gcawpp, gcci, gciu, gcpm = get_chat_permissions(chat_id)
         if user_id in creators_ids:
-            bot.reply_to(message, text=ch_lang(lang[-1])['creator_help'], parse_mode='MarkdownV2')
+            bot.reply_to(message, text=ch_lang(lang[-1])['creator_help'].format(gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp,
+                                                                                gcsom=gcsom, gcawpp=gcawpp, gcci=gcci,
+                                                                                gciu=gciu, gcpm=gcpm),
+                         parse_mode='MarkdownV2')
         else:
             if user_id in chat_admins:
-                bot.reply_to(message, text=ch_lang(lang[-1])['admin_help'], parse_mode='MarkdownV2')
+                bot.reply_to(message, text=ch_lang(lang[-1])['admin_help'].format(gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp,
+                                                                                  gcsom=gcsom, gcawpp=gcawpp, gcci=gcci,
+                                                                                  gciu=gciu, gcpm=gcpm),
+                             parse_mode='MarkdownV2')
             else:
                 bot.reply_to(message, text=ch_lang(lang[-1])['member_help'], parse_mode='MarkdownV2')
     else:
@@ -348,11 +404,10 @@ def replay_info(message):
                                                                                               id=target_user_id,
                                                                                               us=target_user_status,
                                                                                               ud=target_user_until_date,
-                                                                                              cbe=tcbe, uciu=tciu,
-                                                                                              ucsm=tcsm, ucsp=tcsp,
-                                                                                              ucsmm=tcsmm, ucsom=tcsom,
-                                                                                              ucci=tcci, ucpm=tcpm,
-                                                                                              ucawpp=tcawpp),
+                                                                                              uciu=tciu, ucsm=tcsm,
+                                                                                              ucsp=tcsp, ucsmm=tcsmm,
+                                                                                              ucsom=tcsom, ucci=tcci,
+                                                                                              ucpm=tcpm, ucawpp=tcawpp),
                                      parse_mode='MarkdownV2')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
@@ -362,11 +417,10 @@ def replay_info(message):
                                                                                               id=target_user_id,
                                                                                               us=target_user_status,
                                                                                               ud=target_user_until_date,
-                                                                                              cbe=tcbe, uciu=tciu,
-                                                                                              ucsm=tcsm, ucsp=tcsp,
-                                                                                              ucsmm=tcsmm, ucsom=tcsom,
-                                                                                              ucci=tcci, ucpm=tcpm,
-                                                                                              ucawpp=tcawpp),
+                                                                                              uciu=tciu, ucsm=tcsm,
+                                                                                              ucsp=tcsp, ucsmm=tcsmm,
+                                                                                              ucsom=tcsom, ucci=tcci,
+                                                                                              ucpm=tcpm, ucawpp=tcawpp),
                                        reply_to_message_id=msg_id,
                                        parse_mode='MarkdownV2')
             else:
@@ -392,7 +446,7 @@ def replay_info(message):
                 if user_photos_ids.total_count == 0:
                     bot.reply_to(message,
                                  text=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
-                                                                              id=user_id, s=user_status),
+                                                                              id=user_id, us=user_status),
                                  parse_mode='MarkdownV2')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
@@ -400,7 +454,7 @@ def replay_info(message):
                                    caption=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
                                                                                    id=user_id, us=user_status),
                                    reply_to_message_id=msg_id,
-                                   parse_mode="Markdown")
+                                   parse_mode="MarkdownV2")
             elif user_id in admins_ids:
                 if user_photos_ids.total_count == 0:
                     bot.reply_to(message,
@@ -418,7 +472,7 @@ def replay_info(message):
                 if user_photos_ids.total_count == 0:
                     bot.reply_to(message,
                                  text=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
-                                                                              id=user_id, s=user_status),
+                                                                              id=user_id, us=user_status),
                                  parse_mode='MarkdownV2')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
