@@ -2,7 +2,7 @@ GuardBot
 ========
 
 Telegram Bot For Managing Chat Groups And Channels,
-Based On Python made with `telebotapi <https://github.com/MA24th/telebotapi>`_
+Made with `telebotapi <https://github.com/MA24th/telebotapi>`_
 
 --------------
 Specifications
@@ -18,12 +18,13 @@ Installing
  First you need to make a bot with `botfather <https://t.me/botfather>`_ and get token,
  also you should have channel with @username.
 
-``bash install.bash``
+``pip3 install guardbot``
 
 And
 
 ::
 
+    guardbot
     BOT_TOKEN: Enter your bot token
     SUDO_USERNAME: Enter your @username
     CHANNEL_USERNAME: Enter your channel @username
