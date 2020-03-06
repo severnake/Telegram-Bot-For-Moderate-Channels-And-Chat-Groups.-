@@ -3,7 +3,7 @@ from ..config import creators_ids, admins_ids, vusers_ids, vusers_info
 from ..utils.language import ch_lang
 
 """ Private Management Handlers """
-from telebotapi.plugins import InlineKeyboardMarkup, InlineKeyboardButton
+from tgbotapi.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def get_chat_permissions(chat_id):
@@ -127,7 +127,7 @@ def callback_query(call):
                          disable_web_page_preview=True)
     elif call.data == 's_back':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
                          reply_markup=gen_start(), parse_mode='Markdown',
                          disable_web_page_preview=False)
     elif call.data == 's_lang':
@@ -136,35 +136,33 @@ def callback_query(call):
                          disable_web_page_preview=False)
     elif call.data == 'h_group':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['h_group'], reply_markup=gen_sub_help(),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['h_group'], reply_markup=gen_group(),
                          parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'h_channel':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['h_channel'], reply_markup=gen_sub_help(),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['h_channel'], reply_markup=gen_channel(),
                          parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'h_private':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['h_private'], reply_markup=gen_private(),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['h_private'], reply_markup=gen_private(),
                          parse_mode='MarkdownV2', disable_web_page_preview=False)
     elif call.data == 's_main':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
                          reply_markup=gen_start(), parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'h_back':
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_help(), parse_mode='MarkdownV2',
                          disable_web_page_preview=False)
-    elif call.data == 'h_add':
-        bot.answer_callback_query(call.id, text=ch_lang(user_lang=lang[-1])['t_dev'])
     elif call.data == 'l_en':
         lang.append('en')
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
                          reply_markup=gen_start(), parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'l_ar':
         lang.append('ar')
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(user_lang=lang[-1])['start_msg'], reply_markup=gen_start(),
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'], reply_markup=gen_start(),
                          parse_mode='Markdown', disable_web_page_preview=False)
     elif call.data == 'p_id':
         if None != user_lastname:
@@ -213,8 +211,7 @@ def callback_query(call):
 def gen_start():
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_help']), callback_data="s_help"),
-               InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_support']), callback_data="s_support",
-                                    url='https://t.me/grid9x'))
+               InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_support']), url='https://t.me/grid9x'))
     markup.add(InlineKeyboardButton(text=str(ch_lang(lang[-1])['b_ch_lang']), callback_data='s_lang'))
     return markup
 
@@ -228,19 +225,26 @@ def gen_help():
     return markup
 
 
-def gen_sub_help():
-    markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_add'], callback_data='h_add'))
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='h_back'),
-               InlineKeyboardButton(text=ch_lang(lang[-1])['b_main'], callback_data='s_main'))
-    return markup
-
-
 def gen_lang():
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton(text='العربية 🇮🇶', callback_data='l_ar'))
     markup.add(InlineKeyboardButton(text='English 🌎', callback_data='l_en'))
     markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='s_back'))
+    return markup
+
+
+def gen_channel():
+    markup = InlineKeyboardMarkup()
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=ch_lang(lang[-1])['b_main'], callback_data='s_main'))
+    return markup
+
+
+def gen_group():
+    markup = InlineKeyboardMarkup()
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_add'], url='http://t.me/gu9rdbot?startgroup'))
+    markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=ch_lang(lang[-1])['b_main'], callback_data='s_main'))
     return markup
 
 
@@ -258,7 +262,7 @@ def start(message):
     chat_type = message.chat.type
     user_firstname = message.from_user.first_name
     if chat_type == 'private':
-        bot.send_message(chat_id=message.chat.id, text=ch_lang(user_lang=lang[-1])['start_msg'].format(user_firstname),
+        bot.send_message(chat_id=message.chat.id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
                          reply_markup=gen_start(), parse_mode='Markdown',
                          disable_web_page_preview=False)
     else:
@@ -280,7 +284,7 @@ def replay_help(message):
             vusers_ids.append(user_id)
             bot.reply_to(message, text=ch_lang(lang[-1])['msg_join'].format(channel_username), parse_mode='MarkdownV2')
         else:
-            bot.reply_to(message, text=ch_lang(lang[-1])['private_help'], parse_mode='MarkdownV2')
+            bot.reply_to(message, text=ch_lang(lang[-1])['h_private'], parse_mode='MarkdownV2')
     elif chat_type in ['group', 'supergroup']:
         chat_admins = bot.get_chat_administrators(chat_id)
         for x in chat_admins:
