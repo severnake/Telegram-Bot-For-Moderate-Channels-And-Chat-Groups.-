@@ -1,6 +1,8 @@
 language: python
 python:
+    - "3.6"
     - "3.7"
+    - "3.8"
 script:
-    - python3 setup.py install
-    - cd tests && py.test
+    - pip install -e .
+    - pytest -vvv
