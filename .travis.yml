@@ -4,7 +4,7 @@ python:
     - "3.7"
     - "3.8"
 install:
-    - pip install tgboapi redis
+    - pip install tgbotapi redis
 script:
     - pip install -e .
     - pytest -vvv
