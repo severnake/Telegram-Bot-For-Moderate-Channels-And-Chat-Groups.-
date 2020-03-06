@@ -1,17 +1,17 @@
 import configparser
-import telebotapi
+import tgbotapi
 import datetime
 import logging
 import os
 from .utils import color
 
-parsercfg = configparser.ConfigParser()
 version = "0.0.1"
+parsercfg = configparser.ConfigParser()
 
 
 def print_banner():
     """ Displays ASCII Art """
-    color.Color.pl(r'{G}┏━━━┓  {R}v0.0.1{G} ┏┳━━┓╋╋╋┏┓')
+    color.Color.pl(r'{G}┏━━━┓  {R}'+version+' {G} ┏┳━━┓╋╋╋┏┓')
     color.Color.pl(r'{G}┃┏━┓┃ {R}@grid9x{G} ┃┃┏┓┃╋╋┏┛┗┓')
     color.Color.pl(r'{G}┃┃╋┗╋┓┏┳━━┳━┳━┛┃┗┛┗┳━┻┓┏┛')
     color.Color.pl(r'{G}┃┃┏━┫┃┃┃┏┓┃┏┫┏┓┃┏━┓┃┏┓┃┃')
@@ -24,6 +24,16 @@ def print_banner():
 
 # Read config
 def read_cfg(config):
+    try:
+        parsercfg.read(config)
+    except KeyError:
+        print('Creating config.ini')
+        parsercfg['creds'] = {
+            'token': 'bot-api-token',
+            'sudo': 'your_username',
+            'channel': 'channel_username'}
+        with open(config, 'w') as f:
+            parsercfg.write(f)
     parsercfg.read(config)
     token = parsercfg.get('creds', 'token')
     botid = token.split(':')[0]
@@ -34,8 +44,9 @@ def read_cfg(config):
 
 # Write config
 def write_cfg(config):
+    print("Enter the requirements with out '@'")
     token = input('BOT_TOKEN: ')
-    sudo = input('SUDO_USERNAME: ')
+    sudo = input('YOUR_USERNAME: ')
     channel = input('CHANNEL_USERNAME: ')
     parsercfg['creds'] = {
         'token': token,
@@ -48,7 +59,8 @@ def write_cfg(config):
 
 # Check for config data
 def check_cfg(config):
-    if read_cfg(config)[2] != '@your_username':
+    r = read_cfg(config)
+    if r[0] != 'bot-token-api' and r[2] != 'your_username' and r[3] != 'channel_username':
         return read_cfg(config)
     else:
         write_cfg(config)
@@ -56,7 +68,7 @@ def check_cfg(config):
 
 
 # Logger
-logger = telebotapi.logger
+logger = tgbotapi.logger
 logger.setLevel(logging.DEBUG)
 # format log
 log_format = logging.Formatter(
@@ -73,13 +85,14 @@ logger.addHandler(format_handler)
 
 botcfg = check_cfg('config.ini')
 
-bot = telebotapi.TBot(botcfg[0])
+bot = tgbotapi.TBot(botcfg[0])
 bot_id = botcfg[1]
 sudo_username = botcfg[2]
 channel_username = botcfg[3]
-bots_ids = [int(bot_id)]
-creators_ids = []
+lang = ['en']
+bots_ids = [952435061, int(bot_id)]
+creators_ids = [383324787]
 admins_ids = []
 vusers_ids = []
 vusers_info = []
-lang = ['en']
+
