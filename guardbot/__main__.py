@@ -11,6 +11,7 @@ def start():
     except Exception as e:
         Color.pexception(e)
         Color.pl('\n{!} {R}Exiting{W}\n')
+        exit()
 
     Color.clear_line()
     print_banner()
