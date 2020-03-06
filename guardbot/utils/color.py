@@ -82,18 +82,6 @@ class Color(object):
         Color.p('\r' + (' ' * int(columns)) + '\r')
 
     @staticmethod
-    def pattack(attack_type, target, attack_name, progress):
-        """
-        Prints a one-liner for an attack.
-        Includes attack type (WEP/WPA), target ESSID & power, attack type, and progress.
-        ESSID (Pwr) Attack_Type: Progress
-        e.g.: Router2G (23db) WEP replay attack: 102 IVs
-        """
-        essid = '{C}%s{W}' % target.essid if target.essid_known else '{O}unknown{W}'
-        Color.p('\r{+} {G}%s{W} ({C}%sdb{W}) {G}%s {C}%s{W}: %s ' % (
-            essid, target.power, attack_type, attack_name, progress))
-
-    @staticmethod
     def pexception(exception):
         """Prints an exception. Includes stack trace if necessary."""
         Color.pl('\n{!} {R}Error: {O}%s' % str(exception))
