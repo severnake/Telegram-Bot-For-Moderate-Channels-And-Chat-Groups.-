@@ -1,12 +1,12 @@
-"""USER LANGUAGE UTILITY"""
+""" USER LANGUAGE UTILITY """
 ar_lang = {}
 en_lang = {'start_msg': "*Welcome!* {} 🎉\
                         \nI'm here to manage your\
                         \nchannels and chat groups\
                         \njust add me to it 👀 ,\
-                        \n\nI made with `telebotapi`\
+                        \n\nI made with `tgbotapi`\
                         \ncheck it at `PYPI` 🔰 \
-                        \nhttps://pypi.org/project/telebotapi \
+                        \nhttps://pypi.org/project/tgbotapi \
                         \n\nFor more information contact ⤵️ \
                         \n@MA24th 🛠 - @grid9x ⚙️ ",
            'creator_help': "*HELP MENU* 📋\
@@ -176,7 +176,7 @@ en_lang = {'start_msg': "*Welcome!* {} 🎉\
            't_promote_cap1': 'Promote @{} Done!',
            't_demote': ['demote', 'Demote'],
            't_demote_cap1': 'Demote @{} Done!',
-           't_user_can_send_messages': ['can send messages', 'Can Send Messages'],
+           't_user_can_send_messages': ['can send messages enable', 'Can Send Messages', 'send messages', 'Send Messages', 'Send Messages'],
            't_user_can_send_messages_cap1': '@{} Done!',
            't_user_can_send_messages_cap7': 'Yor aren\'t allowed to restrict users',
            'r_enable': 'en',
@@ -191,4 +191,4 @@ def ch_lang(user_lang):
     elif user_lang == 'en':
         return en_lang
     else:
-        return None
+        raise ValueError('UNDEFINED USER LANGUAGE:', user_lang)
