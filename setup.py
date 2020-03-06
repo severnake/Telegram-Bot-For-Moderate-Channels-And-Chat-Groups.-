@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from setuptools import setup, find_packages
 from io import open
+from guardbot.config import version
 
 
 def read(filename):
@@ -9,7 +10,7 @@ def read(filename):
 
 
 setup(name='guardbot',
-      version='0.0.1',
+      version=version,
       description='Telegram Bot For Managing Chat Groups And Channels',
       long_description=read('README.rst'),
       long_description_content_type="text/x-rst",
@@ -26,15 +27,17 @@ setup(name='guardbot',
       exclude_package_data={"": ["README.md"]},
 
       install_requires=[
-          'pytest', 'telebotapi', 'redis'
+          'pytest', 'tgbotapi', 'redis'
       ],
       test_suite='pytest',
       tests_require=['pytest'],
 
       license='GNU GPLv2',
-      keywords='bot, telegram_bot, telebotapi, guardbot, GuardBot',
+      keywords='bot, telegram_bot, telegram_bot_api, tgbotapi, guardbot, GuardBot',
       classifiers=['Development Status :: 5 - Production/Stable',
+                   'Programming Language :: Python :: 3.6',
                    'Programming Language :: Python :: 3.7',
+                   'Programming Language :: Python :: 3.8',
                    'License :: Freeware',
                    'Operating System :: POSIX',
                    'Operating System :: Microsoft :: Windows',
