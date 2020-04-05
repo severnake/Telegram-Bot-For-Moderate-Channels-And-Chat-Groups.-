@@ -1,10 +1,11 @@
 # GuardBot
 
-Telegram Bot For Managing Chat Groups And Channels Made With [telebotapi](https://github.com/MA24th/telebotapi).
+Telegram Bot For Managing Chat Groups And Channels,
+Made With [tgbotapi](https://github.com/MA24th/tgbotapi).
 
 [![GPLv2 license](https://img.shields.io/badge/LICENSE-GPLv2-red)](https://github.com/ma24th/guardbot/blob/master/LICENSE)
 [![Build Status](https://travis-ci.com/ma24th/guardbot.svg?branch=master)](https://travis-ci.com/ma24th/guardbot)
-[![PyPI](https://img.shields.io/badge/PyPI-v0.0.1-yellow.svg)](https://pypi.org/project/guardbot/)
+[![PyPI](https://img.shields.io/badge/PyPI-v1.0.0-yellow.svg)](https://pypi.org/project/guardbot/)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://telegram.me/@grid9x)
 
 ## Specifications
