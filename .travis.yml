@@ -4,6 +4,6 @@ python:
     - "3.7"
     - "3.8"
 install:
-    - pip install tgbotapi
+    - sudo -H pip install -r --user requirements.txt
 script:
     - pytest -vvv
