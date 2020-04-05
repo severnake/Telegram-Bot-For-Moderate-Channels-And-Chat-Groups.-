@@ -1,4 +1,4 @@
-from ..config import bot, sudo_username, lang
+from ..config import bot, sudo_username, lang, user_id
 from ..config import creators_ids, admins_ids, bots_ids
 from ..utils.language import ch_lang
 
@@ -6,8 +6,8 @@ from ..utils.language import ch_lang
 
 
 # Ban user by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_ban'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_ban'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_ban'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_ban'])
 def ban_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
@@ -26,45 +26,45 @@ def ban_user(message):
             target_user_username = message.reply_to_message.from_user.username
             if user_id in creators_ids:
                 if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap3'])
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap3'])
                 elif target_user_id in admins_ids:
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap2'])
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap2'])
                     else:
                         print(target_user_id)
                         print(bots_ids)
                         bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
                         admins_ids.pop(target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap2'])
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap2'])
                 else:
                     bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap1'].format(target_user_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
             elif user_id in admins_ids:
                 if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap5'].format(sudo_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap5'].format(sudo_username))
                 elif target_user_id in admins_ids:
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap4'].format(sudo_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap4'].format(sudo_username))
                     else:
                         if can_restrict_members:
                             bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap1'].format(target_user_username))
+                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
                         else:
                             bot.reply_to(message,
-                                         text=ch_lang(lang[-1])['t_ban_cap6'].format(sudo_username,
+                                         text=ch_lang(lang[user_id])['t_ban_cap6'].format(sudo_username,
                                                                                      target_user_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap4'].format(target_user_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap4'].format(target_user_username))
                 else:
                     if can_restrict_members:
                         bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
                     else:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_ban_cap7'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap7'].format(target_user_username))
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
+                bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
         # elif message.entities:
         #     if message.entities[0].type == 'mention':
         #         if '@' in message.text:
@@ -78,8 +78,8 @@ def ban_user(message):
 
 
 # Unban user by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_unban'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_unban'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_unban'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_unban'])
 def unban_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
@@ -99,19 +99,19 @@ def unban_user(message):
                 if target_user_id not in creators_ids and target_user_id not in admins_ids and target_user_id not in \
                         bots_ids:
                     bot.unban_chat_member(chat_id, target_user_id)
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_unban_cap1'].format(target_user_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_unban_cap1'].format(target_user_username))
             elif user_id in admins_ids:
                 if target_user_id not in creators_ids and target_user_id not in admins_ids and target_user_id not in \
                         bots_ids:
                     if can_restrict_members:
                         bot.unban_chat_member(chat_id, target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_unban_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_unban_cap1'].format(target_user_username))
                     else:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_unban_cap7'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_unban_cap7'].format(target_user_username))
                 else:
                     pass
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
+                bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
         else:
             pass
     else:
@@ -119,8 +119,8 @@ def unban_user(message):
 
 
 # Kick user by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_kick'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_kick'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_kick'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_kick'])
 def kick_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
@@ -138,38 +138,38 @@ def kick_user(message):
             target_username = message.reply_to_message.from_user.username
             if user_id in creators_ids:
                 if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap3'].format(target_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap3'].format(target_username))
                 elif target_user_id in admins_ids:
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap2'].format(target_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap2'].format(target_username))
                     else:
                         bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
                         bot.unban_chat_member(chat_id, target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_sup_cap1'].format(target_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_sup_cap1'].format(target_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap2'].format(target_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap2'].format(target_username))
                 else:
                     bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
                     bot.unban_chat_member(chat_id, target_user_id)
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap1'].format(target_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap1'].format(target_username))
             elif user_id in admins_ids:
                 if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap5'])
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap5'])
                 elif target_user_id in admins_ids:
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap4'])
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap4'])
                     else:
                         bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
                         bot.unban_chat_member(chat_id, target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap1'].format(target_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap1'].format(target_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap4'])
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap4'])
                 else:
                     bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
                     bot.unban_chat_member(chat_id, target_user_id)
-                    bot.reply_to(message, text=ch_lang(lang[-1])['t_kick_cap1'].format(target_username))
+                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap1'].format(target_username))
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
+                bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
         else:
             pass
     else:
@@ -177,8 +177,8 @@ def kick_user(message):
 
 
 # Kickme by send 'kickme' msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_kickme'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_kickme'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_kickme'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_kickme'])
 def kickme_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
@@ -197,14 +197,14 @@ def kickme_user(message):
             else:
                 bot.kick_chat_member(chat_id, user_id)
                 bot.unban_chat_member(chat_id, user_id)
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_kickme_cap1'].format(user_name))
+                bot.reply_to(message, text=ch_lang(lang[user_id])['t_kickme_cap1'].format(user_name))
     else:
         pass
 
 
 # Pin msg by replay to msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_pin'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_pin'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_pin'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_pin'])
 def pin_msg(message):
     chat_id = message.chat.id
     chat_admins = bot.get_chat_administrators(chat_id)
@@ -224,17 +224,17 @@ def pin_msg(message):
             if can_pin_messages:
                 bot.pin_chat_message(chat_id, msg_id)
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_pin_cap1'].format(user_username))
+                bot.reply_to(message, text=ch_lang(lang[user_id])['t_pin_cap1'].format(user_username))
         else:
             if can_pin_messages:
                 bot.pin_chat_message(chat_id, msg_id)
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['t_pin_cap1'].format(user_username))
+                bot.reply_to(message, text=ch_lang(lang[user_id])['t_pin_cap1'].format(user_username))
 
 
 # Unpin by send msg
-@bot.message_handler(commands=ch_lang(lang[-1])['t_unpin'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_unpin'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_unpin'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_unpin'])
 def unpin_msg(message):
     chat_id = message.chat.id
     chat_admins = bot.get_chat_administrators(chat_id)
@@ -252,17 +252,17 @@ def unpin_msg(message):
         if can_pin_messages:
             bot.unpin_chat_message(chat_id)
         else:
-            bot.reply_to(message, text=ch_lang(lang[-1])['t_unpin_cap1'].format(user_username))
+            bot.reply_to(message, text=ch_lang(lang[user_id])['t_unpin_cap1'].format(user_username))
     else:
         if can_pin_messages:
             bot.unpin_chat_message(chat_id)
         else:
-            bot.reply_to(message, text=ch_lang(lang[-1])['t_unpin_cap1'].format(user_username))
+            bot.reply_to(message, text=ch_lang(lang[user_id])['t_unpin_cap1'].format(user_username))
 
 
 # promote a member to admin
-@bot.message_handler(commands=ch_lang(lang[-1])['t_promote'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_promote'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_promote'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_promote'])
 def promote_member_to_admin(message):
     chat_id = message.chat.id
     chat_type = message.chat.type
@@ -290,12 +290,12 @@ def promote_member_to_admin(message):
                         bot.promote_chat_member(chat_id, target_user_id, can_change_info=True, can_delete_messages=True,
                                                 can_invite_users=True, can_restrict_members=True, can_pin_messages=True,
                                                 can_promote_members=True)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_promote_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
                     elif chat_type == 'group':
                         bot.promote_chat_member(chat_id, target_user_id, can_change_info=True, can_delete_messages=True,
                                                 can_invite_users=True, can_restrict_members=True,
                                                 can_promote_members=True)
-                        bot.reply_to(message, text=ch_lang(lang[-1])['t_promote_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
                     else:
                         pass
             elif user_id in admins_ids:
@@ -313,13 +313,13 @@ def promote_member_to_admin(message):
                                                     can_invite_users=True, can_restrict_members=True,
                                                     can_pin_messages=True,
                                                     can_promote_members=True)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_promote_cap1'].format(target_user_username))
+                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
                         elif chat_type == 'group':
                             bot.promote_chat_member(chat_id, target_user_id, can_change_info=True,
                                                     can_delete_messages=True,
                                                     can_invite_users=True, can_restrict_members=True,
                                                     can_promote_members=True)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_promote_cap1'].format(target_user_username))
+                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
                         else:
                             pass
             else:
@@ -329,8 +329,8 @@ def promote_member_to_admin(message):
 
 
 # demote a member to admin
-@bot.message_handler(commands=ch_lang(lang[-1])['t_demote'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_demote'])
+@bot.message_handler(commands=ch_lang(lang[user_id])['t_demote'])
+@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_demote'])
 def demote_member_to_admin(message):
     chat_id = message.chat.id
     chat_type = message.chat.type
@@ -360,7 +360,7 @@ def demote_member_to_admin(message):
                                                     can_pin_messages=False,
                                                     can_promote_members=False)
                             admins_ids.pop(target_user_id)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_demote_cap1'].format(
+                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_demote_cap1'].format(
                                 target_user_username))
                         elif chat_type == 'group':
                             bot.promote_chat_member(chat_id, target_user_id, can_change_info=False,
@@ -368,7 +368,7 @@ def demote_member_to_admin(message):
                                                     can_invite_users=False, can_restrict_members=False,
                                                     can_promote_members=False)
                             admins_ids.pop(target_user_id)
-                            bot.reply_to(message, text=ch_lang(lang[-1])['t_demote_cap1'].format(
+                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_demote_cap1'].format(
                                 target_user_username))
                         else:
                             pass
@@ -391,7 +391,7 @@ def demote_member_to_admin(message):
                                                         can_pin_messages=False,
                                                         can_promote_members=True)
                                 admins_ids.pop(target_user_id)
-                                bot.reply_to(message, text=ch_lang(lang[-1])['t_promote_cap1'].format(
+                                bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(
                                     target_user_username))
                             elif chat_type == 'group':
                                 bot.promote_chat_member(chat_id, target_user_id, can_change_info=False,
@@ -399,7 +399,7 @@ def demote_member_to_admin(message):
                                                         can_invite_users=False, can_restrict_members=False,
                                                         can_promote_members=False)
                                 admins_ids.pop(target_user_id)
-                                bot.reply_to(message, text=ch_lang(lang[-1])['t_promote_cap1'].format(
+                                bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(
                                     target_user_username))
                             else:
                                 pass
@@ -411,8 +411,8 @@ def demote_member_to_admin(message):
 
 # user permissions
 # can_send_messages by replay to user msg
-# @bot.message_handler(commands=ch_lang(lang[-1])['t_user_can_send_messages'])
-# @bot.message_handler(func=lambda message: message.text in ch_lang(lang[-1])['t_user_can_send_messages'])
+# @bot.message_handler(commands=ch_lang(lang[user_id])['t_user_can_send_messages'])
+# @bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_user_can_send_messages'])
 # def user_can_send_messages(message):
 #     chat_id = message.chat.id
 #     chat_type = message.chat.type
@@ -427,16 +427,16 @@ def demote_member_to_admin(message):
 #         if message.reply_to_message:
 #             target_user_id = message.reply_to_message.from_user.id
 #             target_user_username = message.reply_to_message.from_user.username
-#             en = ch_lang(lang[-1])['t_enable']
+#             en = ch_lang(lang[user_id])['t_enable']
 #             if en == message.text[18:24]:
 #                 until_date = message.text[26:]
 #                 if 's' in until_date:
-#                     until_date = until_date[:-1]
+#                     until_date = until_date[:user_id]
 #                 elif 'm' in until_date:
-#                     until_date = until_date[:-1]
+#                     until_date = until_date[:user_id]
 #                     until_date = until_date * 60
 #                 elif 'h' in until_date:
-#                     until_date = until_date[:-1]
+#                     until_date = until_date[:user_id]
 #                     until_date = 60 * (until_date * 60)
 #                 else:
 #                     until_date = int(until_date)
@@ -449,13 +449,13 @@ def demote_member_to_admin(message):
 #                         else:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
 #                             admins_ids.pop(target_user_id)
-#                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
-#                         bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                         bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                             target_user_username))
 #                 elif user_id in admins_ids:
 #                     can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
@@ -467,33 +467,33 @@ def demote_member_to_admin(message):
 #                         else:
 #                             if can_restrict_members:
 #                                 bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                                 bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                                     target_user_username))
 #                             else:
-#                                 bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
+#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
 #                                     sudo_username, target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         if can_restrict_members:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                         else:
-#                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
+#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
 #                                 target_user_username))
 #                 else:
-#                     bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
-#             di = ch_lang(lang[-1])['t_disable']
+#                     bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
+#             di = ch_lang(lang[user_id])['t_disable']
 #             if di in message.text[18:25]:
 #                 until_date = message.text[26:]
 #                 if 's' in until_date:
-#                     until_date = until_date[:-1]
+#                     until_date = until_date[:user_id]
 #                 elif 'm' in until_date:
-#                     until_date = until_date[:-1]
+#                     until_date = until_date[:user_id]
 #                     until_date = until_date * 60
 #                 elif 'h' in until_date:
-#                     until_date = until_date[:-1]
+#                     until_date = until_date[:user_id]
 #                     until_date = 60 * (until_date * 60)
 #                 else:
 #                     until_date = int(until_date)
@@ -506,13 +506,13 @@ def demote_member_to_admin(message):
 #                         else:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
 #                             admins_ids.pop(target_user_id)
-#                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                         bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                         bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                             target_user_username))
 #                 elif user_id in admins_ids:
 #                     can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
@@ -524,23 +524,23 @@ def demote_member_to_admin(message):
 #                         else:
 #                             if can_restrict_members:
 #                                 bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                                 bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                                     target_user_username))
 #                             else:
-#                                 bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
+#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
 #                                     sudo_username, target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         if can_restrict_members:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap1'].format(
+#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                         else:
-#                             bot.reply_to(message, text=ch_lang(lang[-1])['t_user_can_send_messages_cap7'].format(
+#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
 #                                 target_user_username))
 #                 else:
-#                     bot.reply_to(message, text=ch_lang(lang[-1])['t_piv_admin'])
+#                     bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
 #         else:
 #             pass
 #     else:

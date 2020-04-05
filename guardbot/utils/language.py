@@ -1,7 +1,7 @@
 """ USER LANGUAGE UTILITY """
 ar_lang = {}
 en_lang = {
-    'start_msg': "<b>Welcome!</b> {} 🎉\
+    'start_msg': "<b>Welcome!</b> {un} 🎉\
         \nI'm here to manage your\
         \nchannels and chat groups\
         \njust add me to it 👀,\
@@ -9,7 +9,7 @@ en_lang = {
         \ncheck it at <code>PYPI</code> 🔰\
         \nhttps://pypi.org/project/tgbotapi\
         \n\nFor more information contact ⤵️\
-        \n@MA24th 🛠 - @grid9x ⚙️ ",
+        \n@{su} 🛠 - @{cu} ⚙️ ",
     'h_channel': "<b>Channel</b> 📰\
         \n========== \
         \nIn order to make me work\
@@ -184,7 +184,7 @@ en_lang = {
     'r_disable': 'di',
 }
 sp_lang = {
-    'start_msg': "<b>Bienvenido!</b> {} 🎉\
+    'start_msg': "<b>Bienvenido!</b> {un} 🎉\
         \nEstoy aquí para admnistrar tus\
         \ncanales y gropos\
         \nsolo añademe a ellos 👀 ,\
@@ -192,7 +192,7 @@ sp_lang = {
         \nechale un vistazo en <code>PYPI</code> 🔰 \
         \nhttps://pypi.org/project/tgbotapi \
         \n\nPara más información contacta a ⤵️ \
-        \n@MA24th 🛠 - @grid9x ⚙️ ",
+        \n@{su} 🛠 - @{cu} ⚙️ ",
     'h_channel': '<b>Canal</b> 📰\
         \n========== \
         \nPara poder trabajar\
@@ -312,9 +312,9 @@ sp_lang = {
     't_info_member': "<u><b>Detalles</b></u>\
         \n<b>Nombre completo</b>: {fn}\
         \n<b>Nombre de usuario</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code\
+        \n<b>ID</b>: <code>{id}</code>\
         \n<b>Estado</b>: {us}\
-        \n🔘<b>Hasta la Fecha</b>: {ud}\
+        \n<b>Hasta la Fecha</b>: {ud}\
         \n\n<u><b>Permisos</b></u>\
         \n🔘<code>Fijar Mensajes</code>: {ucpm}\
         \n🔘<code>Enviar Mensajes</code>: {ucsm}\

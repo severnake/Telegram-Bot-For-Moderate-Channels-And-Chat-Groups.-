@@ -50,8 +50,8 @@ def write_cfg(config):
     channel = input('CHANNEL_USERNAME: ')
     parsercfg['creds'] = {
         'token': token,
-        'sudo': '@'+sudo,
-        'channel': '@'+channel
+        'sudo': sudo,
+        'channel': channel
                     }
     with open(config, 'w') as f:
         parsercfg.write(f)
@@ -89,10 +89,10 @@ bot = tgbotapi.TBot(botcfg[0])
 bot_id = botcfg[1]
 sudo_username = botcfg[2]
 channel_username = botcfg[3]
-lang = ['en']
+lang = {383324787:'en'}
 bots_ids = [952435061, int(bot_id)]
 creators_ids = [383324787]
 admins_ids = []
 vusers_ids = []
 vusers_info = []
-
+user_id = 383324787
