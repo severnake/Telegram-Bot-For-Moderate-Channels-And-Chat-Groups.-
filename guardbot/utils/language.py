@@ -82,7 +82,7 @@ en_lang = {
         \n<i>Invite users via link</i>\
         \n<i>Pin messages</i>\
         \n<i>Add new admins</i>\
-        \n',
+        \n",
     'h_private': "<b>Private</b> 👤\
         \n=========\
         \n/start :welcome message\
@@ -104,7 +104,7 @@ en_lang = {
     't_sup_cap1': 'Unsupported Feature!',
     't_start': ['start'],
     't_help': ['help', 'Help'],
-    't_info': ['id', 'Id', 'my id', 'My id','info', 'Info', 'INFO'],
+    't_info': ['id', 'Id', 'my id', 'My id', 'info', 'Info', 'INFO'],
     't_info_p_user': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {fn}\
         \n<b>Username</b>: @{un}\
@@ -182,190 +182,190 @@ en_lang = {
     't_user_can_send_messages_cap7': 'Yor aren\'t allowed to restrict users',
     'r_enable': 'en',
     'r_disable': 'di',
-           }
+}
+es_lang = {
+    'start_msg': "*Bienvenido!* {} 🎉\
+        \nEstoy aquí para admnistrar tus\
+        \ncanales y gropos\
+        \nsolo añademe a ellos 👀 ,\
+        \n\nEstoy hecho con<code>tgbotapi`\
+        \nechale un vistazo en<code>PYPI` 🔰 \
+        \nhttps://pypi.org/project/tgbotapi \
+        \n\nPara más información contacta a ⤵️ \
+        \n@MA24th 🛠 - @grid9x ⚙️ ",
+    'creator_help': "<b>MENU DE AYUDA</b> 📋\
+        \n==============\
+        \n<u><b>Acciones de Usuario</b></u> 🚻 \
+        \n🔘 <code>ban</code>: <i>Banear Usuario</i>\
+        \n🔘 <code>unban</code>: <i>Desbanear Miembro Baneado</i>\
+        \n🔘 <code>kick</code>: <i>Eliminar Usuario Sin Banear</i>\
+        \n🔘 <code>pin</code>: <i>Fijar Mensaje</i>\
+        \n🔘 <code>unpin</code>: <i>Quitar Mensaje Fijado</i>\
+        \n🔘 <code>promote</code>: <i>Promover un Miembro</i>\
+        \n🔘 <code>demote</code>: <i>Degradar un Adminstrador</i>\
+        \n\n<u><b>Permisos de Grupo</b></u> 🔣 \
+        \n Comando + Enabe or Disable\
+        \n🔘 <code>Enviar Mensaje</code>: {gcsm}\
+        \n🔘 <code>Enviar Multimedia</code>: {gcsmm}\
+        \n🔘 <code>Enviar Stickers y GIFs</code>: {gcsom}\
+        \n🔘 <code>Enviar Encuestas</code>: {gcsp}\
+        \n🔘 <code>Enlaces Incrustados</code>: {gcawpp}\
+        \n🔘 <code>Añadir Usuarios</code>: {gciu}\
+        \n🔘 <code>Fijar Mensajes</code>: {gcpm}\
+        \n🔘 <code>Cambiar Información del Chat</code>: {gcci}",
+    'admin_help': "*MENU DE AYUDA* 📋\
+        \n============\
+        \n<u><b>Acciones de Usuario</b></u> 🚻 \
+        \n🔘 <code>ban</code>: <i>Banear Usuario</i>\
+        \n🔘 <code>unban</code>: <i>Desbanear Miembro Baneado</i>\
+        \n🔘 <code>kick</code>: <i>Eliminar Usuario Sin Banear</i>\
+        \n🔘 <code>pin</code>: <i>Fijar Mensaje</i>\
+        \n🔘 <code>unpin</code>: <i>Quitar Mensaje Fijado</i>\
+        \n🔘 <code>promote</code>: <i>Promover un Miembro</i>\
+        \n🔘 <code>demote</code>: <i>Degradar un Adminstrador</i>\
+        \n\n<u><b>Permisos de Grupo</b></u> 🔣 \
+        \n Comando + Enabe or Disable\
+        \n🔘 <code>Enviar Mensaje</code>: {gcsm}\
+        \n🔘 <code>Enviar Multimedia</code>: {gcsmm}\
+        \n🔘 <code>Enviar Stickers y GIFs</code>: {gcsom}\
+        \n🔘 <code>Enviar Encuestas</code>: {gcsp}\
+        \n🔘 <code>Enlaces Incrustados</code>: {gcawpp}\
+        \n🔘 <code>Añadir Usuarios</code>: {gciu}\
+        \n🔘 <code>Fijar Mensajes</code>: {gcpm}\
+        \n🔘 <code>Cambiar Información del Chat</code>: {gcci}",
+    'member_help': "<b>Menú De Ayuda</b> 📋\
+        \n============\
+        \n<u><b>Comandos</b></u>\
+        \n🔘 <code>help</code>: Mostrar este Menú\
+        \n🔘 <code>info</code>: Mostrar tu información\
+        \n🔘 <code>kickme</code>: Dejar el Grupo\
+        \n🔘 <code>pin</code>: Fijar Mensaje\
+        \n🔘 <code>unpin</code>: Quitar Mensaje Fijado",
+    'h_channel': '<b>Canal</b> 📰\
+        \n========== \
+        \nPara poder trabajar\
+        \nNecesito ser administrador \
+        \nY necesito estos permisos:\
+        \n<i>Cambiar información del chat</i>\
+        \n<i>Enviar mensajes</i>\
+        \n<i>Editar mensajes de otros</i>\
+        \n<i>Eliminar mensajes de otros</i>\
+        \n<i>Añadir miembros</i>\
+        \n<i>Añadir nuevos administradores</i>\
+        \n',
+    'h_group': '*Grupo* 👥\
+        \n========= \
+        \nPara poder trabajar\
+        \nNecesito ser administrador \
+        \nY necesito estos permisos:\
+        \n<i>Change chat info</i>\
+        \n<i>Eliminar mensajes</i>\
+        \n<i>Banear usuarios</i>\
+        \n<i>Invitar a usuarios mediante enlace</i>\
+        \n<i>Fijar mensajes</i>\
+        \n<i>Añadir nuevos administradores</i>\
+        \n',
+    'h_private': "<b>Privado<b> 👤\
+        \n=========\
+        \n/start : Mensaje de inicio\
+        \n/id : Mostrar tu información",
+    'msg_join': '_Por favor_ Primero \nIngresa a {}',
+    'b_main': 'Menú principal 📱',
+    'b_back': 'Atras ↩️',
+    'b_help': 'Ayuda 📋',
+    'b_support': 'Soporte ⚙️',
+    'b_ch_lang': 'Selecciona una Idioma 🌍',
+    'b_add': 'Añademe 📲',
+    'b_id': 'ID 💳',
+    't_make': 'Selecciona una opción:',
+    'b_channel': 'Canal 📰',
+    'b_group': 'Grupo 👥',
+    'b_private': 'Privado 👤',
+    't_choose': 'Selecciona una opción',
+    't_dev': 'En Desarrollo 📝',
+    't_sup_cap1': '¡Característica no soportada!',
+    't_start': ['start'],
+    't_help': ['help', 'Help'],
+    't_info': ['id', 'Id', 'my id', 'info', 'my info'],
+    't_info_p_user': "<u><b>Detalles</b></u>\
+        \n<b>Nombre completo</b>: {fn}\
+        \n<b>Apellido</b>: @{un}\
+        \n<b>ID</b>:* <code>{id}</code>",
+    't_info_user': "<u><b>Detalles</b></u>\
+        \n<b>Nombre completo</b>: {fn}\
+        \n<b>Nombre de usuario</b>: @{un}\
+        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Estado</b>: {us}",
+    't_info_admin': "<u><b>Details</b></u>\
+        \n<b>Nombre completo</b>: {fn}\
+        \n<b>Nombre de usuario</b>: @{un}\
+        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Estado</b>: {us}\
+        \n\n<u><b>Permisos</b></u>\
+        \n🔘<code>Editable</code>: {cbe}\
+        \n🔘<code>Añadir Usuarios</code>: {uciu}\
+        \n🔘<code>Restringir Usuarios</code>: {ucru}\
+        \n🔘<code>Promover Usuarios</code>: {ucpu}\
+        \n🔘<code>Fijar Mensajes</code>: {ucpm}\
+        \n🔘<code>Eliminar Mensajes</code>: {ucdm}\
+        \n🔘<code>Cambiar Información del Chat</code>: {ucci}",
+    't_info_member': "<u><b>Detalles</b></u>\
+        \n<b>Nombre completo</b>: {fn}\
+        \n<b>Nombre de usuario</b>: @{un}\
+        \n<b>ID</b>: <code>{id}</code\
+        \n<b>Estado</b>: {us}\
+        \n🔘<b>Hasta la Fecha</b>: {ud}\
+        \n\n<u><b>Permisos</b></u>\
+        \n🔘<code>Fijar Mensajes</code>: {ucpm}\
+        \n🔘<code>Enviar Mensajes</code>: {ucsm}\
+        \n🔘<code>Enviar Multimedia</code>: {ucsmm}\
+        \n🔘<code>Enviar Stickers y GIFs</code>: {ucsom}\
+        \n🔘<code>Enviar Encuestas</code>: {ucsp}\
+        \n🔘<code>Links embebidos</code>: {ucawpp}\
+        \n🔘<code>Añadir Usuarios</code>: {uciu}\
+        \n🔘<code>Cambiar Información del Chat</code>: {ucci}",
+    't_piv_admin': 'No eres Administrador',
+    't_user_until_date_cap1': 'Para siempre',
+    't_ban': ['ban', 'Ban'],
+    't_ban_cap1': '¡@{} Baneado!',
+    't_ban_cap2': '¡¡¡No puedo banearme a mí mismo!!!',
+    't_ban_cap3': '¡No puedo banearte!',
+    't_ban_cap4': '¡Solo el Creador @{} puede banearme!',
+    't_ban_cap5': 'No puedo banear al creador @{}.',
+    't_ban_cap6': 'Solo el creador @{}\npuede banear a @{}',
+    't_ban_cap7': 'No te está permitido banear @{}',
+    't_unban': ['unban', 'unban'],
+    't_unban_cap1': '¡@{} desbaneado!',
+    't_unban_cap2': '¡¡¡No puedo desbanearme a mí mismo!!!',
+    't_unban_cap3': '¡No puedo desbanearte!',
+    't_unban_cap4': '¡Solo el creador @{} puede desbanearme!',
+    't_unban_cap5': 'No puedo desbanear al Creador @{}.',
+    't_unban_cap6': 'Solo el creador @{}\nPuede desbanear al Administrador @{}',
+    't_unban_cap7': 'No puedes desbanear @{}',
+    't_kick': ['kick', 'Kick'],
+    't_kick_cap1': 'Kick @{} Done!',
+    't_kick_cap2': '¡¡¡No puedo echarme a mí mismo!!!',
+    't_kick_cap3': 'No puedo echarte',
+    't_kick_cap4': 'Solo el Creador @{} puede echarme!',
+    't_kick_cap5': 'No puedo hechar al Creador @{}.',
+    't_kick_cap6': 'Solo el Creador @{}\npuede hechar al Administrador @{}',
+    't_kickme': ['kickme', 'Kickme'],
+    't_kickme_cap1': '¡@{} expulsado!',
+    't_pin': ['pin', 'Pin'],
+    't_pin_cap1': '¡¡¡Tú {} no tienes permitido fijar mensajes!!!',
+    't_unpin': ['unpin', 'Unpin'],
+    't_unpin_cap1': '¡¡¡Tu {} no tienes permitido quitar mensajes fijados!!!',
+    't_promote': ['promote', 'Promote'],
+    't_promote_cap1': '¡@{} Promovido!',
+    't_demote': ['demote', 'Demote'],
+    't_demote_cap1': '¡@{} Degradado!',
+    't_user_can_send_messages': ['can send messages enable', 'Can Send Messages', 'send messages', 'Send Messages', 'Send Messages'],
+    't_user_can_send_messages_cap1': '@{} hecho!',
+    't_user_can_send_messages_cap7': 'No tienes permitido restringir usuarios',
+    'r_enable': 'en',
+    'r_disable': 'di',
 
-es_lang = {'start_msg': "*Bienvenido!* {} 🎉\
-                        \nEstoy aquí para admnistrar tus\
-                        \ncanales y gropos\
-                        \nsolo añademe a ellos 👀 ,\
-                        \n\nEstoy hecho con `tgbotapi`\
-                        \nechale un vistazo en `PYPI` 🔰 \
-                        \nhttps://pypi.org/project/tgbotapi \
-                        \n\nPara más información contacta a ⤵️ \
-                        \n@MA24th 🛠 - @grid9x ⚙️ ",
-           'creator_help': "*MENU DE AYUDA* 📋\
-                                \n\=\=\=\=\=\=\=\=\=\=\=\=\
-                                \n__*Acciones de Usuario*__ 🚻 \
-                                \n🔘 `ban`: _Banear Usuario_\
-                                \n🔘 `unban`: _Desbanear Miembro Baneado_\
-                                \n🔘 `kick`: _Eliminar Usuario Sin Banear_\
-                                \n🔘 `pin`: _Fijar Mensaje_\
-                                \n🔘 `unpin`: _Quitar Mensaje Fijado_\
-                                \n🔘 `promote`: _Promover un Miembro_\
-                                \n🔘 `demote`: _Degradar un Adminstrador_\
-                                \n\n__*Permisos de Grupo*__ 🔣 \
-                                \n Comando \+ Enabe or Disable\
-                                \n🔘 `Enviar Mensaje`: {gcsm}\
-                                \n🔘 `Enviar Multimedia`: {gcsmm}\
-                                \n🔘 `Enviar Stickers y GIFs`: {gcsom}\
-                                \n🔘 `Enviar Encuestas`: {gcsp}\
-                                \n🔘 `Enlaces Incrustados`: {gcawpp}\
-                                \n🔘 `Añadir Usuarios`: {gciu}\
-                                \n🔘 `Fijar Mensajes`: {gcpm}\
-                                \n🔘 `Cambiar Información del Chat`: {gcci}",
-           'admin_help': "*MENU DE AYUDA* 📋\
-                                \n\=\=\=\=\=\=\=\=\=\=\=\=\
-                                \n__*Acciones de Usuario*__ 🚻 \
-                                \n🔘 `ban`: _Banear Usuario_\
-                                \n🔘 `unban`: _Desbanear Miembro Baneado_\
-                                \n🔘 `kick`: _Eliminar Usuario Sin Banear_\
-                                \n🔘 `pin`: _Fijar Mensaje_\
-                                \n🔘 `unpin`: _Quitar Mensaje Fijado_\
-                                \n🔘 `promote`: _Promover un Miembro_\
-                                \n🔘 `demote`: _Degradar un Adminstrador_\
-                                \n\n__*Permisos de Grupo*__ 🔣 \
-                                \n Comando \+ Enabe or Disable\
-                                \n🔘 `Enviar Mensaje`: {gcsm}\
-                                \n🔘 `Enviar Multimedia`: {gcsmm}\
-                                \n🔘 `Enviar Stickers y GIFs`: {gcsom}\
-                                \n🔘 `Enviar Encuestas`: {gcsp}\
-                                \n🔘 `Enlaces Incrustados`: {gcawpp}\
-                                \n🔘 `Añadir Usuarios`: {gciu}\
-                                \n🔘 `Fijar Mensajes`: {gcpm}\
-                                \n🔘 `Cambiar Información del Chat`: {gcci}",
-           'member_help': "*Menú De Ayuda* 📋\
-                                \n\=\=\=\=\=\=\=\=\=\=\=\=\
-                                \n__*Comandos*__\
-                                \n🔘 `help`: Mostrar este Menú\
-                                \n🔘 `info`: Mostrar tu información\
-                                \n🔘 `kickme`: Dejar el Grupo\
-                                \n🔘 `pin`: Fijar Mensaje\
-                                \n🔘 `unpin`: Quitar Mensaje Fijado",
-           'h_channel': '*Canal* 📰\
-                      \n========== \
-                      \nPara poder trabajar\
-                      \nNecesito ser administrador \
-                      \nY necesito estos permisos:\
-                      \n_Cambiar información del chat\
-                      \nEnviar mensajes\
-                      \nEditar mensajes de otros\
-                      \nEliminar mensajes de otros\
-                      \nAñadir miembros\
-                      \nAñadir nuevos administradores_\
-                      \n',
-           'h_group': '*Grupo* 👥\
-                      \n========= \
-                      \nPara poder trabajar\
-                      \nNecesito ser administrador \
-                      \nY necesito estos permisos:\
-                      \n_Change chat info\
-                      \nEliminar mensajes\
-                      \nBanear usuarios\
-                      \nInvitar a usuarios mediante enlace\
-                      \nFijar mensajes\
-                      \nAñadir nuevos administradores_\
-                      \n',
-           'h_private': "*Privado* 👤\
-                      \n\=\=\=\=\=\=\=\=\=\
-                      \n\/start : Mensaje de inicio\
-                      \n\/id : Mostrar tu información",
-           'msg_join': '_Por favor_ Primero \nIngresa a {}',
-           'b_main': 'Menú principal 📱',
-           'b_back': 'Atras ↩️',
-           'b_help': 'Ayuda 📋',
-           'b_support': 'Soporte ⚙️',
-           'b_ch_lang': 'Selecciona una Idioma 🌍',
-           'b_add': 'Añademe 📲',
-           'b_id': 'ID 💳',
-           't_make': 'Selecciona una opción:',
-           'b_channel': 'Canal 📰',
-           'b_group': 'Grupo 👥',
-           'b_private': 'Privado 👤',
-           't_choose': 'Selecciona una opción',
-           't_dev': 'En Desarrollo 📝',
-           't_sup_cap1': '¡Característica no soportada!',
-           't_start': ['start'],
-           't_help': ['help', 'Help'],
-           't_info': ['id', 'Id', 'my id', 'info', 'my info'],
-           't_info_p_user': "__*Detalles*__\
-                     \n*Nombre completo:* {fn}\
-                     \n*Apellido:* @{un}\
-                     \n*ID:* `{id}`",
-           't_info_user': "__*Detalles*__\
-                     \n*Nombre completo:* {fn}\
-                     \n*Nombre de usuario:* @{un}\
-                     \n*ID:* `{id}`\
-                     \n*Estado*: {us}",
-           't_info_admin': "__*Details*__\
-                     \n*Nombre completo:* {fn}\
-                     \n*Nombre de usuario:* @{un}\
-                     \n*ID:* `{id}`\
-                     \n*Estado*: {us}\
-                     \n\n__*Permisos*__\
-                     \n🔘 `Editable`: {cbe}\
-                     \n🔘 `Añadir Usuarios`: {uciu}\
-                     \n🔘 `Restringir Usuarios`: {ucru}\
-                     \n🔘 `Promover Usuarios`: {ucpu}\
-                     \n🔘 `Fijar Mensajes`: {ucpm}\
-                     \n🔘 `Eliminar Mensajes`: {ucdm}\
-                     \n🔘 `Cambiar Información del Chat`: {ucci}",
-           't_info_member': "__*Detalles*__\
-                     \n*Nombre completo:* {fn}\
-                     \n*Nombre de usuario:* @{un}\
-                     \n*ID:* `{id}`\
-                     \n*Estado*: {us}\
-                     \n🔘*Hasta la Fecha*: {ud}\
-                     \n\n__*Permisos*__\
-                     \n🔘 `Fijar Mensajes`: {ucpm}\
-                     \n🔘 `Enviar Mensajes`: {ucsm}\
-                     \n🔘 `Enviar Multimedia`: {ucsmm}\
-                     \n🔘 `Enviar Stickers y GIFs`: {ucsom}\
-                     \n🔘 `Enviar Encuestas`: {ucsp}\
-                     \n🔘 `Links embebidos`: {ucawpp}\
-                     \n🔘 `Añadir Usuarios`: {uciu}\
-                     \n🔘 `Cambiar Información del Chat`: {ucci}",
-           't_piv_admin': 'No eres Administrador',
-           't_user_until_date_cap1': 'Para siempre',
-           't_ban': ['ban', 'Ban'],
-           't_ban_cap1': '¡@{} Baneado!',
-           't_ban_cap2': '¡¡¡No puedo banearme a mí mismo!!!',
-           't_ban_cap3': '¡No puedo banearte!',
-           't_ban_cap4': '¡Solo el Creador @{} puede banearme!',
-           't_ban_cap5': 'No puedo banear al creador @{}.',
-           't_ban_cap6': 'Solo el creador @{}\npuede banear a @{}',
-           't_ban_cap7': 'No te está permitido banear @{}',
-           't_unban': ['unban', 'unban'],
-           't_unban_cap1': '¡@{} desbaneado!',
-           't_unban_cap2': '¡¡¡No puedo desbanearme a mí mismo!!!',
-           't_unban_cap3': '¡No puedo desbanearte!',
-           't_unban_cap4': '¡Solo el creador @{} puede desbanearme!',
-           't_unban_cap5': 'No puedo desbanear al Creador @{}.',
-           't_unban_cap6': 'Solo el creador @{}\nPuede desbanear al Administrador @{}',
-           't_unban_cap7': 'No puedes desbanear @{}',
-           't_kick': ['kick', 'Kick'],
-           't_kick_cap1': 'Kick @{} Done!',
-           't_kick_cap2': '¡¡¡No puedo echarme a mí mismo!!!',
-           't_kick_cap3': 'No puedo echarte',
-           't_kick_cap4': 'Solo el Creador @{} puede echarme!',
-           't_kick_cap5': 'No puedo hechar al Creador @{}.',
-           't_kick_cap6': 'Solo el Creador @{}\npuede hechar al Administrador @{}',
-           't_kickme': ['kickme', 'Kickme'],
-           't_kickme_cap1': '¡@{} expulsado!',
-           't_pin': ['pin', 'Pin'],
-           't_pin_cap1': '¡¡¡Tú {} no tienes permitido fijar mensajes!!!',
-           't_unpin': ['unpin', 'Unpin'],
-           't_unpin_cap1': '¡¡¡Tu {} no tienes permitido quitar mensajes fijados!!!',
-           't_promote': ['promote', 'Promote'],
-           't_promote_cap1': '¡@{} Promovido!',
-           't_demote': ['demote', 'Demote'],
-           't_demote_cap1': '¡@{} Degradado!',
-           't_user_can_send_messages': ['can send messages enable', 'Can Send Messages', 'send messages', 'Send Messages', 'Send Messages'],
-           't_user_can_send_messages_cap1': '@{} hecho!',
-           't_user_can_send_messages_cap7': 'No tienes permitido restringir usuarios',
-           'r_enable': 'en',
-           'r_disable': 'di',
-
-           }
+}
 
 
 def ch_lang(user_lang):
