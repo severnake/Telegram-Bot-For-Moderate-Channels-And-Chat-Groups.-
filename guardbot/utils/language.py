@@ -10,6 +10,51 @@ en_lang = {
         \nhttps://pypi.org/project/tgbotapi\
         \n\nFor more information contact ⤵️\
         \n@MA24th 🛠 - @grid9x ⚙️ ",
+    'h_channel': "<b>Channel</b> 📰\
+        \n========== \
+        \nIn order to make me work\
+        \nI\'m must be an admin \
+        \nAnd should observe all permissions:\
+        \n<i>Change chat info</i>\
+        \n<i>Post messages</i>\
+        \n<i>Edit messages of others</i>\
+        \n<i>Delete messages of others</i>\
+        \n<i>Add members</i>\
+        \n<i>Add new admins</i>\
+        \n",
+    'h_group': "<b>Group</b> 👥\
+        \n========= \
+        \nIn order to make me work\
+        \nI\'m must be an admin \
+        \nAnd should observe all permissions:\
+        \n<i>Change chat info</i>\
+        \n<i>Delete messages</i>\
+        \n<i>Ban users</i>\
+        \n<i>Invite users via link</i>\
+        \n<i>Pin messages</i>\
+        \n<i>Add new admins</i>\
+        \n",
+    'h_private': "<b>Private</b> 👤\
+        \n=========\
+        \n/start :welcome message\
+        \n/id : show your info",
+    'msg_join': '<i>Please</i> \nJoin {} First',
+    'b_main': 'Main Menu 📱',
+    'b_back': 'Back ↩️',
+    'b_help': 'Help 📋',
+    'b_support': 'Support ⚙️',
+    'b_ch_lang': 'Choose a language 🌍',
+    'b_add': 'Add Me 📲',
+    'b_id': 'ID 💳',
+    't_make': 'Make a Choose',
+    'b_channel': 'Channel 📰',
+    'b_group': 'Group 👥',
+    'b_private': 'Private 👤',
+    't_choose': 'Make a Choose',
+    't_dev': 'Under Development 📝',
+    't_sup_cap1': 'Unsupported Feature!',
+    't_start': ['start'],
+    't_help': ['help', 'Help'],
     'creator_help': "<b>HELP MENU</b> 📋\
         \n============\
         \n<u><b>User Actions</b></u> 🚻\
@@ -59,51 +104,6 @@ en_lang = {
         \n🔘 <code>kickme</code>: Leave The Group\
         \n🔘 <code>pin</code>: Pin Message\
         \n🔘 <code>unpin</code>: Unpin Message",
-    'h_channel': "<b>Channel</b> 📰\
-        \n========== \
-        \nIn order to make me work\
-        \nI\'m must be an admin \
-        \nAnd should observe all permissions:\
-        \n<i>Change chat info</i>\
-        \n<i>Post messages</i>\
-        \n<i>Edit messages of others\
-        \n<i>Delete messages of others</i>\
-        \n<i>Add members</i>\
-        \n<i>Add new admins</i>\
-        \n",
-    'h_group': "<b>Group</b> 👥\
-        \n========= \
-        \nIn order to make me work\
-        \nI\'m must be an admin \
-        \nAnd should observe all permissions:\
-        \n<i>Change chat info</i>\
-        \n<i>Delete messages</i>\
-        \n<i>Ban users</i>\
-        \n<i>Invite users via link</i>\
-        \n<i>Pin messages</i>\
-        \n<i>Add new admins</i>\
-        \n",
-    'h_private': "<b>Private</b> 👤\
-        \n=========\
-        \n/start :welcome message\
-        \n/id : show your info",
-    'msg_join': '<i>Please</i> \nJoin {} First',
-    'b_main': 'Main Menu 📱',
-    'b_back': 'Back ↩️',
-    'b_help': 'Help 📋',
-    'b_support': 'Support ⚙️',
-    'b_ch_lang': 'Choose a language 🌍',
-    'b_add': 'Add Me 📲',
-    'b_id': 'ID 💳',
-    't_make': 'Make a Choose',
-    'b_channel': 'Channel 📰',
-    'b_group': 'Group 👥',
-    'b_private': 'Private 👤',
-    't_choose': 'Make a Choose',
-    't_dev': 'Under Development 📝',
-    't_sup_cap1': 'Unsupported Feature!',
-    't_start': ['start'],
-    't_help': ['help', 'Help'],
     't_info': ['id', 'Id', 'my id', 'My id', 'info', 'Info', 'INFO'],
     't_info_p_user': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {fn}\
@@ -183,16 +183,62 @@ en_lang = {
     'r_enable': 'en',
     'r_disable': 'di',
 }
-es_lang = {
-    'start_msg': "*Bienvenido!* {} 🎉\
+sp_lang = {
+    'start_msg': "<b>Bienvenido!</b> {} 🎉\
         \nEstoy aquí para admnistrar tus\
         \ncanales y gropos\
         \nsolo añademe a ellos 👀 ,\
-        \n\nEstoy hecho con<code>tgbotapi`\
-        \nechale un vistazo en<code>PYPI` 🔰 \
+        \n\nEstoy hecho con <code>tgbotapi</code>\
+        \nechale un vistazo en <code>PYPI</code> 🔰 \
         \nhttps://pypi.org/project/tgbotapi \
         \n\nPara más información contacta a ⤵️ \
         \n@MA24th 🛠 - @grid9x ⚙️ ",
+    'h_channel': '<b>Canal</b> 📰\
+        \n========== \
+        \nPara poder trabajar\
+        \nNecesito ser administrador \
+        \nY necesito estos permisos:\
+        \n<i>Cambiar información del chat</i>\
+        \n<i>Enviar mensajes</i>\
+        \n<i>Editar mensajes de otros</i>\
+        \n<i>Eliminar mensajes de otros</i>\
+        \n<i>Añadir miembros</i>\
+        \n<i>Añadir nuevos administradores</i>\
+        \n',
+    'h_group': '*Grupo* 👥\
+        \n========= \
+        \nPara poder trabajar\
+        \nNecesito ser administrador \
+        \nY necesito estos permisos:\
+        \n<i>Change chat info</i>\
+        \n<i>Eliminar mensajes</i>\
+        \n<i>Banear usuarios</i>\
+        \n<i>Invitar a usuarios mediante enlace</i>\
+        \n<i>Fijar mensajes</i>\
+        \n<i>Añadir nuevos administradores</i>\
+        \n',
+    'h_private': "<b>Privado</b> 👤\
+        \n=========\
+        \n/start : Mensaje de inicio\
+        \n/id : Mostrar tu información",
+    'msg_join': '_Por favor_ Primero \nIngresa a {}',
+    'b_main': 'Menú principal 📱',
+    'b_back': 'Atras ↩️',
+    'b_help': 'Ayuda 📋',
+    'b_support': 'Soporte ⚙️',
+    'b_ch_lang': 'Selecciona una Idioma 🌍',
+    'b_add': 'Añademe 📲',
+    'b_id': 'ID 💳',
+    't_make': 'Selecciona una opción:',
+    'b_channel': 'Canal 📰',
+    'b_group': 'Grupo 👥',
+    'b_private': 'Privado 👤',
+    't_choose': 'Selecciona una opción',
+    't_dev': 'En Desarrollo 📝',
+    't_sup_cap1': '¡Característica no soportada!',
+    't_start': ['start'],
+    't_help': ['help', 'Help'],
+    't_info': ['id', 'Id', 'my id', 'info', 'my info'],
     'creator_help': "<b>MENU DE AYUDA</b> 📋\
         \n==============\
         \n<u><b>Acciones de Usuario</b></u> 🚻 \
@@ -241,56 +287,10 @@ es_lang = {
         \n🔘 <code>kickme</code>: Dejar el Grupo\
         \n🔘 <code>pin</code>: Fijar Mensaje\
         \n🔘 <code>unpin</code>: Quitar Mensaje Fijado",
-    'h_channel': '<b>Canal</b> 📰\
-        \n========== \
-        \nPara poder trabajar\
-        \nNecesito ser administrador \
-        \nY necesito estos permisos:\
-        \n<i>Cambiar información del chat</i>\
-        \n<i>Enviar mensajes</i>\
-        \n<i>Editar mensajes de otros</i>\
-        \n<i>Eliminar mensajes de otros</i>\
-        \n<i>Añadir miembros</i>\
-        \n<i>Añadir nuevos administradores</i>\
-        \n',
-    'h_group': '*Grupo* 👥\
-        \n========= \
-        \nPara poder trabajar\
-        \nNecesito ser administrador \
-        \nY necesito estos permisos:\
-        \n<i>Change chat info</i>\
-        \n<i>Eliminar mensajes</i>\
-        \n<i>Banear usuarios</i>\
-        \n<i>Invitar a usuarios mediante enlace</i>\
-        \n<i>Fijar mensajes</i>\
-        \n<i>Añadir nuevos administradores</i>\
-        \n',
-    'h_private': "<b>Privado<b> 👤\
-        \n=========\
-        \n/start : Mensaje de inicio\
-        \n/id : Mostrar tu información",
-    'msg_join': '_Por favor_ Primero \nIngresa a {}',
-    'b_main': 'Menú principal 📱',
-    'b_back': 'Atras ↩️',
-    'b_help': 'Ayuda 📋',
-    'b_support': 'Soporte ⚙️',
-    'b_ch_lang': 'Selecciona una Idioma 🌍',
-    'b_add': 'Añademe 📲',
-    'b_id': 'ID 💳',
-    't_make': 'Selecciona una opción:',
-    'b_channel': 'Canal 📰',
-    'b_group': 'Grupo 👥',
-    'b_private': 'Privado 👤',
-    't_choose': 'Selecciona una opción',
-    't_dev': 'En Desarrollo 📝',
-    't_sup_cap1': '¡Característica no soportada!',
-    't_start': ['start'],
-    't_help': ['help', 'Help'],
-    't_info': ['id', 'Id', 'my id', 'info', 'my info'],
     't_info_p_user': "<u><b>Detalles</b></u>\
         \n<b>Nombre completo</b>: {fn}\
         \n<b>Apellido</b>: @{un}\
-        \n<b>ID</b>:* <code>{id}</code>",
+        \n<b>ID</b>: <code>{id}</code>",
     't_info_user': "<u><b>Detalles</b></u>\
         \n<b>Nombre completo</b>: {fn}\
         \n<b>Nombre de usuario</b>: @{un}\
@@ -373,5 +373,7 @@ def ch_lang(user_lang):
         return ar_lang
     elif user_lang == 'en':
         return en_lang
+    elif user_lang == 'sp':
+        return sp_lang
     else:
         raise ValueError('UNDEFINED USER LANGUAGE:', user_lang)

@@ -154,16 +154,18 @@ def callback_query(call):
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_help(), parse_mode='HTML',
                          disable_web_page_preview=False)
-    elif call.data == 'l_en':
-        lang.append('en')
-        bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
-                         reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'l_ar':
         lang.append('ar')
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'], reply_markup=gen_start(),
-                         parse_mode='HTML', disable_web_page_preview=False)
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
+    elif call.data == 'l_en':
+        lang.append('en')
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
+    elif call.data == 'l_sp':
+        lang.append('sp')
+        bot.delete_message(chat_id, message_id)
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'p_id':
         if None != user_lastname:
             user_fullname = str(user_firstname) + ' ' + str(user_lastname)
@@ -229,6 +231,7 @@ def gen_lang():
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton(text='العربية 🇮🇶', callback_data='l_ar'))
     markup.add(InlineKeyboardButton(text='English 🌎', callback_data='l_en'))
+    markup.add(InlineKeyboardButton(text='española 🌎', callback_data='l_sp'))
     markup.add(InlineKeyboardButton(text=ch_lang(lang[-1])['b_back'], callback_data='s_back'))
     return markup
 
