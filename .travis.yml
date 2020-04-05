@@ -3,9 +3,7 @@ python:
     - "3.6"
     - "3.7"
     - "3.8"
-virtualenv:
-    system_site_packages: true
 install:
-    - pip install -user -r requirements.txt
+    - pip install tgbotapi
 script:
     - pytest -vvv
