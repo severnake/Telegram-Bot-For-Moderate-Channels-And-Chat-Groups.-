@@ -44,7 +44,7 @@ def read_cfg(config):
 
 # Write config
 def write_cfg(config):
-    print("Enter the requirements with out '@'")
+    print("Enter The Requirements without '@'")
     token = input('BOT_TOKEN: ')
     sudo = input('YOUR_USERNAME: ')
     channel = input('CHANNEL_USERNAME: ')

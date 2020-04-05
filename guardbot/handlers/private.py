@@ -123,47 +123,47 @@ def callback_query(call):
     if call.data == "s_help":
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'],
-                         reply_markup=gen_help(), parse_mode='MarkdownV2',
+                         reply_markup=gen_help(), parse_mode='HTML',
                          disable_web_page_preview=True)
     elif call.data == 's_back':
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
-                         reply_markup=gen_start(), parse_mode='Markdown',
+                         reply_markup=gen_start(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 's_lang':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_lang(), parse_mode='Markdown',
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_lang(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 'h_group':
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['h_group'], reply_markup=gen_group(),
-                         parse_mode='Markdown', disable_web_page_preview=False)
+                         parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_channel':
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['h_channel'], reply_markup=gen_channel(),
-                         parse_mode='Markdown', disable_web_page_preview=False)
+                         parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_private':
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['h_private'], reply_markup=gen_private(),
-                         parse_mode='MarkdownV2', disable_web_page_preview=False)
+                         parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 's_main':
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
-                         reply_markup=gen_start(), parse_mode='Markdown', disable_web_page_preview=False)
+                         reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_back':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_help(), parse_mode='MarkdownV2',
+        bot.send_message(chat_id, text=ch_lang(lang[-1])['t_choose'], reply_markup=gen_help(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 'l_en':
         lang.append('en')
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
-                         reply_markup=gen_start(), parse_mode='Markdown', disable_web_page_preview=False)
+                         reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'l_ar':
         lang.append('ar')
         bot.delete_message(chat_id, message_id)
         bot.send_message(chat_id, text=ch_lang(lang[-1])['start_msg'], reply_markup=gen_start(),
-                         parse_mode='Markdown', disable_web_page_preview=False)
+                         parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'p_id':
         if None != user_lastname:
             user_fullname = str(user_firstname) + ' ' + str(user_lastname)
@@ -179,7 +179,7 @@ def callback_query(call):
                 bot.delete_message(chat_id, message_id)
                 bot.send_message(chat_id, text=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname,
                                                                                          un=user_username, id=user_id),
-                                 parse_mode='MarkdownV2', reply_markup=gen_private())
+                                 parse_mode='HTML', reply_markup=gen_private())
             else:
                 user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                 bot.delete_message(chat_id, message_id)
@@ -187,14 +187,14 @@ def callback_query(call):
                                caption=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
                                                                                  id=user_id),
                                reply_markup=gen_private(),
-                               parse_mode="MarkdownV2")
+                               parse_mode="HTML")
         else:
             user_photos_ids = bot.get_user_profile_photos(user_id)
             if user_photos_ids.total_count == 0:
                 bot.delete_message(chat_id, message_id)
                 bot.send_message(chat_id, text=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname,
                                                                                          un=user_username, id=user_id),
-                                 parse_mode='MarkdownV2', reply_markup=gen_private())
+                                 parse_mode='HTML', reply_markup=gen_private())
             else:
                 user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                 bot.delete_message(chat_id, message_id)
@@ -202,7 +202,7 @@ def callback_query(call):
                                caption=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
                                                                                  id=user_id),
                                reply_markup=gen_private(),
-                               parse_mode="MarkdownV2")
+                               parse_mode="HTML")
 
     else:
         return None
@@ -263,7 +263,7 @@ def start(message):
     user_firstname = message.from_user.first_name
     if chat_type == 'private':
         bot.send_message(chat_id=message.chat.id, text=ch_lang(lang[-1])['start_msg'].format(user_firstname),
-                         reply_markup=gen_start(), parse_mode='Markdown',
+                         reply_markup=gen_start(), parse_mode='HTML',
                          disable_web_page_preview=False)
     else:
         return None
@@ -282,9 +282,9 @@ def replay_help(message):
         if status_msg == 'left' and user_id not in vusers_ids:
             vusers_info.append(chat_member_info.user)
             vusers_ids.append(user_id)
-            bot.reply_to(message, text=ch_lang(lang[-1])['msg_join'].format(channel_username), parse_mode='MarkdownV2')
+            bot.reply_to(message, text=ch_lang(lang[-1])['msg_join'].format(channel_username), parse_mode='HTML')
         else:
-            bot.reply_to(message, text=ch_lang(lang[-1])['h_private'], parse_mode='MarkdownV2')
+            bot.reply_to(message, text=ch_lang(lang[-1])['h_private'], parse_mode='HTML')
     elif chat_type in ['group', 'supergroup']:
         chat_admins = bot.get_chat_administrators(chat_id)
         for x in chat_admins:
@@ -297,15 +297,15 @@ def replay_help(message):
             bot.reply_to(message, text=ch_lang(lang[-1])['creator_help'].format(gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp,
                                                                                 gcsom=gcsom, gcawpp=gcawpp, gcci=gcci,
                                                                                 gciu=gciu, gcpm=gcpm),
-                         parse_mode='MarkdownV2')
+                         parse_mode='HTML')
         else:
             if user_id in chat_admins:
                 bot.reply_to(message, text=ch_lang(lang[-1])['admin_help'].format(gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp,
                                                                                   gcsom=gcsom, gcawpp=gcawpp, gcci=gcci,
                                                                                   gciu=gciu, gcpm=gcpm),
-                             parse_mode='MarkdownV2')
+                             parse_mode='HTML')
             else:
-                bot.reply_to(message, text=ch_lang(lang[-1])['member_help'], parse_mode='MarkdownV2')
+                bot.reply_to(message, text=ch_lang(lang[-1])['member_help'], parse_mode='HTML')
     else:
         print('UNKOWN CHAT TYPE: ', chat_type)
 
@@ -367,7 +367,7 @@ def replay_info(message):
                                                                                                 un=target_user_username,
                                                                                                 id=target_user_id,
                                                                                                 us=target_user_status),
-                                     parse_mode='MarkdownV2')
+                                     parse_mode='HTML')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
@@ -376,7 +376,7 @@ def replay_info(message):
                                                                                           id=target_user_id,
                                                                                           us=target_user_status),
                                        reply_to_message_id=msg_id,
-                                       parse_mode='MarkdownV2')
+                                       parse_mode='HTML')
                 elif target_user_id in admins_ids:
                     if target_photos_ids.total_count == 0:
                         bot.reply_to(message, text=ch_lang(lang[-1])['t_info_admin'].format(fn=target_user_fullname,
@@ -387,7 +387,7 @@ def replay_info(message):
                                                                                               ucru=tcru, ucpu=tcpu,
                                                                                               ucpm=tcpm, ucdm=tcdm,
                                                                                               ucci=tcci),
-                                     parse_mode='MarkdownV2')
+                                     parse_mode='HTML')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
@@ -400,7 +400,7 @@ def replay_info(message):
                                                                                               ucpm=tcpm, ucdm=tcdm,
                                                                                               ucci=tcci),
                                        reply_to_message_id=msg_id,
-                                       parse_mode='MarkdownV2')
+                                       parse_mode='HTML')
                 else:
                     if target_photos_ids.total_count == 0:
                         bot.reply_to(message, text=ch_lang(lang[-1])['t_info_member'].format(fn=target_user_fullname,
@@ -412,7 +412,7 @@ def replay_info(message):
                                                                                               ucsp=tcsp, ucsmm=tcsmm,
                                                                                               ucsom=tcsom, ucci=tcci,
                                                                                               ucpm=tcpm, ucawpp=tcawpp),
-                                     parse_mode='MarkdownV2')
+                                     parse_mode='HTML')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
@@ -426,14 +426,14 @@ def replay_info(message):
                                                                                               ucsom=tcsom, ucci=tcci,
                                                                                               ucpm=tcpm, ucawpp=tcawpp),
                                        reply_to_message_id=msg_id,
-                                       parse_mode='MarkdownV2')
+                                       parse_mode='HTML')
             else:
                 if target_photos_ids.total_count == 0:
                     bot.reply_to(message, text=ch_lang(lang[-1])['t_info_user'].format(fn=target_user_fullname,
                                                                                        un=target_user_username,
                                                                                        id=target_user_id,
                                                                                        us=target_user_status),
-                                 parse_mode='MarkdownV2')
+                                 parse_mode='HTML')
                 else:
                     target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                     bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
@@ -442,7 +442,7 @@ def replay_info(message):
                                                                                       id=target_user_id,
                                                                                       us=target_user_status),
                                    reply_to_message_id=msg_id,
-                                   parse_mode='MarkdownV2')
+                                   parse_mode='HTML')
         else:
             user_status = get_user_permissions(chat_id, user_id)[0]
             user_photos_ids = bot.get_user_profile_photos(user_id)
@@ -451,40 +451,40 @@ def replay_info(message):
                     bot.reply_to(message,
                                  text=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
                                                                               id=user_id, us=user_status),
-                                 parse_mode='MarkdownV2')
+                                 parse_mode='HTML')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                     bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
                                    caption=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
                                                                                    id=user_id, us=user_status),
                                    reply_to_message_id=msg_id,
-                                   parse_mode="MarkdownV2")
+                                   parse_mode="HTML")
             elif user_id in admins_ids:
                 if user_photos_ids.total_count == 0:
                     bot.reply_to(message,
                                  text=ch_lang(lang[-1])['t_info_admin'].format(fn=user_fullname, un=user_username,
                                                                                id=user_id, us=user_status),
-                                 parse_mode='MarkdownV2')
+                                 parse_mode='HTML')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                     bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
                                    caption=ch_lang(lang[-1])['t_info_admin'].format(fn=user_fullname, un=user_username,
                                                                                     id=user_id, us=user_status),
                                    reply_to_message_id=msg_id,
-                                   parse_mode="MarkdownV2")
+                                   parse_mode="HTML")
             else:
                 if user_photos_ids.total_count == 0:
                     bot.reply_to(message,
                                  text=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
                                                                               id=user_id, us=user_status),
-                                 parse_mode='MarkdownV2')
+                                 parse_mode='HTML')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                     bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
                                    caption=ch_lang(lang[-1])['t_info_user'].format(fn=user_fullname, un=user_username,
                                                                                    id=user_id, us=user_status),
                                    reply_to_message_id=msg_id,
-                                   parse_mode="MarkdownV2")
+                                   parse_mode="HTML")
     elif chat_type in ['private']:
         chat_member_info = bot.get_chat_member(channel_username, user_id)
         user_status = chat_member_info.status
@@ -495,27 +495,27 @@ def replay_info(message):
             if user_photos_ids.total_count == 0:
                 bot.reply_to(message, text=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
                                                                                      id=user_id),
-                             parse_mode='MarkdownV2')
+                             parse_mode='HTML')
             else:
                 user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                 bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
                                caption=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
                                                                                  id=user_id),
                                reply_to_message_id=msg_id,
-                               parse_mode="MarkdownV2")
+                               parse_mode="HTML")
         else:
             user_photos_ids = bot.get_user_profile_photos(user_id)
             if user_photos_ids.total_count == 0:
                 bot.reply_to(message,
                              text=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
                                                                                      id=user_id),
-                             parse_mode='MarkdownV2')
+                             parse_mode='HTML')
             else:
                 user_latest_photo_id = user_photos_ids.photos[0][0].file_id
                 bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
                                caption=ch_lang(lang[-1])['t_info_p_user'].format(fn=user_fullname, un=user_username,
                                                                                      id=user_id),
                                reply_to_message_id=msg_id,
-                               parse_mode="MarkdownV2")
+                               parse_mode="HTML")
     else:
         print('UNKOWN CHAT TYPE: ', chat_type)
