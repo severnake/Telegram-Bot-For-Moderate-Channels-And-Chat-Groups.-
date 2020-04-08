@@ -9,7 +9,7 @@ en_lang = {
         \ncheck it at <code>PYPI</code> 🔰\
         \nhttps://pypi.org/project/tgbotapi\
         \n\nFor more information contact ⤵️\
-        \n@{su} 🛠 - @{cu} ⚙️ ",
+        \n{su} 🛠 - {cu} ⚙️ ",
     'h_channel': "<b>Channel</b> 📰\
         \n========== \
         \nIn order to make me work\
@@ -53,7 +53,7 @@ en_lang = {
     't_choose': 'Make a Choose',
     't_dev': 'Under Development 📝',
     't_sup_cap1': 'Unsupported Feature!',
-    't_start': ['start'],
+    't_start': ['/start', 'start'],
     't_help': ['help', 'Help'],
     'creator_help': "<b>HELP MENU</b> 📋\
         \n============\
@@ -114,6 +114,11 @@ en_lang = {
         \n<b>Username</b>: @{un}\
         \n<b>ID</b>: <code>{id}</code>\
         \n<b>Statu</b>s: {us}",
+    't_info_creator': "<u><b>Details</b></u>\
+        \n<b>Fullname</b>: {fn}\
+        \n<b>Username</b>: @{un}\
+        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Statu</b>s: {us}",
     't_info_admin': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {fn}\
         \n<b>Username</b>: @{un}\
@@ -121,12 +126,12 @@ en_lang = {
         \n<b>Status</b>: {us}\
         \n\n<u><b>Permissions</b></u>\
         \n🔘 <code>Editable</code>: {cbe}\
-        \n🔘 <code>Add Users</code>: {uciu}\
-        \n🔘 <code>Restrict Users</code>: {ucru}\
-        \n🔘 <code>Promote Users</code>: {ucpu}\
-        \n🔘 <code>Pin Messages</code>: {ucpm}\
-        \n🔘 <code>Delete Messages</code>: {ucdm}\
-        \n🔘 <code>Change Chat Info</code>: {ucci}",
+        \n🔘 <code>Add Users</code>: {ciu}\
+        \n🔘 <code>Restrict Users</code>: {cru}\
+        \n🔘 <code>Promote Users</code>: {cpu}\
+        \n🔘 <code>Pin Messages</code>: {cpm}\
+        \n🔘 <code>Delete Messages</code>: {cdm}\
+        \n🔘 <code>Change Chat Info</code>: {cci}",
     't_info_member': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {fn}\
         \n<b>Username</b>: @{un}\
@@ -134,14 +139,14 @@ en_lang = {
         \n<b>Status</b>: {us}\
         \n<b>Until Date</b>: {ud}\
         \n\n<u><b>Permissions</b></u>\
-        \n🔘 <code>Pin Messages</code>: {ucpm}\
-        \n🔘 <code>Send Message</code>: {ucsm}\
-        \n🔘 <code>Send Media</code>: {ucsmm}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {ucsom}\
-        \n🔘 <code>Send Polls</code>: {ucsp}\
-        \n🔘 <code>Embed Links</code>: {ucawpp}\
-        \n🔘 <code>Add Users</code>: {uciu}\
-        \n🔘 <code>Change Chat Info</code>: {ucci}",
+        \n🔘 <code>Pin Messages</code>: {cpm}\
+        \n🔘 <code>Send Message</code>: {csm}\
+        \n🔘 <code>Send Media</code>: {csmm}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {csom}\
+        \n🔘 <code>Send Polls</code>: {csp}\
+        \n🔘 <code>Embed Links</code>: {cawpp}\
+        \n🔘 <code>Add Users</code>: {ciu}\
+        \n🔘 <code>Change Chat Info</code>: {cci}",
     't_piv_admin': 'You aren\'t a Admin',
     't_user_until_date_cap1': 'Forever',
     't_ban': ['ban', 'Ban', 'BAN'],
@@ -192,7 +197,7 @@ sp_lang = {
         \nechale un vistazo en <code>PYPI</code> 🔰 \
         \nhttps://pypi.org/project/tgbotapi \
         \n\nPara más información contacta a ⤵️ \
-        \n@{su} 🛠 - @{cu} ⚙️ ",
+        \n{su} 🛠 - {cu} ⚙️ ",
     'h_channel': '<b>Canal</b> 📰\
         \n========== \
         \nPara poder trabajar\
@@ -368,7 +373,7 @@ sp_lang = {
 }
 
 
-def ch_lang(user_lang):
+def lang(user_lang):
     if user_lang == 'ar':
         return ar_lang
     elif user_lang == 'en':
@@ -376,4 +381,4 @@ def ch_lang(user_lang):
     elif user_lang == 'sp':
         return sp_lang
     else:
-        raise ValueError('UNDEFINED USER LANGUAGE:', user_lang)
+        return en_lang

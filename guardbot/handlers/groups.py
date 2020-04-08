@@ -1,70 +1,98 @@
-from ..config import bot, sudo_username, lang, user_id
-from ..config import creators_ids, admins_ids, bots_ids
-from ..utils.language import ch_lang
+from ..config import bot, sudo_username, channel_username, bots_ids
+from ..utils.language import lang
+from ..utils.redisdb import rdb
 
 """" Groups Management Handler """
 
+@bot.message_handler(content_type=['new_chat_members'])
+def new_chat_members(message):
+    """
+    Add user status to rdb
+    """
+    chat_id = message.chat.id
+    for new_chat_member in message.new_chat_members:
+        rdb.hset(chat_id, new_chat_member.id, 'member')
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.user.status)
+
+
+@bot.message_handler(content_type=['left_chat_member'])
+def left_chat_member(message):
+    """
+    if chat member left and chat member in administrator list then delete from rdb.
+    """
+    chat_id = message.chat.id 
+    user_id = message.from_user.id
+    if rdb.hexists(chat_id, user_id):
+        rdb.hdel(chat_id, user_id)
+
 
 # Ban user by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_ban'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_ban'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_ban'])
 def ban_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
-    can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
-    vuntil_date = None
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
     if chat_type == 'group' or chat_type == 'supergroup':
+        until_date = None
+        for x in bot.get_chat_administrators(chat_id):
+            rdb.hset(chat_id, x.user.id, x.user.status)
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_user_username = message.reply_to_message.from_user.username
-            if user_id in creators_ids:
-                if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap3'])
-                elif target_user_id in admins_ids:
+            if rdb.hget(chat_id, user_id) == 'creator':
+                if rdb.hget(chat_id, target_user_id) == 'creator':
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_ban_cap3'])
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap2'])
+                        bot.reply_to(message, text=lang(
+                            rdb.hget(user_id, 'language_code'))['t_ban_cap2'])
                     else:
-                        print(target_user_id)
-                        print(bots_ids)
-                        bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                        admins_ids.pop(target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
+                        bot.kick_chat_member(
+                            chat_id, target_user_id, until_date)
+                        rdb.hdel(chat_id, target_user_id)
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_ban_cap1'].format(target_user_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap2'])
+                    bot.reply_to(message, text=lang(
+                        rdb.hget(user_id, 'language_code'))['t_ban_cap2'])
                 else:
-                    bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
-            elif user_id in admins_ids:
-                if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap5'].format(sudo_username))
-                elif target_user_id in admins_ids:
+                    bot.kick_chat_member(chat_id, target_user_id, until_date)
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_ban_cap1'].format(target_user_username))
+            elif rdb.hget(chat_id, user_id) == 'administrator':
+                if rdb.hget(channel_username, target_user_id) == 'creator':
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_ban_cap5'].format(sudo_username))
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap4'].format(sudo_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_ban_cap4'].format(sudo_username))
                     else:
-                        if can_restrict_members:
-                            bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
+                        if bot.get_chat_member(chat_id, user_id).can_restrict_members:
+                            bot.kick_chat_member(
+                                chat_id, target_user_id, until_date)
+                            rdb.hdel(chat_id, target_user_id)
+                            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                         't_ban_cap1'].format(target_user_username))
                         else:
-                            bot.reply_to(message,
-                                         text=ch_lang(lang[user_id])['t_ban_cap6'].format(sudo_username,
-                                                                                     target_user_username))
+                            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                         't_ban_cap6'].format(sudo_username, target_user_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap4'].format(target_user_username))
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_ban_cap4'].format(target_user_username))
                 else:
-                    if can_restrict_members:
-                        bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap1'].format(target_user_username))
+                    if bot.get_chat_member(chat_id, user_id).can_restrict_members:
+                        bot.kick_chat_member(
+                            chat_id, target_user_id, until_date)
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_ban_cap1'].format(target_user_username))
                     else:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_ban_cap7'].format(target_user_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_ban_cap7'].format(target_user_username))
             else:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
+                bot.reply_to(message, text=lang(
+                    rdb.hget(user_id, 'language_code'))['t_piv_admin'])
         # elif message.entities:
         #     if message.entities[0].type == 'mention':
         #         if '@' in message.text:
@@ -78,40 +106,36 @@ def ban_user(message):
 
 
 # Unban user by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_unban'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_unban'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_unban'])
 def unban_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
-    can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
     if chat_type == 'group' or chat_type == 'supergroup':
+        for x in bot.get_chat_administrators(chat_id):
+            rdb.hset(chat_id, x.user.id, x.status)
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_user_username = message.reply_to_message.from_user.username
-            if user_id in creators_ids:
-                if target_user_id not in creators_ids and target_user_id not in admins_ids and target_user_id not in \
-                        bots_ids:
+            if rdb.hget(chat_id, user_id) == 'creator':
+                if target_user_id not in rdb.hgetall(chat_id) and target_user_id not in bots_ids:
                     bot.unban_chat_member(chat_id, target_user_id)
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_unban_cap1'].format(target_user_username))
-            elif user_id in admins_ids:
-                if target_user_id not in creators_ids and target_user_id not in admins_ids and target_user_id not in \
-                        bots_ids:
-                    if can_restrict_members:
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_unban_cap1'].format(target_user_username))
+            elif rdb.hget(chat_id, user_id) == 'administrator':
+                if target_user_id not in rdb.hgetall(chat_id) and target_user_id not in bots_ids:
+                    if bot.get_chat_member(chat_id, user_id).can_restrict_members:
                         bot.unban_chat_member(chat_id, target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_unban_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_unban_cap1'].format(target_user_username))
                     else:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_unban_cap7'].format(target_user_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_unban_cap7'].format(target_user_username))
                 else:
                     pass
             else:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
+                bot.reply_to(message, text=lang(
+                    rdb.hget(user_id, 'language_code'))['t_piv_admin'])
         else:
             pass
     else:
@@ -119,57 +143,65 @@ def unban_user(message):
 
 
 # Kick user by replay to user msg
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_kick'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_kick'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_kick'])
 def kick_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
-    vuntil_date = 35
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
+    until_date = 35
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.status)
     if chat_type == 'group' or chat_type == 'supergroup':
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_username = message.reply_to_message.from_user.username
-            if user_id in creators_ids:
-                if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap3'].format(target_username))
-                elif target_user_id in admins_ids:
+            if rdb.hget(chat_id, user_id) == 'creator':
+                if rdb.hget(chat_id, target_user_id) == 'creator':
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_kick_cap3'].format(target_username))
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap2'].format(target_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_kick_cap2'].format(target_username))
                     else:
-                        bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
+                        bot.kick_chat_member(
+                            chat_id, target_user_id, until_date)
                         bot.unban_chat_member(chat_id, target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_sup_cap1'].format(target_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_sup_cap1'].format(target_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap2'].format(target_username))
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_kick_cap2'].format(target_username))
                 else:
-                    bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
+                    bot.kick_chat_member(chat_id, target_user_id, until_date)
                     bot.unban_chat_member(chat_id, target_user_id)
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap1'].format(target_username))
-            elif user_id in admins_ids:
-                if target_user_id in creators_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap5'])
-                elif target_user_id in admins_ids:
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_kick_cap1'].format(target_username))
+            elif rdb.hget(chat_id, user_id) == 'administrator':
+                if rdb.hget(chat_id, target_user_id) == 'creator':
+                    bot.reply_to(message, text=lang(
+                        rdb.hget(user_id, 'language_code'))['t_kick_cap5'])
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     if target_user_id in bots_ids:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap4'])
+                        bot.reply_to(message, text=lang(
+                            rdb.hget(user_id, 'language_code'))['t_kick_cap4'])
                     else:
-                        bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
+                        bot.kick_chat_member(
+                            chat_id, target_user_id, until_date)
                         bot.unban_chat_member(chat_id, target_user_id)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap1'].format(target_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_kick_cap1'].format(target_username))
                 elif target_user_id in bots_ids:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap4'])
+                    bot.reply_to(message, text=lang(
+                        rdb.hget(user_id, 'language_code'))['t_kick_cap4'])
                 else:
-                    bot.kick_chat_member(chat_id, target_user_id, vuntil_date)
+                    bot.kick_chat_member(chat_id, target_user_id, until_date)
                     bot.unban_chat_member(chat_id, target_user_id)
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_kick_cap1'].format(target_username))
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                 't_kick_cap1'].format(target_username))
             else:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
+                bot.reply_to(message, text=lang(
+                    rdb.hget(user_id, 'language_code'))['t_piv_admin'])
         else:
             pass
     else:
@@ -177,111 +209,95 @@ def kick_user(message):
 
 
 # Kickme by send 'kickme' msg
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_kickme'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_kickme'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_kickme'])
 def kickme_user(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
     user_name = message.from_user.username
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.status)
     if not message.reply_to_message:
         if chat_type == 'group' or chat_type == 'supergroup':
-            if user_id in creators_ids or user_id in bots_ids:
+            if rdb.hexists(chat_id, user_id):
                 pass
             else:
                 bot.kick_chat_member(chat_id, user_id)
                 bot.unban_chat_member(chat_id, user_id)
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_kickme_cap1'].format(user_name))
+                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_kickme_cap1'].format(user_name))
     else:
         pass
 
 
 # Pin msg by replay to msg
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_pin'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_pin'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_pin'])
 def pin_msg(message):
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
     user_username = message.from_user.username
     can_pin_messages = bot.get_chat(chat_id).permissions.can_pin_messages
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.status)
     if message.reply_to_message:
         msg_id = message.reply_to_message.message_id
-        if user_id in creators_ids:
+        if rdb.hget(chat_id, user_id) == 'creator':
             bot.pin_chat_message(chat_id, msg_id)
-        elif user_id in admins_ids:
+        elif rdb.hget(chat_id, user_id) == 'administrator':
             if can_pin_messages:
                 bot.pin_chat_message(chat_id, msg_id)
             else:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_pin_cap1'].format(user_username))
+                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                             't_pin_cap1'].format(user_username))
         else:
             if can_pin_messages:
                 bot.pin_chat_message(chat_id, msg_id)
             else:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_pin_cap1'].format(user_username))
+                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                             't_pin_cap1'].format(user_username))
 
 
 # Unpin by send msg
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_unpin'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_unpin'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_unpin'])
 def unpin_msg(message):
     chat_id = message.chat.id
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
     user_username = message.from_user.username
     can_pin_messages = bot.get_chat(chat_id).permissions.can_pin_messages
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
-    if user_id in creators_ids:
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.status)
+    if rdb.hget(chat_id, user_id) == 'creator':
         bot.unpin_chat_message(chat_id)
-    elif user_id in admins_ids:
+    elif rdb.hget(chat_id, user_id) == 'administrator':
         if can_pin_messages:
             bot.unpin_chat_message(chat_id)
         else:
-            bot.reply_to(message, text=ch_lang(lang[user_id])['t_unpin_cap1'].format(user_username))
+            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                         't_unpin_cap1'].format(user_username))
     else:
         if can_pin_messages:
             bot.unpin_chat_message(chat_id)
         else:
-            bot.reply_to(message, text=ch_lang(lang[user_id])['t_unpin_cap1'].format(user_username))
+            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                         't_unpin_cap1'].format(user_username))
 
 
 # promote a member to admin
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_promote'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_promote'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_promote'])
 def promote_member_to_admin(message):
     chat_id = message.chat.id
     chat_type = message.chat.type
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
     can_promote_members = bot.get_chat_member(chat_id, user_id).can_promote_members
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.status)
     if chat_type == 'supergroup' or chat_type == 'group':
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_user_username = message.reply_to_message.from_user.username
-            if user_id in creators_ids:
-                if target_user_id in creators_ids:
+            if rdb.hget(chat_id, user_id) == 'creator':
+                if rdb.hget(chat_id, target_user_id) == 'creator':
                     pass
-                elif target_user_id in admins_ids:
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     pass
                 elif target_user_id in bots_ids:
                     pass
@@ -290,19 +306,21 @@ def promote_member_to_admin(message):
                         bot.promote_chat_member(chat_id, target_user_id, can_change_info=True, can_delete_messages=True,
                                                 can_invite_users=True, can_restrict_members=True, can_pin_messages=True,
                                                 can_promote_members=True)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_promote_cap1'].format(target_user_username))
                     elif chat_type == 'group':
                         bot.promote_chat_member(chat_id, target_user_id, can_change_info=True, can_delete_messages=True,
                                                 can_invite_users=True, can_restrict_members=True,
                                                 can_promote_members=True)
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                     't_promote_cap1'].format(target_user_username))
                     else:
                         pass
-            elif user_id in admins_ids:
+            elif rdb.hget(chat_id, user_id) == 'administrator':
                 if can_promote_members:
-                    if target_user_id in creators_ids:
+                    if rdb.hget(chat_id, target_user_id) == 'creator':
                         pass
-                    elif target_user_id in admins_ids:
+                    elif rdb.hget(chat_id, target_user_id) == 'administrator':
                         pass
                     elif target_user_id in bots_ids:
                         pass
@@ -313,13 +331,15 @@ def promote_member_to_admin(message):
                                                     can_invite_users=True, can_restrict_members=True,
                                                     can_pin_messages=True,
                                                     can_promote_members=True)
-                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
+                            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                         't_promote_cap1'].format(target_user_username))
                         elif chat_type == 'group':
                             bot.promote_chat_member(chat_id, target_user_id, can_change_info=True,
                                                     can_delete_messages=True,
                                                     can_invite_users=True, can_restrict_members=True,
                                                     can_promote_members=True)
-                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(target_user_username))
+                            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                                         't_promote_cap1'].format(target_user_username))
                         else:
                             pass
             else:
@@ -329,27 +349,22 @@ def promote_member_to_admin(message):
 
 
 # demote a member to admin
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_demote'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_demote'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_demote'])
 def demote_member_to_admin(message):
     chat_id = message.chat.id
     chat_type = message.chat.type
-    chat_admins = bot.get_chat_administrators(chat_id)
     user_id = message.from_user.id
     can_promote_members = bot.get_chat_member(chat_id, user_id).can_promote_members
-    for x in chat_admins:
-        if x.status == 'creator':
-            creators_ids.append(x.user.id)
-        elif x.status == 'administrator':
-            admins_ids.append(x.user.id)
+    for x in bot.get_chat_administrators(chat_id):
+        rdb.hset(chat_id, x.user.id, x.status)
     if chat_type == 'supergroup' or chat_type == 'group':
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_user_username = message.reply_to_message.from_user.username
-            if user_id in creators_ids:
-                if target_user_id in creators_ids:
+            if rdb.hget(chat_id, user_id) == 'creator':
+                if rdb.hget(chat_id, target_user_id) == 'creator':
                     pass
-                elif target_user_id in admins_ids:
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     if target_user_id in bots_ids:
                         pass
                     else:
@@ -359,16 +374,16 @@ def demote_member_to_admin(message):
                                                     can_invite_users=False, can_restrict_members=False,
                                                     can_pin_messages=False,
                                                     can_promote_members=False)
-                            admins_ids.pop(target_user_id)
-                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_demote_cap1'].format(
+                            rdb.hdel(chat_id, target_user_id)
+                            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_demote_cap1'].format(
                                 target_user_username))
                         elif chat_type == 'group':
                             bot.promote_chat_member(chat_id, target_user_id, can_change_info=False,
                                                     can_delete_messages=False,
                                                     can_invite_users=False, can_restrict_members=False,
                                                     can_promote_members=False)
-                            admins_ids.pop(target_user_id)
-                            bot.reply_to(message, text=ch_lang(lang[user_id])['t_demote_cap1'].format(
+                            rdb.hdel(chat_id, target_user_id)
+                            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_demote_cap1'].format(
                                 target_user_username))
                         else:
                             pass
@@ -376,11 +391,11 @@ def demote_member_to_admin(message):
                     pass
                 else:
                     pass
-            elif user_id in admins_ids:
+            elif rdb.hget(chat_id, user_id) == 'administrator':
                 if can_promote_members:
-                    if target_user_id in creators_ids:
+                    if rdb.hget(chat_id, target_user_id) == 'creator':
                         pass
-                    elif target_user_id in admins_ids:
+                    elif rdb.hget(chat_id, target_user_id) == 'administrator':
                         if target_user_id in bots_ids:
                             pass
                         else:
@@ -390,16 +405,16 @@ def demote_member_to_admin(message):
                                                         can_invite_users=False, can_restrict_members=False,
                                                         can_pin_messages=False,
                                                         can_promote_members=True)
-                                admins_ids.pop(target_user_id)
-                                bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(
+                                rdb.hdel(chat_id, user_id)
+                                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_promote_cap1'].format(
                                     target_user_username))
                             elif chat_type == 'group':
                                 bot.promote_chat_member(chat_id, target_user_id, can_change_info=False,
                                                         can_delete_messages=False,
                                                         can_invite_users=False, can_restrict_members=False,
                                                         can_promote_members=False)
-                                admins_ids.pop(target_user_id)
-                                bot.reply_to(message, text=ch_lang(lang[user_id])['t_promote_cap1'].format(
+                                rdb.hdel(chat_id, user_id)
+                                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_promote_cap1'].format(
                                     target_user_username))
                             else:
                                 pass
@@ -411,8 +426,7 @@ def demote_member_to_admin(message):
 
 # user permissions
 # can_send_messages by replay to user msg
-# @bot.message_handler(commands=ch_lang(lang[user_id])['t_user_can_send_messages'])
-# @bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_user_can_send_messages'])
+# @bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_user_can_send_messages'])
 # def user_can_send_messages(message):
 #     chat_id = message.chat.id
 #     chat_type = message.chat.type
@@ -427,7 +441,7 @@ def demote_member_to_admin(message):
 #         if message.reply_to_message:
 #             target_user_id = message.reply_to_message.from_user.id
 #             target_user_username = message.reply_to_message.from_user.username
-#             en = ch_lang(lang[user_id])['t_enable']
+#             en = lang(rdb.hget(user_id, 'language_code'))['t_enable']
 #             if en == message.text[18:24]:
 #                 until_date = message.text[26:]
 #                 if 's' in until_date:
@@ -440,51 +454,51 @@ def demote_member_to_admin(message):
 #                     until_date = 60 * (until_date * 60)
 #                 else:
 #                     until_date = int(until_date)
-#                 if user_id in creators_ids:
-#                     if target_user_id in creators_ids:
+#                 if rdb.hget(chat_id, user_id) == 'creator':
+#                     if rdb.hget(chat_id, target_user_id) == 'creator':
 #                         pass
-#                     elif target_user_id in admins_ids:
+#                     elif rdb.hget(chat_id, target_user_id) == 'administrator':
 #                         if target_user_id in bots_ids:
 #                             pass
 #                         else:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
-#                             admins_ids.pop(target_user_id)
-#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                             rdb.hdel(chat_id, user_id)
+#                             bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=True)
-#                         bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                         bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                             target_user_username))
-#                 elif user_id in admins_ids:
+#                 elif rdb.hget(chat_id, user_id) == 'administrator':
 #                     can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
-#                     if target_user_id in creators_ids:
+#                     if rdb.hget(chat_id, target_user_id) == 'creator':
 #                         pass
-#                     elif target_user_id in admins_ids:
+#                     elif rdb.hget(chat_id, target_user_id) == 'administrator':
 #                         if target_user_id in bots_ids:
 #                             pass
 #                         else:
 #                             if can_restrict_members:
 #                                 bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                                 bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                                     target_user_username))
 #                             else:
-#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
+#                                 bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap7'].format(
 #                                     sudo_username, target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         if can_restrict_members:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                             bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                         else:
-#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
+#                             bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap7'].format(
 #                                 target_user_username))
 #                 else:
-#                     bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
-#             di = ch_lang(lang[user_id])['t_disable']
+#                     bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_piv_admin'])
+#             di = lang(rdb.hget(user_id, 'language_code'))['t_disable']
 #             if di in message.text[18:25]:
 #                 until_date = message.text[26:]
 #                 if 's' in until_date:
@@ -497,50 +511,50 @@ def demote_member_to_admin(message):
 #                     until_date = 60 * (until_date * 60)
 #                 else:
 #                     until_date = int(until_date)
-#                 if user_id in creators_ids:
-#                     if target_user_id in creators_ids:
+#                 if rdb.hget(chat_id, user_id) == 'creator':
+#                     if rdb.hget(chat_id, target_user_id) == 'creator':
 #                         pass
-#                     elif target_user_id in admins_ids:
+#                     elif rdb.hget(chat_id, target_user_id) == 'administrator':
 #                         if target_user_id in bots_ids:
 #                             pass
 #                         else:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                             admins_ids.pop(target_user_id)
-#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                             rdb.hdel(chat_id, user_id)
+#                             bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                         bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                         bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                             target_user_username))
-#                 elif user_id in admins_ids:
+#                 elif rdb.hget(chat_id, user_id) == 'administrator':
 #                     can_restrict_members = bot.get_chat_member(chat_id, user_id).can_restrict_members
-#                     if target_user_id in creators_ids:
+#                     if rdb.hget(chat_id, target_user_id) == 'creator':
 #                         pass
-#                     elif target_user_id in admins_ids:
+#                     elif rdb.hget(chat_id, target_user_id) == 'administrator':
 #                         if target_user_id in bots_ids:
 #                             pass
 #                         else:
 #                             if can_restrict_members:
 #                                 bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                                 bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                                     target_user_username))
 #                             else:
-#                                 bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
+#                                 bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap7'].format(
 #                                     sudo_username, target_user_username))
 #                     elif target_user_id in bots_ids:
 #                         pass
 #                     else:
 #                         if can_restrict_members:
 #                             bot.restrict_chat_member(chat_id, target_user_id, until_date, can_send_messages=False)
-#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap1'].format(
+#                             bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap1'].format(
 #                                 target_user_username))
 #                         else:
-#                             bot.reply_to(message, text=ch_lang(lang[user_id])['t_user_can_send_messages_cap7'].format(
+#                             bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_user_can_send_messages_cap7'].format(
 #                                 target_user_username))
 #                 else:
-#                     bot.reply_to(message, text=ch_lang(lang[user_id])['t_piv_admin'])
+#                     bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_piv_admin'])
 #         else:
 #             pass
 #     else:

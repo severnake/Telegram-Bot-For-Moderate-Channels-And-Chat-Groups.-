@@ -5,7 +5,7 @@ import logging
 import os
 from .utils import color
 
-version = "0.0.1"
+version = "1.0.0"
 parsercfg = configparser.ConfigParser()
 
 
@@ -50,8 +50,8 @@ def write_cfg(config):
     channel = input('CHANNEL_USERNAME: ')
     parsercfg['creds'] = {
         'token': token,
-        'sudo': sudo,
-        'channel': channel
+        'sudo': '@'+ sudo,
+        'channel': '@'+ channel
                     }
     with open(config, 'w') as f:
         parsercfg.write(f)
@@ -84,15 +84,8 @@ format_handler.setFormatter(log_format)
 logger.addHandler(format_handler)
 
 botcfg = check_cfg('config.ini')
-
 bot = tgbotapi.TBot(botcfg[0])
 bot_id = botcfg[1]
 sudo_username = botcfg[2]
 channel_username = botcfg[3]
-lang = {383324787:'en'}
 bots_ids = [952435061, int(bot_id)]
-creators_ids = [383324787]
-admins_ids = []
-vusers_ids = []
-vusers_info = []
-user_id = 383324787

@@ -1,6 +1,6 @@
-from ..config import bot, sudo_username, channel_username, lang, user_id
-from ..config import creators_ids, admins_ids, vusers_ids, vusers_info
-from ..utils.language import ch_lang
+from ..config import bot, sudo_username, channel_username
+from ..utils.language import lang
+from ..utils.redisdb import rdb
 
 """ Private Management Handlers """
 from tgbotapi.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -48,7 +48,8 @@ def get_user_permissions(chat_id, user_id):
     user_status = user_permissions.status
     user_custom_title = user_permissions.custom_title
     if user_permissions.until_date == 0:
-        user_until_date = ch_lang(lang[user_id])['t_user_until_date_cap1']
+        user_until_date = lang(rdb.hget(user_id, 'language_code'))[
+            't_user_until_date_cap1']
     else:
         user_until_date = user_permissions.until_date
     user_is_member = user_permissions.is_member
@@ -120,95 +121,74 @@ def callback_query(call):
     user_username = call.from_user.username
     user_firstname = call.from_user.first_name
     user_lastname = call.from_user.last_name
-    lang[user_id] = call.from_user.language_code
     if call.data == "s_help":
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['t_choose'],
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['t_choose'],
                          reply_markup=gen_help(), parse_mode='HTML',
                          disable_web_page_preview=True)
     elif call.data == 's_back':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['start_msg'].format(un=user_firstname, su=sudo_username, cu=channel_username),
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['start_msg'].format(un=user_firstname, su=sudo_username, cu=channel_username),
                          reply_markup=gen_start(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 's_lang':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['t_choose'], reply_markup=gen_lang(), parse_mode='HTML',
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['t_choose'], reply_markup=gen_lang(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 'h_group':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['h_group'], reply_markup=gen_group(),
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['h_group'], reply_markup=gen_group(),
                          parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_channel':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['h_channel'], reply_markup=gen_channel(),
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['h_channel'], reply_markup=gen_channel(),
                          parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_private':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['h_private'], reply_markup=gen_private(),
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['h_private'], reply_markup=gen_private(),
                          parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 's_main':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['start_msg'].format(un=user_firstname, su=sudo_username, cu=channel_username),
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['start_msg'].format(un=user_firstname, su=sudo_username, cu=channel_username),
                          reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_back':
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['t_choose'], reply_markup=gen_help(), parse_mode='HTML',
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['t_choose'], reply_markup=gen_help(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 'l_ar':
-        lang[user_id] = 'ar'
+        rdb.hset(user_id, 'language_code', 'ar')
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['start_msg'].format(
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['start_msg'].format(
             un=user_firstname, su=sudo_username, cu=channel_username), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'l_en':
-        lang[user_id] = 'en'
+        rdb.hset(user_id, 'language_code', 'en')
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['start_msg'].format(
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['start_msg'].format(
             un=user_firstname, su=sudo_username, cu=channel_username), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'l_sp':
-        lang[user_id] = 'sp'
+        rdb.hset(user_id, 'language_code', 'sp')
         bot.delete_message(chat_id, message_id)
-        bot.send_message(chat_id, text=ch_lang(lang[user_id])['start_msg'].format(
+        bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['start_msg'].format(
             un=user_firstname, su=sudo_username, cu=channel_username), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'p_id':
         if None != user_lastname:
             user_fullname = str(user_firstname) + ' ' + str(user_lastname)
         else:
             user_fullname = str(user_firstname)
-        chat_member_info = bot.get_chat_member(channel_username, user_id)
-        user_status = chat_member_info.status
-        if user_status == 'left' and user_id not in vusers_ids:
-            vusers_info.append(chat_member_info.user)
-            vusers_ids.append(user_id)
-            user_photos_ids = bot.get_user_profile_photos(user_id)
-            if user_photos_ids.total_count == 0:
-                bot.delete_message(chat_id, message_id)
-                bot.send_message(chat_id, text=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname,
-                                                                                              un=user_username, id=user_id),
-                                 parse_mode='HTML', reply_markup=gen_private())
-            else:
-                user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                bot.delete_message(chat_id, message_id)
-                bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                               caption=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname, un=user_username,
-                                                                                      id=user_id),
-                               reply_markup=gen_private(),
-                               parse_mode="HTML")
+        user_photos_ids = bot.get_user_profile_photos(user_id)
+        if user_photos_ids.total_count == 0:
+            bot.delete_message(chat_id, message_id)
+            bot.send_message(chat_id, text=lang(rdb.hget(user_id, 'language_code'))['t_info_p_user'].format(fn=user_fullname,
+                                                                                                            un=user_username, id=user_id),
+                             parse_mode='HTML', reply_markup=gen_private())
         else:
-            user_photos_ids = bot.get_user_profile_photos(user_id)
-            if user_photos_ids.total_count == 0:
-                bot.delete_message(chat_id, message_id)
-                bot.send_message(chat_id, text=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname,
-                                                                                              un=user_username, id=user_id),
-                                 parse_mode='HTML', reply_markup=gen_private())
-            else:
-                user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                bot.delete_message(chat_id, message_id)
-                bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                               caption=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname, un=user_username,
-                                                                                      id=user_id),
-                               reply_markup=gen_private(),
-                               parse_mode="HTML")
+            user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+            bot.delete_message(chat_id, message_id)
+            bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
+                           caption=lang(rdb.hget(user_id, 'language_code'))['t_info_p_user'].format(fn=user_fullname, un=user_username,
+                                                                                                    id=user_id),
+                           reply_markup=gen_private(),
+                           parse_mode="HTML")
 
     else:
         return None
@@ -216,23 +196,22 @@ def callback_query(call):
 
 def gen_start():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=str(ch_lang(lang[user_id])['b_help']), callback_data="s_help"),
-               InlineKeyboardButton(text=str(ch_lang(lang[user_id])['b_support']), url='https://t.me/grid9x'))
-    markup.add(InlineKeyboardButton(
-        text=str(ch_lang(lang[user_id])['b_ch_lang']), callback_data='s_lang'))
+    markup.add(InlineKeyboardButton(text=str(lang('en')['b_help']), callback_data="s_help"),
+               InlineKeyboardButton(text=str(lang('en')['b_support']), url='https://t.me/grid9x'))
+    markup.add(InlineKeyboardButton(text=str(lang('en')['b_ch_lang']), callback_data='s_lang'))
     return markup
 
 
 def gen_help():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[user_id])[
+    markup.add(InlineKeyboardButton(text=lang('en')[
                'b_channel'], callback_data='h_channel'))
-    markup.add(InlineKeyboardButton(text=ch_lang(
-        lang[user_id])['b_group'], callback_data='h_group'))
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[user_id])[
+    markup.add(InlineKeyboardButton(text=lang(
+        'en')['b_group'], callback_data='h_group'))
+    markup.add(InlineKeyboardButton(text=lang('en')[
                'b_private'], callback_data='h_private'))
-    markup.add(InlineKeyboardButton(text=ch_lang(
-        lang[user_id])['b_back'], callback_data='s_back'))
+    markup.add(InlineKeyboardButton(text=lang(
+        'en')['b_back'], callback_data='s_back'))
     return markup
 
 
@@ -241,45 +220,45 @@ def gen_lang():
     markup.add(InlineKeyboardButton(text='العربية 🇮🇶', callback_data='l_ar'))
     markup.add(InlineKeyboardButton(text='English 🌎', callback_data='l_en'))
     markup.add(InlineKeyboardButton(text='española 🌎', callback_data='l_sp'))
-    markup.add(InlineKeyboardButton(text=ch_lang(
-        lang[user_id])['b_back'], callback_data='s_back'))
+    markup.add(InlineKeyboardButton(text=lang('en')
+                                    ['b_back'], callback_data='s_back'))
     return markup
 
 
 def gen_channel():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[user_id])['b_back'], callback_data='h_back'),
-               InlineKeyboardButton(text=ch_lang(lang[user_id])['b_main'], callback_data='s_main'))
+    markup.add(InlineKeyboardButton(text=lang('en')['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=lang('en')['b_main'], callback_data='s_main'))
     return markup
 
 
 def gen_group():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[user_id])[
+    markup.add(InlineKeyboardButton(text=lang('en')[
                'b_add'], url='http://t.me/gu9rdbot?startgroup'))
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[user_id])['b_back'], callback_data='h_back'),
-               InlineKeyboardButton(text=ch_lang(lang[user_id])['b_main'], callback_data='s_main'))
+    markup.add(InlineKeyboardButton(text=lang('en')['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=lang('en')['b_main'], callback_data='s_main'))
     return markup
 
 
 def gen_private():
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(text=ch_lang(
-        lang[user_id])['b_id'], callback_data='p_id'))
-    markup.add(InlineKeyboardButton(text=ch_lang(lang[user_id])['b_back'], callback_data='h_back'),
-               InlineKeyboardButton(text=ch_lang(lang[user_id])['b_main'], callback_data='s_main'))
+    markup.add(InlineKeyboardButton(text=lang(
+        'en')['b_id'], callback_data='p_id'))
+    markup.add(InlineKeyboardButton(text=lang('en')['b_back'], callback_data='h_back'),
+               InlineKeyboardButton(text=lang('en')['b_main'], callback_data='s_main'))
     return markup
 
 
 # start message.
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_start'])
+@bot.message_handler(commands=lang('en')['t_start'])
 def start(message):
     chat_type = message.chat.type
     user_firstname = message.from_user.first_name
     user_id = message.from_user.id
-    lang[user_id] = message.from_user.language_code
+    rdb.hset(user_id, 'language_code', message.from_user.language_code)
     if chat_type == 'private':
-        bot.send_message(chat_id=message.chat.id, text=ch_lang(lang[user_id])['start_msg'].format(un=user_firstname, su=sudo_username, cu=channel_username),
+        bot.send_message(chat_id=message.chat.id, text=lang(rdb.hget(user_id, 'language_code'))['start_msg'].format(un=user_firstname, su=sudo_username, cu=channel_username),
                          reply_markup=gen_start(), parse_mode='HTML',
                          disable_web_page_preview=False)
     else:
@@ -287,53 +266,37 @@ def start(message):
 
 
 # By send 'help' or /help
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_help'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_help'])
+@bot.message_handler(commands=lang('en')['t_help'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_help'])
 def replay_help(message):
     chat_type = message.chat.type
     chat_id = message.chat.id
     user_id = message.from_user.id
     if chat_type == 'private':
-        chat_member_info = bot.get_chat_member(channel_username, user_id)
-        status_msg = chat_member_info.status
-        if status_msg == 'left' and user_id not in vusers_ids:
-            vusers_info.append(chat_member_info.user)
-            vusers_ids.append(user_id)
-            bot.reply_to(message, text=ch_lang(lang[user_id])[
-                         'msg_join'].format(channel_username), parse_mode='HTML')
-        else:
-            bot.reply_to(message, text=ch_lang(lang[user_id])[
-                         'h_private'], parse_mode='HTML')
+        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
+                     'h_private'], parse_mode='HTML')
     elif chat_type in ['group', 'supergroup']:
-        chat_admins = bot.get_chat_administrators(chat_id)
-        for x in chat_admins:
-            if x.status == 'creator':
-                creators_ids.append(x.user.id)
-            elif x.status == 'administrator':
-                admins_ids.append(x.user.id)
+        for x in bot.get_chat_administrators(chat_id):
+            rdb.hset(chat_id, x.user.id, x.status)
         gcsm, gcsmm, gcsp, gcsom, gcawpp, gcci, gciu, gcpm = get_chat_permissions(
             chat_id)
-        if user_id in creators_ids:
-            bot.reply_to(message, text=ch_lang(lang[user_id])['creator_help'].format(gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp,
-                                                                                     gcsom=gcsom, gcawpp=gcawpp, gcci=gcci,
-                                                                                     gciu=gciu, gcpm=gcpm),
-                         parse_mode='HTML')
+        if rdb.hget(chat_id, user_id) == 'creator':
+            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['creator_help'].format(
+                gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp, gcsom=gcsom, gcawpp=gcawpp, gcci=gcci, gciu=gciu, gcpm=gcpm), parse_mode='HTML')
         else:
-            if user_id in chat_admins:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['admin_help'].format(gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp,
-                                                                                       gcsom=gcsom, gcawpp=gcawpp, gcci=gcci,
-                                                                                       gciu=gciu, gcpm=gcpm),
-                             parse_mode='HTML')
+            if rdb.hget(chat_id, user_id) == 'administrator':
+                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['admin_help'].format(
+                    gcsm=gcsm, gcsmm=gcsmm, gcsp=gcsp, gcsom=gcsom, gcawpp=gcawpp, gcci=gcci, gciu=gciu, gcpm=gcpm), parse_mode='HTML')
             else:
-                bot.reply_to(message, text=ch_lang(lang[user_id])[
+                bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))[
                              'member_help'], parse_mode='HTML')
     else:
         print('UNKOWN CHAT TYPE: ', chat_type)
 
 
 # Replay user info
-@bot.message_handler(commands=ch_lang(lang[user_id])['t_info'])
-@bot.message_handler(func=lambda message: message.text in ch_lang(lang[user_id])['t_info'])
+@bot.message_handler(commands=lang('en')['t_info'])
+@bot.message_handler(func=lambda message: message.text in lang(rdb.hget(message.from_user.id, 'language_code'))['t_info'])
 def replay_info(message):
     msg_id = message.message_id
     chat_id = message.chat.id
@@ -347,197 +310,173 @@ def replay_info(message):
     else:
         user_fullname = str(user_firstname)
 
-    if chat_type in ['channel']:
-        pass
-    if chat_type in ['group', 'supergroup']:
-        chat_admins = bot.get_chat_administrators(chat_id)
-        for x in chat_admins:
-            if x.status == 'creator':
-                creators_ids.append(x.user.id)
-            elif x.status == 'administrator':
-                admins_ids.append(x.user.id)
+    if chat_type in ['private']:
+        user_photos_ids = bot.get_user_profile_photos(user_id)
+        if user_photos_ids.total_count == 0:
+            bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_p_user'].format(
+                fn=user_fullname, un=user_username, id=user_id), parse_mode='HTML')
+        else:
+            user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+            bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id, caption=lang(rdb.hget(user_id, 'language_code'))[
+                           't_info_p_user'].format(fn=user_fullname, un=user_username, id=user_id), reply_to_message_id=msg_id, parse_mode="HTML")
+    elif chat_type in ['group', 'supergroup']:
+        for x in bot.get_chat_administrators(chat_id):
+            rdb.hset(chat_id, x.user.id, x.status)
         if message.reply_to_message:
             target_user_id = message.reply_to_message.from_user.id
             target_user_firstname = message.reply_to_message.from_user.first_name
             target_user_username = message.reply_to_message.from_user.username
             target_user_lastname = message.reply_to_message.from_user.last_name
-            tup = get_user_permissions(chat_id, target_user_id)
-            target_user_status = tup[0]
-            target_user_until_date = tup[2]
-            tcbe = tup[4]
-            tcdm = tup[7]
-            tcru = tup[8]
-            tcpu = tup[9]
-            tcci = tup[10]
-            tciu = tup[11]
-            tcpm = tup[12]
-            tcsm = tup[13]
-            tcsmm = tup[14]
-            tcsp = tup[-3]
-            tcsom = tup[16]
-            tcawpp = tup[17]
+            target_user_status = get_user_permissions(
+                chat_id, target_user_id)[0]
+            target_user_until_date = get_user_permissions(
+                chat_id, target_user_id)[2]
+            tcbe = get_user_permissions(chat_id, target_user_id)[4]
+            tcdm = get_user_permissions(chat_id, target_user_id)[7]
+            tcru = get_user_permissions(chat_id, target_user_id)[8]
+            tcpu = get_user_permissions(chat_id, target_user_id)[9]
+            tcci = get_user_permissions(chat_id, target_user_id)[10]
+            tciu = get_user_permissions(chat_id, target_user_id)[11]
+            tcpm = get_user_permissions(chat_id, target_user_id)[12]
+            tcsm = get_user_permissions(chat_id, target_user_id)[13]
+            tcsmm = get_user_permissions(chat_id, target_user_id)[14]
+            tcsp = get_user_permissions(chat_id, target_user_id)[-3]
+            tcsom = get_user_permissions(chat_id, target_user_id)[16]
+            tcawpp = get_user_permissions(chat_id, target_user_id)[17]
             if None != target_user_lastname:
                 target_user_fullname = str(
                     target_user_firstname) + ' ' + str(target_user_lastname)
             else:
                 target_user_fullname = str(target_user_firstname)
             target_photos_ids = bot.get_user_profile_photos(target_user_id)
-            if user_id in creators_ids or user_id in admins_ids:
-                if target_user_id in creators_ids:
+            if rdb.hget(chat_id, user_id) in ['creator', 'administrator']:
+                if rdb.hget(chat_id, target_user_id) == 'creator':
                     if target_photos_ids.total_count == 0:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_info_user'].format(fn=target_user_fullname,
-                                                                                                un=target_user_username,
-                                                                                                id=target_user_id,
-                                                                                                us=target_user_status),
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_creator'].format(fn=target_user_fullname,
+                                                                                                                     un=target_user_username,
+                                                                                                                     id=target_user_id,
+                                                                                                                     us=target_user_status),
                                      parse_mode='HTML')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
-                                       caption=ch_lang(lang[user_id])['t_info_user'].format(fn=target_user_fullname,
-                                                                                            un=target_user_username,
-                                                                                            id=target_user_id,
-                                                                                            us=target_user_status),
+                                       caption=lang(rdb.hget(user_id, 'language_code'))['t_info_creator'].format(fn=target_user_fullname,
+                                                                                                                 un=target_user_username,
+                                                                                                                 id=target_user_id,
+                                                                                                                 us=target_user_status),
                                        reply_to_message_id=msg_id,
                                        parse_mode='HTML')
-                elif target_user_id in admins_ids:
+                elif rdb.hget(chat_id, target_user_id) == 'administrator':
                     if target_photos_ids.total_count == 0:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_info_admin'].format(fn=target_user_fullname,
-                                                                                                 un=target_user_username,
-                                                                                                 id=target_user_id,
-                                                                                                 us=target_user_status,
-                                                                                                 cbe=tcbe, uciu=tciu,
-                                                                                                 ucru=tcru, ucpu=tcpu,
-                                                                                                 ucpm=tcpm, ucdm=tcdm,
-                                                                                                 ucci=tcci),
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_admin'].format(fn=target_user_fullname,
+                                                                                                                   un=target_user_username,
+                                                                                                                   id=target_user_id,
+                                                                                                                   us=target_user_status,
+                                                                                                                   cbe=tcbe, ciu=tciu,
+                                                                                                                   cru=tcru, cpu=tcpu,
+                                                                                                                   cpm=tcpm, cdm=tcdm,
+                                                                                                                   cci=tcci),
                                      parse_mode='HTML')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
-                                       caption=ch_lang(lang[user_id])['t_info_admin'].format(fn=target_user_fullname,
-                                                                                             un=target_user_username,
-                                                                                             id=target_user_id,
-                                                                                             us=target_user_status,
-                                                                                             cbe=tcbe, uciu=tciu,
-                                                                                             ucru=tcru, ucpu=tcpu,
-                                                                                             ucpm=tcpm, ucdm=tcdm,
-                                                                                             ucci=tcci),
+                                       caption=lang(rdb.hget(user_id, 'language_code'))['t_info_admin'].format(fn=target_user_fullname,
+                                                                                                               un=target_user_username,
+                                                                                                               id=target_user_id,
+                                                                                                               us=target_user_status,
+                                                                                                               cbe=tcbe, ciu=tciu,
+                                                                                                               cru=tcru, cpu=tcpu,
+                                                                                                               cpm=tcpm, cdm=tcdm,
+                                                                                                               cci=tcci),
                                        reply_to_message_id=msg_id,
                                        parse_mode='HTML')
                 else:
                     if target_photos_ids.total_count == 0:
-                        bot.reply_to(message, text=ch_lang(lang[user_id])['t_info_member'].format(fn=target_user_fullname,
-                                                                                                  un=target_user_username,
-                                                                                                  id=target_user_id,
-                                                                                                  us=target_user_status,
-                                                                                                  ud=target_user_until_date,
-                                                                                                  uciu=tciu, ucsm=tcsm,
-                                                                                                  ucsp=tcsp, ucsmm=tcsmm,
-                                                                                                  ucsom=tcsom, ucci=tcci,
-                                                                                                  ucpm=tcpm, ucawpp=tcawpp),
+                        bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_member'].format(fn=target_user_fullname,
+                                                                                                                    un=target_user_username,
+                                                                                                                    id=target_user_id,
+                                                                                                                    us=target_user_status,
+                                                                                                                    ud=target_user_until_date,
+                                                                                                                    uciu=tciu, ucsm=tcsm,
+                                                                                                                    ucsp=tcsp, ucsmm=tcsmm,
+                                                                                                                    ucsom=tcsom, ucci=tcci,
+                                                                                                                    ucpm=tcpm, ucawpp=tcawpp),
                                      parse_mode='HTML')
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
-                                       caption=ch_lang(lang[user_id])['t_info_member'].format(fn=target_user_fullname,
-                                                                                              un=target_user_username,
-                                                                                              id=target_user_id,
-                                                                                              us=target_user_status,
-                                                                                              ud=target_user_until_date,
-                                                                                              uciu=tciu, ucsm=tcsm,
-                                                                                              ucsp=tcsp, ucsmm=tcsmm,
-                                                                                              ucsom=tcsom, ucci=tcci,
-                                                                                              ucpm=tcpm, ucawpp=tcawpp),
+                                       caption=lang(rdb.hget(user_id, 'language_code'))['t_info_member'].format(fn=target_user_fullname,
+                                                                                                                un=target_user_username,
+                                                                                                                id=target_user_id,
+                                                                                                                us=target_user_status,
+                                                                                                                ud=target_user_until_date,
+                                                                                                                uciu=tciu, ucsm=tcsm,
+                                                                                                                ucsp=tcsp, ucsmm=tcsmm,
+                                                                                                                ucsom=tcsom, ucci=tcci,
+                                                                                                                ucpm=tcpm, ucawpp=tcawpp),
                                        reply_to_message_id=msg_id,
                                        parse_mode='HTML')
             else:
                 if target_photos_ids.total_count == 0:
-                    bot.reply_to(message, text=ch_lang(lang[user_id])['t_info_user'].format(fn=target_user_fullname,
-                                                                                            un=target_user_username,
-                                                                                            id=target_user_id,
-                                                                                            us=target_user_status),
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_user'].format(fn=target_user_fullname,
+                                                                                                              un=target_user_username,
+                                                                                                              id=target_user_id,
+                                                                                                              us=target_user_status),
                                  parse_mode='HTML')
                 else:
                     target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                     bot.send_photo(chat_id=chat_id, photo=target_latest_photo_id,
-                                   caption=ch_lang(lang[user_id])['t_info_user'].format(fn=target_user_fullname,
-                                                                                        un=target_user_username,
-                                                                                        id=target_user_id,
-                                                                                        us=target_user_status),
+                                   caption=lang(rdb.hget(user_id, 'language_code'))['t_info_user'].format(fn=target_user_fullname,
+                                                                                                          un=target_user_username,
+                                                                                                          id=target_user_id,
+                                                                                                          us=target_user_status),
                                    reply_to_message_id=msg_id,
                                    parse_mode='HTML')
         else:
-            user_status = get_user_permissions(chat_id, user_id)[0]
+            if None != user_lastname:
+                user_fullname = str(user_firstname) + ' ' + str(user_lastname)
+            else:
+                user_fullname = str(user_firstname)
+            us = get_user_permissions(chat_id, user_id)[0]
+            ud = get_user_permissions(chat_id, user_id)[2]
+            cbe = get_user_permissions(chat_id, user_id)[4]
+            cdm = get_user_permissions(chat_id, user_id)[7]
+            cru = get_user_permissions(chat_id, user_id)[8]
+            cpu = get_user_permissions(chat_id, user_id)[9]
+            cci = get_user_permissions(chat_id, user_id)[10]
+            ciu = get_user_permissions(chat_id, user_id)[11]
+            cpm = get_user_permissions(chat_id, user_id)[12]
+            csm = get_user_permissions(chat_id, user_id)[13]
+            csmm = get_user_permissions(chat_id, user_id)[14]
+            csp = get_user_permissions(chat_id, user_id)[-3]
+            csom = get_user_permissions(chat_id, user_id)[16]
+            cawpp = get_user_permissions(chat_id, user_id)[17]
             user_photos_ids = bot.get_user_profile_photos(user_id)
-            if user_id in creators_ids:
+            if rdb.hget(chat_id, user_id) == 'creator':
                 if user_photos_ids.total_count == 0:
-                    bot.reply_to(message,
-                                 text=ch_lang(lang[user_id])['t_info_user'].format(fn=user_fullname, un=user_username,
-                                                                                   id=user_id, us=user_status),
-                                 parse_mode='HTML')
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_creator'].format(
+                        fn=user_fullname, un=user_username, id=user_id, us=us), parse_mode='HTML')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                    bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                                   caption=ch_lang(lang[user_id])['t_info_user'].format(fn=user_fullname, un=user_username,
-                                                                                        id=user_id, us=user_status),
-                                   reply_to_message_id=msg_id,
-                                   parse_mode="HTML")
-            elif user_id in admins_ids:
+                    bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id, caption=lang(rdb.hget(user_id, 'language_code'))['t_info_creator'].format(
+                        fn=user_fullname, un=user_username, id=user_id, us=us), reply_to_message_id=msg_id, parse_mode="HTML")
+            elif rdb.hget(chat_id, user_id) == 'administrator':
                 if user_photos_ids.total_count == 0:
-                    bot.reply_to(message,
-                                 text=ch_lang(lang[user_id])['t_info_admin'].format(fn=user_fullname, un=user_username,
-                                                                                    id=user_id, us=user_status),
-                                 parse_mode='HTML')
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_admin'].format(
+                        fn=user_fullname, un=user_username, id=user_id, us=us, cbe=cbe, ciu=ciu, cru=cru, cpu=cpu, cpm=cpm, cdm=cdm, cci=cci), parse_mode='HTML')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                    bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                                   caption=ch_lang(lang[user_id])['t_info_admin'].format(fn=user_fullname, un=user_username,
-                                                                                         id=user_id, us=user_status),
-                                   reply_to_message_id=msg_id,
-                                   parse_mode="HTML")
+                    bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id, caption=lang(rdb.hget(user_id, 'language_code'))['t_info_admin'].format(
+                        ffn=user_fullname, un=user_username, id=user_id, us=us, cbe=cbe, ciu=ciu, cru=cru, cpu=cpu, cpm=cpm, cdm=cdm, cci=cci), reply_to_message_id=msg_id, parse_mode="HTML")
             else:
                 if user_photos_ids.total_count == 0:
-                    bot.reply_to(message,
-                                 text=ch_lang(lang[user_id])['t_info_user'].format(fn=user_fullname, un=user_username,
-                                                                                   id=user_id, us=user_status),
-                                 parse_mode='HTML')
+                    bot.reply_to(message, text=lang(rdb.hget(user_id, 'language_code'))['t_info_member'].format(
+                        fn=user_fullname, un=user_username, id=user_id, us=us, ud=ud, cpm=cpm, csm=csm, csmm=csmm, csom=csom, csp=csp, cawpp=cawpp, ciu=ciu, cci=cci), parse_mode='HTML')
                 else:
                     user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                    bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                                   caption=ch_lang(lang[user_id])['t_info_user'].format(fn=user_fullname, un=user_username,
-                                                                                        id=user_id, us=user_status),
-                                   reply_to_message_id=msg_id,
-                                   parse_mode="HTML")
-    elif chat_type in ['private']:
-        chat_member_info = bot.get_chat_member(channel_username, user_id)
-        user_status = chat_member_info.status
-        if user_status == 'left' and user_id not in vusers_ids:
-            vusers_info.append(chat_member_info.user)
-            vusers_ids.append(user_id)
-            user_photos_ids = bot.get_user_profile_photos(user_id)
-            if user_photos_ids.total_count == 0:
-                bot.reply_to(message, text=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname, un=user_username,
-                                                                                          id=user_id),
-                             parse_mode='HTML')
-            else:
-                user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                               caption=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname, un=user_username,
-                                                                                      id=user_id),
-                               reply_to_message_id=msg_id,
-                               parse_mode="HTML")
-        else:
-            user_photos_ids = bot.get_user_profile_photos(user_id)
-            if user_photos_ids.total_count == 0:
-                bot.reply_to(message,
-                             text=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname, un=user_username,
-                                                                                 id=user_id),
-                             parse_mode='HTML')
-            else:
-                user_latest_photo_id = user_photos_ids.photos[0][0].file_id
-                bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id,
-                               caption=ch_lang(lang[user_id])['t_info_p_user'].format(fn=user_fullname, un=user_username,
-                                                                                      id=user_id),
-                               reply_to_message_id=msg_id,
-                               parse_mode="HTML")
+                    bot.send_photo(chat_id=chat_id, photo=user_latest_photo_id, caption=lang(rdb.hget(user_id, 'language_code'))['t_info_member'].format(
+                        fn=user_fullname, un=user_username, id=user_id, us=us, ud=ud, cpm=cpm, csm=csm, csmm=csmm, csom=csom, csp=csp, cawpp=cawpp, ciu=ciu, cci=cci), reply_to_message_id=msg_id, parse_mode="HTML")
+    elif chat_type in ['channel']:
+        pass
     else:
         print('UNKOWN CHAT TYPE: ', chat_type)
