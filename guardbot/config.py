@@ -86,6 +86,6 @@ logger.addHandler(format_handler)
 botcfg = check_cfg('config.ini')
 bot = tgbotapi.TBot(botcfg[0])
 bot_id = botcfg[1]
-sudo_username = botcfg[2]
-channel_username = botcfg[3]
-bots_ids = [952435061, int(bot_id)]
+sun = botcfg[2]
+cun = botcfg[3]
+bids = [952435061, int(bot_id)]
