@@ -1,15 +1,15 @@
 """ USER LANGUAGE UTILITY """
 ar_lang = {}
 en_lang = {
-    'start_msg': "<b>Welcome!</b> {un} 🎉\
-        \nI'm here to manage your\
+    'start_msg': "<b>Welcome!</b> {uun} 🎉\
+        \nI'm here to moderate your\
         \nchannels and chat groups\
         \njust add me to it 👀,\
         \n\nI made with <code>tgbotapi</code>\
         \ncheck it at <code>PYPI</code> 🔰\
         \nhttps://pypi.org/project/tgbotapi\
         \n\nFor more information contact ⤵️\
-        \n{su} 🛠 - {cu} ⚙️ ",
+        \n{sun} 🛠 - {cun} ⚙️ ",
     'h_channel': "<b>Channel</b> 📰\
         \n========== \
         \nIn order to make me work\
@@ -67,14 +67,14 @@ en_lang = {
         \n🔘 <code>demote</code>: <i>Demote an Admin</i>\
         \n\n<u><b>Group Permissions</b></u> 🔣 \
         \n Command + Enable or Disable\
-        \n🔘 <code>Send Message</code>: {gcsm}\
-        \n🔘 <code>Send Media</code>: {gcsmm}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {gcsom}\
-        \n🔘 <code>Send Polls</code>: {gcsp}\
-        \n🔘 <code>Embed Links</code>: {gcawpp}\
-        \n🔘 <code>Add Users</code>: {gciu}\
-        \n🔘 <code>Pin Messages</code>: {gcpm}\
-        \n🔘 <code>Change Chat Info</code>: {gcci}",
+        \n🔘 <code>Send Message</code>: {csm}\
+        \n🔘 <code>Send Media</code>: {csmm}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {csom}\
+        \n🔘 <code>Send Polls</code>: {csp}\
+        \n🔘 <code>Embed Links</code>: {cawpp}\
+        \n🔘 <code>Add Users</code>: {ciu}\
+        \n🔘 <code>Pin Messages</code>: {cpm}\
+        \n🔘 <code>Change Chat Info</code>: {cci}",
     'admin_help': "<b>Help Menu</b> 📋\
         \n============\
         \n<u><b>User Actions</b></u> 🚻\
@@ -88,14 +88,14 @@ en_lang = {
         \n🔘 <code>demote</code>: Demote an Admin\
         \n\n<u><b>Group Permissions</b></u> 🔣 \
         \n Command + Enable or Disable\
-        \n🔘 <code>Send Message</code>: {gcsm}\
-        \n🔘 <code>Send Media</code>: {gcsmm}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {gcsom}\
-        \n🔘 <code>Send Polls</code>: {gcsp}\
-        \n🔘 <code>Embed Links</code>: {gcawpp}\
-        \n🔘 <code>Add Users</code>: {gciu}\
-        \n🔘 <code>Pin Messages</code>: {gcpm}\
-        \n🔘 <code>Change Chat Info</code>: {gcci}",
+        \n🔘 <code>Send Message</code>: {csm}\
+        \n🔘 <code>Send Media</code>: {csmm}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {csom}\
+        \n🔘 <code>Send Polls</code>: {csp}\
+        \n🔘 <code>Embed Links</code>: {cawpp}\
+        \n🔘 <code>Add Users</code>: {ciu}\
+        \n🔘 <code>Pin Messages</code>: {cpm}\
+        \n🔘 <code>Change Chat Info</code>: {cci}",
     'member_help': "<b>Help Menu</b> 📋\
         \n============\
         \n<u><b>Commands</b></u>\
@@ -106,23 +106,23 @@ en_lang = {
         \n🔘 <code>unpin</code>: Unpin Message",
     't_info': ['id', 'Id', 'my id', 'My id', 'info', 'Info', 'INFO'],
     't_info_p_user': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {fn}\
-        \n<b>Username</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>",
+        \n<b>Fullname</b>: {ufulln}\
+        \n<b>Username</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>",
     't_info_user': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {fn}\
-        \n<b>Username</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Fullname</b>: {ufulln}\
+        \n<b>Username</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Statu</b>s: {us}",
     't_info_creator': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {fn}\
-        \n<b>Username</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Fullname</b>: {ufulln}\
+        \n<b>Username</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Statu</b>s: {us}",
     't_info_admin': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {fn}\
-        \n<b>Username</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Fullname</b>: {ufulln}\
+        \n<b>Username</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Status</b>: {us}\
         \n\n<u><b>Permissions</b></u>\
         \n🔘 <code>Editable</code>: {cbe}\
@@ -133,9 +133,9 @@ en_lang = {
         \n🔘 <code>Delete Messages</code>: {cdm}\
         \n🔘 <code>Change Chat Info</code>: {cci}",
     't_info_member': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {fn}\
-        \n<b>Username</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Fullname</b>: {ufulln}\
+        \n<b>Username</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Status</b>: {us}\
         \n<b>Until Date</b>: {ud}\
         \n\n<u><b>Permissions</b></u>\
@@ -189,12 +189,12 @@ en_lang = {
     'r_disable': 'di',
 }
 sp_lang = {
-    'start_msg': "<b>Bienvenido!</b> {un} 🎉\
+    'start_msg': "<b>Bienvenido!</b> {uun} 🎉\
         \nEstoy aquí para admnistrar tus\
         \ncanales y gropos\
         \nsolo añademe a ellos 👀 ,\
         \n\nEstoy hecho con <code>tgbotapi</code>\
-        \nechale un vistazo en <code>PYPI</code> 🔰 \
+        \nechale uun vistazo en <code>PYPI</code> 🔰 \
         \nhttps://pypi.org/project/tgbotapi \
         \n\nPara más información contacta a ⤵️ \
         \n{su} 🛠 - {cu} ⚙️ ",
@@ -252,8 +252,8 @@ sp_lang = {
         \n🔘 <code>kick</code>: <i>Eliminar Usuario Sin Banear</i>\
         \n🔘 <code>pin</code>: <i>Fijar Mensaje</i>\
         \n🔘 <code>unpin</code>: <i>Quitar Mensaje Fijado</i>\
-        \n🔘 <code>promote</code>: <i>Promover un Miembro</i>\
-        \n🔘 <code>demote</code>: <i>Degradar un Adminstrador</i>\
+        \n🔘 <code>promote</code>: <i>Promover uun Miembro</i>\
+        \n🔘 <code>demote</code>: <i>Degradar uun Adminstrador</i>\
         \n\n<u><b>Permisos de Grupo</b></u> 🔣 \
         \n Comando + Enabe or Disable\
         \n🔘 <code>Enviar Mensaje</code>: {gcsm}\
@@ -272,8 +272,8 @@ sp_lang = {
         \n🔘 <code>kick</code>: <i>Eliminar Usuario Sin Banear</i>\
         \n🔘 <code>pin</code>: <i>Fijar Mensaje</i>\
         \n🔘 <code>unpin</code>: <i>Quitar Mensaje Fijado</i>\
-        \n🔘 <code>promote</code>: <i>Promover un Miembro</i>\
-        \n🔘 <code>demote</code>: <i>Degradar un Adminstrador</i>\
+        \n🔘 <code>promote</code>: <i>Promover uun Miembro</i>\
+        \n🔘 <code>demote</code>: <i>Degradar uun Adminstrador</i>\
         \n\n<u><b>Permisos de Grupo</b></u> 🔣 \
         \n Comando + Enabe or Disable\
         \n🔘 <code>Enviar Mensaje</code>: {gcsm}\
@@ -293,18 +293,18 @@ sp_lang = {
         \n🔘 <code>pin</code>: Fijar Mensaje\
         \n🔘 <code>unpin</code>: Quitar Mensaje Fijado",
     't_info_p_user': "<u><b>Detalles</b></u>\
-        \n<b>Nombre completo</b>: {fn}\
-        \n<b>Apellido</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>",
+        \n<b>Nombre completo</b>: {ufulln}\
+        \n<b>Apellido</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>",
     't_info_user': "<u><b>Detalles</b></u>\
-        \n<b>Nombre completo</b>: {fn}\
-        \n<b>Nombre de usuario</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Nombre completo</b>: {ufulln}\
+        \n<b>Nombre de usuario</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Estado</b>: {us}",
     't_info_admin': "<u><b>Details</b></u>\
-        \n<b>Nombre completo</b>: {fn}\
-        \n<b>Nombre de usuario</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Nombre completo</b>: {ufulln}\
+        \n<b>Nombre de usuario</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Estado</b>: {us}\
         \n\n<u><b>Permisos</b></u>\
         \n🔘<code>Editable</code>: {cbe}\
@@ -315,9 +315,9 @@ sp_lang = {
         \n🔘<code>Eliminar Mensajes</code>: {ucdm}\
         \n🔘<code>Cambiar Información del Chat</code>: {ucci}",
     't_info_member': "<u><b>Detalles</b></u>\
-        \n<b>Nombre completo</b>: {fn}\
-        \n<b>Nombre de usuario</b>: @{un}\
-        \n<b>ID</b>: <code>{id}</code>\
+        \n<b>Nombre completo</b>: {ufulln}\
+        \n<b>Nombre de usuario</b>: @{uun}\
+        \n<b>ID</b>: <code>{uid}</code>\
         \n<b>Estado</b>: {us}\
         \n<b>Hasta la Fecha</b>: {ud}\
         \n\n<u><b>Permisos</b></u>\
