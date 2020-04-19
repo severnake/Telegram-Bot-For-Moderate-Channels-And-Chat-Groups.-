@@ -1,6 +1,6 @@
 # GuardBot
 
-Telegram Bot For Managing Chat Groups And Channels,
+Telegram Bot For Moderate Chat Groups And Channels,
 Made With [tgbotapi](https://github.com/MA24th/tgbotapi).
 
 [![GPLv2 license](https://img.shields.io/badge/LICENSE-GPLv2-red)](https://github.com/ma24th/guardbot/blob/master/LICENSE)

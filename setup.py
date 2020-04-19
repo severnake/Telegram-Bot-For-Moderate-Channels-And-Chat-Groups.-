@@ -11,7 +11,7 @@ def read(filename):
 
 setup(name='guardbot',
       version=version,
-      description='Telegram Bot For Managing Chat Groups And Channels',
+      description='Telegram Bot For Moderate Chat Groups And Channels',
       long_description=read('README.rst'),
       long_description_content_type="text/x-rst",
       author='Mustafa Asaad',

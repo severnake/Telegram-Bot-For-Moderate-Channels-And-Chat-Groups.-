@@ -1,7 +1,7 @@
 GuardBot
 ========
 
-Telegram Bot For Managing Chat Groups And Channels,
+Telegram Bot For Moderate Chat Groups And Channels,
 Made with `tgbotapi <https://github.com/MA24th/tgbotapi>`_
 
 --------------
