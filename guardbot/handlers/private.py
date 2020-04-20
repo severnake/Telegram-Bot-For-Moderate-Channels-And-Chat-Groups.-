@@ -10,9 +10,9 @@ def get_chat_permissions(chat_id):
     chat_permissions = bot.get_chat(chat_id).permissions
     cp = {}
     if chat_permissions.can_send_messages:
-        cp['cms'] = '✅'
+        cp['csm'] = '✅'
     else:
-        cp['cms'] = '❌'
+        cp['csm'] = '❌'
     if chat_permissions.can_send_media_messages:
         cp['csmm'] = '✅'
     else:
@@ -46,9 +46,11 @@ def get_chat_permissions(chat_id):
 
 def get_user_permissions(chat_id, user_id):
     user_permissions = bot.get_chat_member(chat_id, user_id)
-    cm = {'us': user_permissions.status, 'uct': user_permissions.custom_title, 'uim': user_permissions.is_member}
+    cm = {'us': user_permissions.status,
+          'uct': user_permissions.custom_title, 'uim': user_permissions.is_member}
     if user_permissions.until_date == 0 or None:
-        cm['cud'] = lang(rdb.hget(user_id, 'language_code'))['t_user_until_date_cap1']
+        cm['cud'] = lang(rdb.hget(user_id, 'language_code'))[
+            't_user_until_date_cap1']
     else:
         cm['cud'] = user_permissions.until_date
     if user_permissions.can_be_edited:
@@ -125,7 +127,7 @@ def callback_query(call):
                          disable_web_page_preview=True)
     elif call.data == 's_back':
         bot.delete_message(cid, message_id)
-        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(uun=ufn, su=sun, cu=cun),
+        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(ufn, sun, cun),
                          reply_markup=gen_start(), parse_mode='HTML',
                          disable_web_page_preview=False)
     elif call.data == 's_lang':
@@ -146,7 +148,7 @@ def callback_query(call):
                          parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 's_main':
         bot.delete_message(cid, message_id)
-        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(uun=ufn, su=sun, cu=cun),
+        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(ufn, sun, cun),
                          reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'h_back':
         bot.delete_message(cid, message_id)
@@ -156,17 +158,17 @@ def callback_query(call):
         rdb.hset(uid, 'language_code', 'ar')
         bot.delete_message(cid, message_id)
         bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(
-            uun=ufn, su=sun, cu=cun), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
+            ufn, sun, cun), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'l_en':
         rdb.hset(uid, 'language_code', 'en')
         bot.delete_message(cid, message_id)
         bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(
-            uun=ufn, su=sun, cu=cun), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
+            ufn, sun, cun), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'l_sp':
         rdb.hset(uid, 'language_code', 'sp')
         bot.delete_message(cid, message_id)
         bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(
-            uun=ufn, su=sun, cu=cun), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
+            ufn, sun, cun), reply_markup=gen_start(), parse_mode='HTML', disable_web_page_preview=False)
     elif call.data == 'p_id':
         if None != user_lastname:
             ufulln = str(ufn) + ' ' + str(user_lastname)
@@ -181,7 +183,8 @@ def callback_query(call):
             user_latest_photo_id = user_photos_ids.photos[0][0].file_id
             bot.delete_message(cid, message_id)
             bot.send_photo(cid, photo=user_latest_photo_id,
-                           caption=lang(rdb.hget(uid, 'language_code'))['t_info_p_user'].format(ufulln, uun, uid),
+                           caption=lang(rdb.hget(uid, 'language_code'))[
+                               't_info_p_user'].format(ufulln, uun, uid),
                            reply_markup=gen_private(),
                            parse_mode="HTML")
 
@@ -193,7 +196,8 @@ def gen_start():
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton(text=str(lang('en')['b_help']), callback_data="s_help"),
                InlineKeyboardButton(text=str(lang('en')['b_support']), url='https://t.me/grid9x'))
-    markup.add(InlineKeyboardButton(text=str(lang('en')['b_ch_lang']), callback_data='s_lang'))
+    markup.add(InlineKeyboardButton(
+        text=str(lang('en')['b_ch_lang']), callback_data='s_lang'))
     return markup
 
 
@@ -254,7 +258,7 @@ def start(message):
     uid = message.from_user.id
     rdb.hset(uid, 'language_code', message.from_user.language_code)
     if ctype == 'private':
-        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(uun=ufn, su=sun, cu=cun),
+        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['start_msg'].format(ufn, sun, cun),
                          reply_markup=gen_start(), parse_mode='HTML',
                          disable_web_page_preview=False)
     else:
@@ -270,20 +274,23 @@ def replay_help(message):
     uid = message.from_user.id
     mid = message.message_id
     if ctype == 'private':
-        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['h_private'], parse_mode='HTML', reply_to_message_id=mid)
+        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))[
+                         'h_private'], parse_mode='HTML', reply_to_message_id=mid)
     elif ctype in ['group', 'supergroup']:
         for x in bot.get_chat_administrators(cid):
             rdb.hset(cid, x.user.id, x.status)
-        cp = get_chat_permissions(cid)
-        if rdb.hget(cid, uid) == 'creator':
-            bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['creator_help'].format(
-                csm=cp['csm'], csmm=cp['csmm'], csp=cp['csp'], csom=cp['csom'], cawpp=cp['cawpp'], cci=cp['cci'], ciu=cp['ciu'], cpm=cp['cpm']), parse_mode='HTML', reply_to_message_id=mid)
-        else:
-            if rdb.hget(cid, uid) == 'administrator':
+        if rdb.hget(cid, uid) in ['creator', 'administrator']:
+            cp = get_chat_permissions(cid)
+            if rdb.hget(cid, uid) == 'creator':
+                bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['creator_help'].format(
+                    cp['csm'], cp['csmm'], cp['csom'], cp['csp'], cp['cawpp'], cp['ciu'], cp['cpm'], cp['cci']), parse_mode='HTML', reply_to_message_id=mid)
+            elif rdb.hget(cid, uid) == 'administrator':
                 bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['admin_help'].format(
-                    csm=cp['csm'], csmm=cp['csmm'], csp=cp['csp'], csom=cp['csom'], cawpp=cp['cawpp'], cci=cp['cci'], ciu=cp['ciu'], cpm=cp['cpm']), parse_mode='HTML', reply_to_message_id=mid)
+                    cp['csm'], cp['csmm'], cp['csom'], cp['csp'], cp['cawpp'], cp['ciu'], cp['cpm'], cp['cci']), parse_mode='HTML', reply_to_message_id=mid)
             else:
-                bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))[
+                pass
+        else:
+            bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))[
                              'member_help'], parse_mode='HTML', reply_to_message_id=mid)
     else:
         print('UNKOWN CHAT TYPE: ', ctype)
@@ -309,11 +316,11 @@ def replay_info(message):
         user_photos_ids = bot.get_user_profile_photos(uid)
         if user_photos_ids.total_count == 0:
             bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_p_user'].format(
-                fn=ufulln, uun=uun, id=uid), parse_mode='HTML', reply_to_message_id=mid)
+                ufulln, uun, uid), parse_mode='HTML', reply_to_message_id=mid)
         else:
             user_latest_photo_id = user_photos_ids.photos[0][0].file_id
             bot.send_photo(cid, photo=user_latest_photo_id, caption=lang(rdb.hget(uid, 'language_code'))[
-                           't_info_p_user'].format(fn=ufulln, uun=uun, id=uid), reply_to_message_id=mid, parse_mode="HTML")
+                           't_info_p_user'].format(ufulln, uun, uid), reply_to_message_id=mid, parse_mode="HTML")
     elif ctype in ['group', 'supergroup']:
         for x in bot.get_chat_administrators(cid):
             rdb.hset(cid, x.user.id, x.status)
@@ -332,91 +339,78 @@ def replay_info(message):
             if rdb.hget(cid, uid) in ['creator', 'administrator']:
                 if rdb.hget(cid, tid) == 'creator':
                     if target_photos_ids.total_count == 0:
-                        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_creator'].format(tfulln, uun=tun, uid=tid, us=tp['us']),
-                                     parse_mode='HTML', reply_to_message_id=mid)
+                        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_creator'].format(
+                            tfulln, tun, tid, tp['us']), parse_mode='HTML', reply_to_message_id=mid)
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(cid, photo=target_latest_photo_id,
-                                       caption=lang(rdb.hget(uid, 'language_code'))['t_info_creator'].format(tfulln, uun=tun, uid=tid, us=tp['us']),
+                                       caption=lang(rdb.hget(uid, 'language_code'))['t_info_creator'].format(
+                                           tfulln, tun, tid, tp['us']),
                                        reply_to_message_id=mid,
                                        parse_mode='HTML')
                 elif rdb.hget(cid, tid) == 'administrator':
                     if target_photos_ids.total_count == 0:
-                        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_admin'].format(tfulln, uun=tun, uid=tid, us=tp['us'], cbe=tp['cbe'], ciu=tp['ciu'], cru=tp['cru'], cpu=tp['cpu'], cpm=tp['cpm'], cdm=tp['cdm'], cci=tp['cci']),
-                                     parse_mode='HTML', reply_to_message_id=mid)
+                        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_admin'].format(tfulln, tun, tid, tp['us'], tp['cbe'], tp['ciu'], tp['cru'], tp['cpu'], tp['cpm'], tp['cdm'], tp['cci']),
+                                         parse_mode='HTML', reply_to_message_id=mid)
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(cid, photo=target_latest_photo_id,
-                                       caption=lang(rdb.hget(uid, 'language_code'))['t_info_admin'].format(tfulln, uun=tun, uid=tid, us=tp['us'], cbe=tp['cbe'], ciu=tp['ciu'], cru=tp['cru'], cpu=tp['cpu'], cpm=tp['cpm'], cdm=tp['cdm'], cci=tp['cci']),
+                                       caption=lang(rdb.hget(uid, 'language_code'))['t_info_admin'].format(
+                                           tfulln, uun=tun, uid=tid, us=tp['us'], cbe=tp['cbe'], ciu=tp['ciu'], cru=tp['cru'], cpu=tp['cpu'], cpm=tp['cpm'], cdm=tp['cdm'], cci=tp['cci']),
                                        reply_to_message_id=mid,
                                        parse_mode='HTML')
                 else:
                     if target_photos_ids.total_count == 0:
-                        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_member'].format(tfulln,
-                                                                                                                    uun=tun,
-                                                                                                                    id=tid,
-                                                                                                                    us=tp['us'],
-                                                                                                                    ud=tp['un'],
-                                                                                                                    ciu=tp['ciu'], csm=tp['csm'],
-                                                                                                                    csp=tp['csp'], csmm=tp['csmm'],
-                                                                                                                    csom=tp['csom'], cci=tp['cci'],
-                                                                                                                    cpm=tp['cpm'], cawpp=tp['cawpp']),
-                                     parse_mode='HTML', reply_to_message_id=mid)
+                        bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_member'].format(tfulln, tun, tid, tp['us'], tp['un'], tp['ciu'], tp['csm'], tp['csp'], tp['csmm'], tp['csom'], tp['cci'], tp['cpm'], tp['cawpp']),
+                                         parse_mode='HTML', reply_to_message_id=mid)
                     else:
                         target_latest_photo_id = target_photos_ids.photos[0][0].file_id
                         bot.send_photo(cid, photo=target_latest_photo_id,
-                                       caption=lang(rdb.hget(uid, 'language_code'))['t_info_member'].format(tfulln,
-                                                                                                                    uun=tun,
-                                                                                                                    id=tid,
-                                                                                                                    us=tp['us'],
-                                                                                                                    ud=tp['un'],
-                                                                                                                    ciu=tp['ciu'], csm=tp['csm'],
-                                                                                                                    csp=tp['csp'], csmm=tp['csmm'],
-                                                                                                                    csom=tp['csom'], cci=tp['cci'],
-                                                                                                                    cpm=tp['cpm'], cawpp=tp['cawpp']),
+                                       caption=lang(rdb.hget(uid, 'language_code'))['t_info_member'].format(tfulln, tun, tid, tp['us'], tp['un'], tp['ciu'], tp['csm'], tp['csp'], tp['csmm'], tp['csom'], tp['cci'], tp['cpm'], tp['cawpp']),
                                        reply_to_message_id=mid,
                                        parse_mode='HTML')
             else:
                 if target_photos_ids.total_count == 0:
-                    bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_user'].format(tfulln, uun=tun, uid=tid, us=tp['us']),
-                                 parse_mode='HTML', reply_to_message_id=mid)
+                    bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_user'].format(tfulln, tun, tid, tp['us']),
+                                     parse_mode='HTML', reply_to_message_id=mid)
                 else:
-                    target_latest_photo_id = target_photos_ids.photos[0][0].file_id
+                    target_latest_photo_id=target_photos_ids.photos[0][0].file_id
                     bot.send_photo(cid, photo=target_latest_photo_id,
-                                   caption=lang(rdb.hget(uid, 'language_code'))['t_info_user'].format(tfulln, uun=tun, uid=tid, us=tp['us']),
+                                   caption=lang(rdb.hget(uid, 'language_code'))['t_info_user'].format(
+                                       tfulln, tun, tid, tp['us']),
                                    reply_to_message_id=mid,
                                    parse_mode='HTML')
         else:
             if None != user_lastname:
-                ufulln = str(ufn) + ' ' + str(user_lastname)
+                ufulln=str(ufn) + ' ' + str(user_lastname)
             else:
-                ufulln = str(ufn)
-            up = get_user_permissions(cid, uid)
-            user_photos_ids = bot.get_user_profile_photos(uid)
+                ufulln=str(ufn)
+            up=get_user_permissions(cid, uid)
+            user_photos_ids=bot.get_user_profile_photos(uid)
             if rdb.hget(cid, uid) == 'creator':
                 if user_photos_ids.total_count == 0:
                     bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_creator'].format(
-                        ufulln, uun, uid, us=up['us']), parse_mode='HTML', reply_to_message_id=mid)
+                        ufulln, uun, uid, up['us']), parse_mode='HTML', reply_to_message_id=mid)
                 else:
-                    user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+                    user_latest_photo_id=user_photos_ids.photos[0][0].file_id
                     bot.send_photo(cid, photo=user_latest_photo_id, caption=lang(rdb.hget(uid, 'language_code'))['t_info_creator'].format(
-                        ufulln, uun, uid, us=up['us']), reply_to_message_id=mid, parse_mode="HTML")
+                        ufulln, uun, uid, up['us']), reply_to_message_id=mid, parse_mode="HTML")
             elif rdb.hget(cid, uid) == 'administrator':
                 if user_photos_ids.total_count == 0:
                     bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_admin'].format(
-                        ufulln, uun, uid, us=up['us'], cbe=up['cbe'], ciu=up['ciu'], cru=up['cru'], cpu=up['cpu'], cpm=up['cpm'], cdm=up['cdm'], cci=up['cci']), parse_mode='HTML', reply_to_message_id=mid)
+                        tfulln, tun, tid, tp['us'], tp['cbe'], tp['ciu'], tp['cru'], tp['cpu'], tp['cpm'], tp['cdm'], tp['cci']), parse_mode='HTML', reply_to_message_id=mid)
                 else:
-                    user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+                    user_latest_photo_id=user_photos_ids.photos[0][0].file_id
                     bot.send_photo(cid, photo=user_latest_photo_id, caption=lang(rdb.hget(uid, 'language_code'))['t_info_admin'].format(
-                        ufulln, uun, uid, us=up['us'], cbe=up['cbe'], ciu=up['ciu'], cru=up['cru'], cpu=up['cpu'], cpm=up['cpm'], cdm=up['cdm'], cci=up['cci']), reply_to_message_id=mid, parse_mode="HTML")
+                        tfulln, tun, tid, tp['us'], tp['cbe'], tp['ciu'], tp['cru'], tp['cpu'], tp['cpm'], tp['cdm'], tp['cci']), reply_to_message_id=mid, parse_mode="HTML")
             else:
                 if user_photos_ids.total_count == 0:
                     bot.send_message(cid, text=lang(rdb.hget(uid, 'language_code'))['t_info_member'].format(
-                        ufulln, uun, uid, us=up['us'], cbe=up['cbe'], ciu=up['ciu'], cru=up['cru'], cpu=up['cpu'], cpm=up['cpm'], cdm=up['cdm'], cci=up['cci']), parse_mode='HTML', reply_to_message_id=mid)
+                        tfulln, tun, tid, tp['us'], tp['cbe'], tp['ciu'], tp['cru'], tp['cpu'], tp['cpm'], tp['cdm'], tp['cci']), parse_mode='HTML', reply_to_message_id=mid)
                 else:
-                    user_latest_photo_id = user_photos_ids.photos[0][0].file_id
+                    user_latest_photo_id=user_photos_ids.photos[0][0].file_id
                     bot.send_photo(cid, photo=user_latest_photo_id, caption=lang(rdb.hget(uid, 'language_code'))['t_info_member'].format(
-                        ufulln, uun, uid, us=up['us'], cbe=up['cbe'], ciu=up['ciu'], cru=up['cru'], cpu=up['cpu'], cpm=up['cpm'], cdm=up['cdm'], cci=up['cci']), reply_to_message_id=mid, parse_mode="HTML")
+                        tfulln, tun, tid, tp['us'], tp['cbe'], tp['ciu'], tp['cru'], tp['cpu'], tp['cpm'], tp['cdm'], tp['cci']), reply_to_message_id=mid, parse_mode="HTML")
     elif ctype in ['channel']:
         pass
     else:

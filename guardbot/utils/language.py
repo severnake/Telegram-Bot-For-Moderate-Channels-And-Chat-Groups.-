@@ -1,7 +1,7 @@
 """ USER LANGUAGE UTILITY """
 ar_lang = {}
 en_lang = {
-    'start_msg': "<b>Welcome!</b> {uun} 🎉\
+    'start_msg': "<b>Welcome!</b> {0} 🎉\
         \nI'm here to moderate your\
         \nchannels and chat groups\
         \njust add me to it 👀,\
@@ -9,7 +9,7 @@ en_lang = {
         \ncheck it at <code>PYPI</code> 🔰\
         \nhttps://pypi.org/project/tgbotapi\
         \n\nFor more information contact ⤵️\
-        \n{sun} 🛠 - {cun} ⚙️ ",
+        \n{1} 🛠 - {2} ⚙️ ",
     'h_channel': "<b>Channel</b> 📰\
         \n========== \
         \nIn order to make me work\
@@ -67,14 +67,14 @@ en_lang = {
         \n🔘 <code>demote</code>: <i>Demote an Admin</i>\
         \n\n<u><b>Group Permissions</b></u> 🔣 \
         \n Command + Enable or Disable\
-        \n🔘 <code>Send Message</code>: {csm}\
-        \n🔘 <code>Send Media</code>: {csmm}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {csom}\
-        \n🔘 <code>Send Polls</code>: {csp}\
-        \n🔘 <code>Embed Links</code>: {cawpp}\
-        \n🔘 <code>Add Users</code>: {ciu}\
-        \n🔘 <code>Pin Messages</code>: {cpm}\
-        \n🔘 <code>Change Chat Info</code>: {cci}",
+        \n🔘 <code>Send Message</code>: {0}\
+        \n🔘 <code>Send Media</code>: {1}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {2}\
+        \n🔘 <code>Send Polls</code>: {3}\
+        \n🔘 <code>Embed Links</code>: {4}\
+        \n🔘 <code>Add Users</code>: {5}\
+        \n🔘 <code>Pin Messages</code>: {6}\
+        \n🔘 <code>Change Chat Info</code>: {7}",
     'admin_help': "<b>Help Menu</b> 📋\
         \n============\
         \n<u><b>User Actions</b></u> 🚻\
@@ -88,14 +88,14 @@ en_lang = {
         \n🔘 <code>demote</code>: Demote an Admin\
         \n\n<u><b>Group Permissions</b></u> 🔣 \
         \n Command + Enable or Disable\
-        \n🔘 <code>Send Message</code>: {csm}\
-        \n🔘 <code>Send Media</code>: {csmm}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {csom}\
-        \n🔘 <code>Send Polls</code>: {csp}\
-        \n🔘 <code>Embed Links</code>: {cawpp}\
-        \n🔘 <code>Add Users</code>: {ciu}\
-        \n🔘 <code>Pin Messages</code>: {cpm}\
-        \n🔘 <code>Change Chat Info</code>: {cci}",
+        \n🔘 <code>Send Message</code>: {0}\
+        \n🔘 <code>Send Media</code>: {1}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {2}\
+        \n🔘 <code>Send Polls</code>: {3}\
+        \n🔘 <code>Embed Links</code>: {4}\
+        \n🔘 <code>Add Users</code>: {5}\
+        \n🔘 <code>Pin Messages</code>: {6}\
+        \n🔘 <code>Change Chat Info</code>: {7}",
     'member_help': "<b>Help Menu</b> 📋\
         \n============\
         \n<u><b>Commands</b></u>\
@@ -106,47 +106,47 @@ en_lang = {
         \n🔘 <code>unpin</code>: Unpin Message",
     't_info': ['id', 'Id', 'my id', 'My id', 'info', 'Info', 'INFO'],
     't_info_p_user': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {ufulln}\
-        \n<b>Username</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>",
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>",
     't_info_user': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {ufulln}\
-        \n<b>Username</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Statu</b>s: {us}",
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Statu</b>s: {3}",
     't_info_creator': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {ufulln}\
-        \n<b>Username</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Statu</b>s: {us}",
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Statu</b>s: {3}",
     't_info_admin': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {ufulln}\
-        \n<b>Username</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Status</b>: {us}\
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Status</b>: {3}\
         \n\n<u><b>Permissions</b></u>\
-        \n🔘 <code>Editable</code>: {cbe}\
-        \n🔘 <code>Add Users</code>: {ciu}\
-        \n🔘 <code>Restrict Users</code>: {cru}\
-        \n🔘 <code>Promote Users</code>: {cpu}\
-        \n🔘 <code>Pin Messages</code>: {cpm}\
-        \n🔘 <code>Delete Messages</code>: {cdm}\
-        \n🔘 <code>Change Chat Info</code>: {cci}",
+        \n🔘 <code>Editable</code>: {4}\
+        \n🔘 <code>Add Users</code>: {5}\
+        \n🔘 <code>Restrict Users</code>: {6}\
+        \n🔘 <code>Promote Users</code>: {7}\
+        \n🔘 <code>Pin Messages</code>: {8}\
+        \n🔘 <code>Delete Messages</code>: {9}\
+        \n🔘 <code>Change Chat Info</code>: {10}",
     't_info_member': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {ufulln}\
-        \n<b>Username</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Status</b>: {us}\
-        \n<b>Until Date</b>: {ud}\
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Status</b>: {3}\
+        \n<b>Until Date</b>: {4}\
         \n\n<u><b>Permissions</b></u>\
-        \n🔘 <code>Pin Messages</code>: {cpm}\
-        \n🔘 <code>Send Message</code>: {csm}\
-        \n🔘 <code>Send Media</code>: {csmm}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {csom}\
-        \n🔘 <code>Send Polls</code>: {csp}\
-        \n🔘 <code>Embed Links</code>: {cawpp}\
-        \n🔘 <code>Add Users</code>: {ciu}\
-        \n🔘 <code>Change Chat Info</code>: {cci}",
+        \n🔘 <code>Pin Messages</code>: {5}\
+        \n🔘 <code>Send Message</code>: {6}\
+        \n🔘 <code>Send Media</code>: {7}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {8}\
+        \n🔘 <code>Send Polls</code>: {9}\
+        \n🔘 <code>Embed Links</code>: {10}\
+        \n🔘 <code>Add Users</code>: {11}\
+        \n🔘 <code>Change Chat Info</code>: {12}",
     't_piv_admin': 'You aren\'t a Admin',
     't_user_until_date_cap1': 'Forever',
     't_ban': ['ban', 'Ban', 'BAN'],
@@ -189,7 +189,7 @@ en_lang = {
     'r_disable': 'di',
 }
 sp_lang = {
-    'start_msg': "<b>Bienvenido!</b> {uun} 🎉\
+    'start_msg': "<b>Bienvenido!</b> {0} 🎉\
         \nEstoy aquí para admnistrar tus\
         \ncanales y gropos\
         \nsolo añademe a ellos 👀 ,\
@@ -197,7 +197,7 @@ sp_lang = {
         \nechale uun vistazo en <code>PYPI</code> 🔰 \
         \nhttps://pypi.org/project/tgbotapi \
         \n\nPara más información contacta a ⤵️ \
-        \n{su} 🛠 - {cu} ⚙️ ",
+        \n{1} 🛠 - {2} ⚙️ ",
     'h_channel': '<b>Canal</b> 📰\
         \n========== \
         \nPara poder trabajar\
@@ -256,14 +256,14 @@ sp_lang = {
         \n🔘 <code>demote</code>: <i>Degradar uun Adminstrador</i>\
         \n\n<u><b>Permisos de Grupo</b></u> 🔣 \
         \n Comando + Enabe or Disable\
-        \n🔘 <code>Enviar Mensaje</code>: {gcsm}\
-        \n🔘 <code>Enviar Multimedia</code>: {gcsmm}\
-        \n🔘 <code>Enviar Stickers y GIFs</code>: {gcsom}\
-        \n🔘 <code>Enviar Encuestas</code>: {gcsp}\
-        \n🔘 <code>Enlaces Incrustados</code>: {gcawpp}\
-        \n🔘 <code>Añadir Usuarios</code>: {gciu}\
-        \n🔘 <code>Fijar Mensajes</code>: {gcpm}\
-        \n🔘 <code>Cambiar Información del Chat</code>: {gcci}",
+        \n🔘 <code>Enviar Mensaje</code>: {0}\
+        \n🔘 <code>Enviar Multimedia</code>: {1}\
+        \n🔘 <code>Enviar Stickers y GIFs</code>: {2}\
+        \n🔘 <code>Enviar Encuestas</code>: {3}\
+        \n🔘 <code>Enlaces Incrustados</code>: {4}\
+        \n🔘 <code>Añadir Usuarios</code>: {5}\
+        \n🔘 <code>Fijar Mensajes</code>: {6}\
+        \n🔘 <code>Cambiar Información del Chat</code>: {7}",
     'admin_help': "*MENU DE AYUDA* 📋\
         \n============\
         \n<u><b>Acciones de Usuario</b></u> 🚻 \
@@ -276,14 +276,14 @@ sp_lang = {
         \n🔘 <code>demote</code>: <i>Degradar uun Adminstrador</i>\
         \n\n<u><b>Permisos de Grupo</b></u> 🔣 \
         \n Comando + Enabe or Disable\
-        \n🔘 <code>Enviar Mensaje</code>: {gcsm}\
-        \n🔘 <code>Enviar Multimedia</code>: {gcsmm}\
-        \n🔘 <code>Enviar Stickers y GIFs</code>: {gcsom}\
-        \n🔘 <code>Enviar Encuestas</code>: {gcsp}\
-        \n🔘 <code>Enlaces Incrustados</code>: {gcawpp}\
-        \n🔘 <code>Añadir Usuarios</code>: {gciu}\
-        \n🔘 <code>Fijar Mensajes</code>: {gcpm}\
-        \n🔘 <code>Cambiar Información del Chat</code>: {gcci}",
+        \n🔘 <code>Enviar Mensaje</code>: {0}\
+        \n🔘 <code>Enviar Multimedia</code>: {1}\
+        \n🔘 <code>Enviar Stickers y GIFs</code>: {2}\
+        \n🔘 <code>Enviar Encuestas</code>: {3}\
+        \n🔘 <code>Enlaces Incrustados</code>: {4}\
+        \n🔘 <code>Añadir Usuarios</code>: {5}\
+        \n🔘 <code>Fijar Mensajes</code>: {6}\
+        \n🔘 <code>Cambiar Información del Chat</code>: {7}",
     'member_help': "<b>Menú De Ayuda</b> 📋\
         \n============\
         \n<u><b>Comandos</b></u>\
@@ -293,42 +293,42 @@ sp_lang = {
         \n🔘 <code>pin</code>: Fijar Mensaje\
         \n🔘 <code>unpin</code>: Quitar Mensaje Fijado",
     't_info_p_user': "<u><b>Detalles</b></u>\
-        \n<b>Nombre completo</b>: {ufulln}\
-        \n<b>Apellido</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>",
+        \n<b>Nombre completo</b>: {0}\
+        \n<b>Apellido</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>",
     't_info_user': "<u><b>Detalles</b></u>\
-        \n<b>Nombre completo</b>: {ufulln}\
-        \n<b>Nombre de usuario</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Estado</b>: {us}",
+        \n<b>Nombre completo</b>: {0}\
+        \n<b>Nombre de usuario</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Estado</b>: {3}",
     't_info_admin': "<u><b>Details</b></u>\
-        \n<b>Nombre completo</b>: {ufulln}\
-        \n<b>Nombre de usuario</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Estado</b>: {us}\
+        \n<b>Nombre completo</b>: {0}\
+        \n<b>Nombre de usuario</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Estado</b>: {3}\
         \n\n<u><b>Permisos</b></u>\
-        \n🔘<code>Editable</code>: {cbe}\
-        \n🔘<code>Añadir Usuarios</code>: {uciu}\
-        \n🔘<code>Restringir Usuarios</code>: {ucru}\
-        \n🔘<code>Promover Usuarios</code>: {ucpu}\
-        \n🔘<code>Fijar Mensajes</code>: {ucpm}\
-        \n🔘<code>Eliminar Mensajes</code>: {ucdm}\
-        \n🔘<code>Cambiar Información del Chat</code>: {ucci}",
+        \n🔘<code>Editable</code>: {4}\
+        \n🔘<code>Añadir Usuarios</code>: {5}\
+        \n🔘<code>Restringir Usuarios</code>: {6}\
+        \n🔘<code>Promover Usuarios</code>: {7}\
+        \n🔘<code>Fijar Mensajes</code>: {8}\
+        \n🔘<code>Eliminar Mensajes</code>: {9}\
+        \n🔘<code>Cambiar Información del Chat</code>: {10}",
     't_info_member': "<u><b>Detalles</b></u>\
-        \n<b>Nombre completo</b>: {ufulln}\
-        \n<b>Nombre de usuario</b>: @{uun}\
-        \n<b>ID</b>: <code>{uid}</code>\
-        \n<b>Estado</b>: {us}\
-        \n<b>Hasta la Fecha</b>: {ud}\
+        \n<b>Nombre completo</b>: {0}\
+        \n<b>Nombre de usuario</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Estado</b>: {3}\
+        \n<b>Hasta la Fecha</b>: {4}\
         \n\n<u><b>Permisos</b></u>\
-        \n🔘<code>Fijar Mensajes</code>: {ucpm}\
-        \n🔘<code>Enviar Mensajes</code>: {ucsm}\
-        \n🔘<code>Enviar Multimedia</code>: {ucsmm}\
-        \n🔘<code>Enviar Stickers y GIFs</code>: {ucsom}\
-        \n🔘<code>Enviar Encuestas</code>: {ucsp}\
-        \n🔘<code>Links embebidos</code>: {ucawpp}\
-        \n🔘<code>Añadir Usuarios</code>: {uciu}\
-        \n🔘<code>Cambiar Información del Chat</code>: {ucci}",
+        \n🔘<code>Fijar Mensajes</code>: {5}\
+        \n🔘<code>Enviar Mensajes</code>: {6}\
+        \n🔘<code>Enviar Multimedia</code>: {7}\
+        \n🔘<code>Enviar Stickers y GIFs</code>: {8}\
+        \n🔘<code>Enviar Encuestas</code>: {9}\
+        \n🔘<code>Links embebidos</code>: {10}\
+        \n🔘<code>Añadir Usuarios</code>: {11}\
+        \n🔘<code>Cambiar Información del Chat</code>: {12}",
     't_piv_admin': 'No eres Administrador',
     't_user_until_date_cap1': 'Para siempre',
     't_ban': ['ban', 'Ban'],
