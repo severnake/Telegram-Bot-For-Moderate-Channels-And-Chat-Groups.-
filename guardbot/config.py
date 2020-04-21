@@ -84,7 +84,7 @@ format_handler.setFormatter(log_format)
 logger.addHandler(format_handler)
 
 botcfg = check_cfg('config.ini')
-bot = tgbotapi.TBot(botcfg[0])
+bot = tgbotapi.TBot(token=botcfg[0], threaded=True, skip_pending=False, num_threads=100)
 bot_id = botcfg[1]
 sun = botcfg[2]
 cun = botcfg[3]
