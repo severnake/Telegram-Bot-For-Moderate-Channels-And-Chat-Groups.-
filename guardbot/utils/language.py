@@ -10,6 +10,22 @@ en_lang = {
         \nhttps://pypi.org/project/tgbotapi\
         \n\nFor more information contact ⤵️\
         \n{1} 🛠 - {2} ⚙️ ",
+    'b_main': 'Main Menu 📱',
+    'b_back': 'Back ↩️',
+    'b_help': 'Help 📋',
+    'b_support': 'Support ⚙️',
+    'b_ch_lang': 'Choose a language 🌍',
+    'b_add': 'Add Me 📲',
+    'b_id': 'ID 💳',
+    't_make': 'Make a Choose',
+    'b_channel': 'Channel 📰',
+    'b_group': 'Group 👥',
+    'b_private': 'Private 👤',
+    't_choose': 'Make a Choose',
+    't_dev': 'Under Development 📝',
+    't_sup_cap1': 'Unsupported Feature!',
+    't_start': ['/start', 'start'],
+    'help_pattern': ['help', 'Help'],
     'h_channel': "<b>Channel</b> 📰\
         \n========== \
         \nIn order to make me work\
@@ -36,26 +52,9 @@ en_lang = {
         \n",
     'h_private': "<b>Private</b> 👤\
         \n=========\
-        \n/start :welcome message\
-        \n/id : show your info",
-    'msg_join': '<i>Please</i> \nJoin {} First',
-    'b_main': 'Main Menu 📱',
-    'b_back': 'Back ↩️',
-    'b_help': 'Help 📋',
-    'b_support': 'Support ⚙️',
-    'b_ch_lang': 'Choose a language 🌍',
-    'b_add': 'Add Me 📲',
-    'b_id': 'ID 💳',
-    't_make': 'Make a Choose',
-    'b_channel': 'Channel 📰',
-    'b_group': 'Group 👥',
-    'b_private': 'Private 👤',
-    't_choose': 'Make a Choose',
-    't_dev': 'Under Development 📝',
-    't_sup_cap1': 'Unsupported Feature!',
-    't_start': ['/start', 'start'],
-    't_help': ['help', 'Help'],
-    'creator_help': "<b>HELP MENU</b> 📋\
+        \n/start : Welcome message\
+        \nID : show your info",
+    'h_creator': "<b>HELP MENU</b> 📋\
         \n============\
         \n<u><b>User Actions</b></u> 🚻\
         \n🔘 <code>ban</code>: <i>Ban User</i>\
@@ -75,7 +74,7 @@ en_lang = {
         \n🔘 <code>Add Users</code>: {5}\
         \n🔘 <code>Pin Messages</code>: {6}\
         \n🔘 <code>Change Chat Info</code>: {7}",
-    'admin_help': "<b>Help Menu</b> 📋\
+    'h_admin': "<b>Help Menu</b> 📋\
         \n============\
         \n<u><b>User Actions</b></u> 🚻\
         \n🔘 <code>ban</code>: Ban User\
@@ -96,30 +95,34 @@ en_lang = {
         \n🔘 <code>Add Users</code>: {5}\
         \n🔘 <code>Pin Messages</code>: {6}\
         \n🔘 <code>Change Chat Info</code>: {7}",
-    'member_help': "<b>Help Menu</b> 📋\
+    'h_member': "<b>Help Menu</b> 📋\
         \n============\
         \n<u><b>Commands</b></u>\
         \n🔘 <code>help</code>: Show this menu\
         \n🔘 <code>info</code>: replay your info\
         \n🔘 <code>kickme</code>: Leave The Group\
         \n🔘 <code>pin</code>: Pin Message\
-        \n🔘 <code>unpin</code>: Unpin Message",
-    't_info': ['id', 'Id', 'my id', 'My id', 'info', 'Info', 'INFO'],
-    't_info_p_user': "<u><b>Details</b></u>\
+        \n🔘 <code>unpin</code>: Unpin Message\
+        \n\n<u><b>Your Permissions</b></u>\
+        \n🔘 <code>Pin Messages</code>: {0}\
+        \n🔘 <code>Send Message</code>: {1}\
+        \n🔘 <code>Send Media</code>: {2}\
+        \n🔘 <code>Send Stickers & GIFs</code>: {3}\
+        \n🔘 <code>Send Polls</code>: {4}\
+        \n🔘 <code>Embed Links</code>: {5}\
+        \n🔘 <code>Add Users</code>: {6}\
+        \n🔘 <code>Change Chat Info</code>: {7}",
+    'info_pattern': ['id', 'Id', 'my id', 'My id', 'info', 'Info', 'INFO'],
+    'i_user': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {0}\
         \n<b>Username</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>",
-    't_info_user': "<u><b>Details</b></u>\
+    'i_creator': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {0}\
         \n<b>Username</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>\
         \n<b>Statu</b>s: {3}",
-    't_info_creator': "<u><b>Details</b></u>\
-        \n<b>Fullname</b>: {0}\
-        \n<b>Username</b>: @{1}\
-        \n<b>ID</b>: <code>{2}</code>\
-        \n<b>Statu</b>s: {3}",
-    't_info_admin': "<u><b>Details</b></u>\
+    'i_admin': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {0}\
         \n<b>Username</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>\
@@ -132,21 +135,29 @@ en_lang = {
         \n🔘 <code>Pin Messages</code>: {8}\
         \n🔘 <code>Delete Messages</code>: {9}\
         \n🔘 <code>Change Chat Info</code>: {10}",
-    't_info_member': "<u><b>Details</b></u>\
+    'i_member': "<u><b>Details</b></u>\
         \n<b>Fullname</b>: {0}\
         \n<b>Username</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>\
         \n<b>Status</b>: {3}\
-        \n<b>Until Date</b>: {4}\
         \n\n<u><b>Permissions</b></u>\
-        \n🔘 <code>Pin Messages</code>: {5}\
-        \n🔘 <code>Send Message</code>: {6}\
-        \n🔘 <code>Send Media</code>: {7}\
-        \n🔘 <code>Send Stickers & GIFs</code>: {8}\
-        \n🔘 <code>Send Polls</code>: {9}\
-        \n🔘 <code>Embed Links</code>: {10}\
-        \n🔘 <code>Add Users</code>: {11}\
-        \n🔘 <code>Change Chat Info</code>: {12}",
+        \n🔘 <code>Editable</code>: {4}\
+        \n🔘 <code>Add Users</code>: {5}\
+        \n🔘 <code>Restrict Users</code>: {6}\
+        \n🔘 <code>Promote Users</code>: {7}\
+        \n🔘 <code>Pin Messages</code>: {8}\
+        \n🔘 <code>Delete Messages</code>: {9}\
+        \n🔘 <code>Change Chat Info</code>: {10}",
+    'i_restricted': "<u><b>Details</b></u>\
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>{3}</b>: {4}",
+    'i_cu1': "<u><b>Details</b></u>\
+        \n<b>Fullname</b>: {0}\
+        \n<b>Username</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Statu</b>s: {3}",
     't_piv_admin': 'You aren\'t a Admin',
     't_user_until_date_cap1': 'Forever',
     't_ban': ['ban', 'Ban', 'BAN'],
@@ -198,6 +209,22 @@ sp_lang = {
         \nhttps://pypi.org/project/tgbotapi \
         \n\nPara más información contacta a ⤵️ \
         \n{1} 🛠 - {2} ⚙️ ",
+    'b_main': 'Menú principal 📱',
+    'b_back': 'Atras ↩️',
+    'b_help': 'Ayuda 📋',
+    'b_support': 'Soporte ⚙️',
+    'b_ch_lang': 'Selecciona una Idioma 🌍',
+    'b_add': 'Añademe 📲',
+    'b_id': 'ID 💳',
+    't_make': 'Selecciona una opción:',
+    'b_channel': 'Canal 📰',
+    'b_group': 'Grupo 👥',
+    'b_private': 'Privado 👤',
+    't_choose': 'Selecciona una opción',
+    't_dev': 'En Desarrollo 📝',
+    't_sup_cap1': '¡Característica no soportada!',
+    't_start': ['start'],
+    'help_pattern': ['help', 'Help'],
     'h_channel': '<b>Canal</b> 📰\
         \n========== \
         \nPara poder trabajar\
@@ -225,26 +252,8 @@ sp_lang = {
     'h_private': "<b>Privado</b> 👤\
         \n=========\
         \n/start : Mensaje de inicio\
-        \n/id : Mostrar tu información",
-    'msg_join': '_Por favor_ Primero \nIngresa a {}',
-    'b_main': 'Menú principal 📱',
-    'b_back': 'Atras ↩️',
-    'b_help': 'Ayuda 📋',
-    'b_support': 'Soporte ⚙️',
-    'b_ch_lang': 'Selecciona una Idioma 🌍',
-    'b_add': 'Añademe 📲',
-    'b_id': 'ID 💳',
-    't_make': 'Selecciona una opción:',
-    'b_channel': 'Canal 📰',
-    'b_group': 'Grupo 👥',
-    'b_private': 'Privado 👤',
-    't_choose': 'Selecciona una opción',
-    't_dev': 'En Desarrollo 📝',
-    't_sup_cap1': '¡Característica no soportada!',
-    't_start': ['start'],
-    't_help': ['help', 'Help'],
-    't_info': ['id', 'Id', 'my id', 'info', 'my info'],
-    'creator_help': "<b>MENU DE AYUDA</b> 📋\
+        \nID : Mostrar tu información",
+    'h_creator': "<b>MENU DE AYUDA</b> 📋\
         \n==============\
         \n<u><b>Acciones de Usuario</b></u> 🚻 \
         \n🔘 <code>ban</code>: <i>Banear Usuario</i>\
@@ -264,7 +273,7 @@ sp_lang = {
         \n🔘 <code>Añadir Usuarios</code>: {5}\
         \n🔘 <code>Fijar Mensajes</code>: {6}\
         \n🔘 <code>Cambiar Información del Chat</code>: {7}",
-    'admin_help': "*MENU DE AYUDA* 📋\
+    'h_admin': "*MENU DE AYUDA* 📋\
         \n============\
         \n<u><b>Acciones de Usuario</b></u> 🚻 \
         \n🔘 <code>ban</code>: <i>Banear Usuario</i>\
@@ -284,7 +293,7 @@ sp_lang = {
         \n🔘 <code>Añadir Usuarios</code>: {5}\
         \n🔘 <code>Fijar Mensajes</code>: {6}\
         \n🔘 <code>Cambiar Información del Chat</code>: {7}",
-    'member_help': "<b>Menú De Ayuda</b> 📋\
+    'h_member': "<b>Menú De Ayuda</b> 📋\
         \n============\
         \n<u><b>Comandos</b></u>\
         \n🔘 <code>help</code>: Mostrar este Menú\
@@ -292,16 +301,17 @@ sp_lang = {
         \n🔘 <code>kickme</code>: Dejar el Grupo\
         \n🔘 <code>pin</code>: Fijar Mensaje\
         \n🔘 <code>unpin</code>: Quitar Mensaje Fijado",
-    't_info_p_user': "<u><b>Detalles</b></u>\
+    'info_pattern': ['id', 'Id', 'my id', 'info', 'my info'],
+    'i_user': "<u><b>Detalles</b></u>\
         \n<b>Nombre completo</b>: {0}\
         \n<b>Apellido</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>",
-    't_info_user': "<u><b>Detalles</b></u>\
+    'i_creator': "<u><b>Detalles</b></u>\
         \n<b>Nombre completo</b>: {0}\
         \n<b>Nombre de usuario</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>\
         \n<b>Estado</b>: {3}",
-    't_info_admin': "<u><b>Details</b></u>\
+    'i_admin': "<u><b>Details</b></u>\
         \n<b>Nombre completo</b>: {0}\
         \n<b>Nombre de usuario</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>\
@@ -314,7 +324,7 @@ sp_lang = {
         \n🔘<code>Fijar Mensajes</code>: {8}\
         \n🔘<code>Eliminar Mensajes</code>: {9}\
         \n🔘<code>Cambiar Información del Chat</code>: {10}",
-    't_info_member': "<u><b>Detalles</b></u>\
+    'i_member': "<u><b>Detalles</b></u>\
         \n<b>Nombre completo</b>: {0}\
         \n<b>Nombre de usuario</b>: @{1}\
         \n<b>ID</b>: <code>{2}</code>\
@@ -329,6 +339,16 @@ sp_lang = {
         \n🔘<code>Links embebidos</code>: {10}\
         \n🔘<code>Añadir Usuarios</code>: {11}\
         \n🔘<code>Cambiar Información del Chat</code>: {12}",
+    'i_restricted': "<u><b>Details</b></u>\
+        \n<b>Nombre completo</b>: {0}\
+        \n<b>Nombre de usuario</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>{3}</b>: {4}",
+    'i_cu1': "<u><b>Details</b></u>\
+        \n<b>Nombre completo</b>: {0}\
+        \n<b>Nombre de usuario</b>: @{1}\
+        \n<b>ID</b>: <code>{2}</code>\
+        \n<b>Estado</b>: {3}",
     't_piv_admin': 'No eres Administrador',
     't_user_until_date_cap1': 'Para siempre',
     't_ban': ['ban', 'Ban'],
